@@ -1,8 +1,11 @@
 import React from "react";
+import MyPosts from "./MyPosts/MyPosts";
+import classes from './Profile.module.css'
+
 
 const Profile = () => {
   return (
-    <div className="content">
+    <div className={classes.content}>
       <div>
         <img
           src="https://d3g7htsbjjywiv.cloudfront.net/assets/graphicstock/images/media-type/vector/Hero.jpg"
@@ -10,15 +13,7 @@ const Profile = () => {
         />
       </div>
       <div>avatar + description</div>
-      <div>
-        My posts
-        <div>New post</div>
-        <div>
-          <div>Post 1</div>
-          <div>Post 2</div>
-        </div>
-      </div>
-      Main Content
+      <MyPosts />
     </div>
   );
 };
