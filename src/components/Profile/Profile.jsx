@@ -1,11 +1,10 @@
 import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
-import classes from './Profile.module.css'
-
+import classes from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <div className={classes.content}>
+    <div>
       <div>
         <img
           src="https://d3g7htsbjjywiv.cloudfront.net/assets/graphicstock/images/media-type/vector/Hero.jpg"
