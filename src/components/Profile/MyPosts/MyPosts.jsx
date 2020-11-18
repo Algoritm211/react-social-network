@@ -1,18 +1,32 @@
 import React from "react";
-// import classes from './MyPosts.module.css'
+import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
 
 const MyPosts = () => {
+
+  let postsData = [
+    {id: 1, message: 'Hi, how are you', likesCount: 12},
+    {id: 2, message: 'it`s my first post', likesCount: 15},
+  ]
+
+  const postsElements = postsData.map(post => {
+    return (
+      <Post message={post.message} likeCounts={post.likesCount}/> 
+    )
+  })
   return (
-    <div>
-      My posts
+    <div className={classes.postBlock}>
+      <h3>My posts</h3> 
       <div>
-        <textarea></textarea>
-        <button>Add post</button>
+        <div>
+          <textarea></textarea>
+        </div>
+        <div>
+          <button>Add post</button>
+        </div>
       </div>
-      <div>
-        <Post message={'Hi, how are you'} likeCounts={15}/>  
-        <Post message={'it`s my first post'} likeCounts={20}/>
+      <div className={classes.posts}>
+        {postsElements}
       </div>
     </div>
   );
