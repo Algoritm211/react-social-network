@@ -14,19 +14,18 @@ function App(props) {
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar />
+      <Navbar state={props.state.sidebar}/>
       <div className='app-wrapper-content'>
         <Route path="/dialogs" render={() => {
           return (
-            <Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>
+            <Dialogs state={props.state.dialogsPage}/>
           )
         }} />
         <Route path="/profile" render={() => {
           return (
-            <Profile postsData={props.postsData}/>
+            <Profile state={props.state.profilePage}/>
           )
         }} />
-
 
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />

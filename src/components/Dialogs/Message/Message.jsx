@@ -5,7 +5,12 @@ import classes from './Message.module.css'
 const Message = (props) => { 
   return (
     <div className={classes.message}>
-      {props.message}
+      <div>
+        <img src="https://i.imgur.com/sFRuG9D.jpg" alt="messageImage"/>
+      </div>
+      <div>
+        {props.message}
+      </div>
     </div>
   )
 }

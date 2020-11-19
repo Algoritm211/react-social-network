@@ -6,21 +6,20 @@ import Message from './Message/Message'
 
 
 const Dialogs = (props) => {
-
-  const dialogsElements = props.dialogsData.map((dialog, index) => {
+  const dialogsElements = props.state.dialogsData.map((dialog, index) => {
     return (
       <DialogItem name={dialog.name} id={dialog.id} key={index}/>
     )
   })
 
-  const messagesElements = props.messagesData.map((msg, index) => {
+  const messagesElements = props.state.messagesData.map((msg, index) => {
     return(
       <Message message={msg.message} key={index}/>
     )
   })
 
   return (
-    <div>
+    <div className={classes.dialogBlock}>
       <div className={classes.dialogs}>
         <div className={classes.dialogsItems}>
           { dialogsElements }
@@ -32,5 +31,6 @@ const Dialogs = (props) => {
     </div>
   )
 }
+
 
 export default Dialogs

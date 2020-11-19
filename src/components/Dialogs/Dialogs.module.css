@@ -1,6 +1,11 @@
+.dialogBlock {
+  height: 100%;
+}
+
 .dialogs {
   display: grid;
   grid-template-columns: 2fr 10fr;
+  height: 100%;
 }
 
 .dialogsItems {
@@ -12,6 +17,10 @@
 } */
 
 .messages {
-  padding: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  height: 100%;
+  border-left: 3px double black;
+  box-sizing: border-box;
 }
 
