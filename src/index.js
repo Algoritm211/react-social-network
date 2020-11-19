@@ -5,9 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
+let dialogsData = [
+  {id: 1, name: 'Alexey'},
+  {id: 2, name: 'Alex'},
+  {id: 3, name: 'Sabr'},
+  {id: 4, name: 'Edward'},
+]
+
+let messagesData = [
+  {id: 1, message: 'Hi, how are you'},
+  {id: 2, message: 'Hello, do you want to drink coffee with me?'},
+]
+
+let postsData = [
+  {id: 1, message: 'Hi, how are you', likesCount: 12},
+  {id: 2, message: 'it`s my first post', likesCount: 15},
+]
+
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App postsData={postsData} messagesData={messagesData} dialogsData={dialogsData}/>
   </BrowserRouter>,
   document.getElementById('root')
 );
