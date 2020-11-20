@@ -23,7 +23,9 @@ function App(props) {
         }} />
         <Route path="/profile" render={() => {
           return (
-            <Profile state={props.state.profilePage}/>
+            <Profile state={props.state.profilePage}
+                    addPost={props.addPost}
+            />
           )
         }} />
 

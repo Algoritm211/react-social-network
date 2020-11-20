@@ -17,10 +17,16 @@
 } */
 
 .messages {
+  position: relative;
   padding-left: 20px;
   padding-top: 10px;
   height: 100%;
   border-left: 3px double black;
   box-sizing: border-box;
+}
+
+.sendMessages {
+  position: absolute;
+  bottom: 10px;
 }
 
