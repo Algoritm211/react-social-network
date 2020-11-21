@@ -56,6 +56,11 @@
 
 // //TODO - переделать в ООП стиле
 
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SEND_MESSAGE = 'SEND-MESSAGE'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+
 const store = {
   _subscribe: () => {
     console.log('Now we have not observer');
@@ -80,6 +85,7 @@ const store = {
         { id: 1, message: "Hi, how are you" },
         { id: 2, message: "Hello, do you want to drink coffee with me?" },
       ],
+      newMessageText: 'New message'
     },
     sidebar: {
       friends: [
@@ -111,9 +117,10 @@ const store = {
   //   this._state.profilePage.newPostText = newText
   //   this._subscribe()
   // },
+  
   dispatch(action) {
     switch (action.type) {
-      case 'ADD-POST':
+      case ADD_POST:
         let newPost = {
           id: Date.now(),
           message: this._state.profilePage.newPostText,
@@ -123,15 +130,58 @@ const store = {
         this._state.profilePage.newPostText = ''
         this._subscribe()
         break;
-      case 'UPDATE-NEW-POST-TEXT':
+      case UPDATE_NEW_POST_TEXT:
         this._state.profilePage.newPostText = action.newText
         this._subscribe()
         break;
+      case SEND_MESSAGE:
+        let newMessage = {
+          id: Date.now(),
+          message: this._state.dialogsPage.newMessageText,
+        }
+        this._state.dialogsPage.messagesData.push(newMessage)
+        this._state.dialogsPage.newMessageText = ''
+        this._subscribe()
+        break
+      case UPDATE_NEW_MESSAGE_TEXT:
+        this._state.dialogsPage.newMessageText = action.messageText
+        this._subscribe()
+        break
       default:
         break;
     }
   }
 }
+
+
+export const addPostActionCreator = () => {
+  return {
+    type: ADD_POST
+  }
+}
+
+export const updateNewPostTextActionCreator = (text) => {
+  return {
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text
+  }
+}
+
+
+export const sendMessageActionCreator = () => {
+  return {
+    type: SEND_MESSAGE
+  }
+}
+
+export const updateNewMessageTextActionCreator = (messageText) => {
+  return {
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    messageText: messageText
+  }
+}
+
+
 
 window.store = store
 

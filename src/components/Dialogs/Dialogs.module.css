@@ -4,11 +4,17 @@
 
 .dialogs {
   display: grid;
+  grid-template-areas: 
+    'dialogItems messageItems'
+    'dialogItems sendMessages';
+
   grid-template-columns: 2fr 10fr;
+  grid-template-rows: 1fr 60px;
   height: 100%;
 }
 
 .dialogsItems {
+  grid-area: dialogItems;
   padding: 10px;
 }
 
@@ -16,7 +22,8 @@
   color: gold;
 } */
 
-.messages {
+.messageItems {
+  grid-area: messageItems;
   position: relative;
   padding-left: 20px;
   padding-top: 10px;
@@ -26,7 +33,6 @@
 }
 
 .sendMessages {
-  position: absolute;
-  bottom: 10px;
+  grid-area: sendMessages;
 }
 
