@@ -10,7 +10,6 @@ import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 
 function App(props) {
-
   return (
     <div className="app-wrapper">
       <Header />
@@ -25,6 +24,7 @@ function App(props) {
           return (
             <Profile state={props.state.profilePage}
                     addPost={props.addPost}
+                    updateNewPostText={props.updateNewPostText}
             />
           )
         }} />
