@@ -22,9 +22,9 @@ function App(props) {
         }} />
         <Route path="/profile" render={() => {
           return (
-            <Profile state={props.state.profilePage}
-                    addPost={props.addPost}
-                    updateNewPostText={props.updateNewPostText}
+            <Profile 
+                state={props.state.profilePage}
+                dispatch={props.dispatch}
             />
           )
         }} />

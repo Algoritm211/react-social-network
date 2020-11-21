@@ -1,5 +1,8 @@
 .item {
-  color: rgb(129, 0, 97);
+  margin-bottom: 15px;
+  color: black;
+  display: flex;
+  align-items: center;
 }
 
 .item img {

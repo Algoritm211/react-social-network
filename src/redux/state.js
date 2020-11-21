@@ -95,19 +95,41 @@ const store = {
   getState() {
     return this._state
   },
-  addPost: function() {
-    let newPost = {
-      id: Date.now(),
-      message: this._state.profilePage.newPostText,
-      likesCount: 0
+
+
+  // addPost: function() {
+  //   let newPost = {
+  //     id: Date.now(),
+  //     message: this._state.profilePage.newPostText,
+  //     likesCount: 0
+  //   }
+  //   this._state.profilePage.postsData.push(newPost)
+  //   this._state.profilePage.newPostText = ''
+  //   this._subscribe()
+  // },
+  // updateNewPostText(newText) {
+  //   this._state.profilePage.newPostText = newText
+  //   this._subscribe()
+  // },
+  dispatch(action) {
+    switch (action.type) {
+      case 'ADD-POST':
+        let newPost = {
+          id: Date.now(),
+          message: this._state.profilePage.newPostText,
+          likesCount: 0
+        }
+        this._state.profilePage.postsData.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._subscribe()
+        break;
+      case 'UPDATE-NEW-POST-TEXT':
+        this._state.profilePage.newPostText = action.newText
+        this._subscribe()
+        break;
+      default:
+        break;
     }
-    this._state.profilePage.postsData.push(newPost)
-    this._state.profilePage.newPostText = ''
-    this._subscribe()
-  },
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText
-    this._subscribe()
   }
 }
 
