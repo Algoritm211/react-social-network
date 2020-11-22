@@ -4,14 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import store from './redux/state';
+import store from './redux/store';
 
 // addPost('I will own Rolls-Royce')
-let rerenderEntireTree = () => {
+let rerenderEntireTree = (state) => {
   ReactDOM.render(
     <BrowserRouter>
       <App 
-        state={store.getState()} 
+        state={state} 
         dispatch={store.dispatch.bind(store)}
         />
     </BrowserRouter>,

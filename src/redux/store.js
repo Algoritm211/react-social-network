@@ -2,6 +2,9 @@
 //   console.log('State changed');
 // }
 
+import dialogsReducer from "./dialogs-reducer"
+import profileReducer from "./profile-reducer"
+
 // let state = {
 //   profilePage: {
 //     postsData: [
@@ -56,10 +59,6 @@
 
 // //TODO - переделать в ООП стиле
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const SEND_MESSAGE = 'SEND-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 const store = {
   _subscribe: () => {
@@ -101,8 +100,6 @@ const store = {
   getState() {
     return this._state
   },
-
-
   // addPost: function() {
   //   let newPost = {
   //     id: Date.now(),
@@ -119,69 +116,11 @@ const store = {
   // },
   
   dispatch(action) {
-    switch (action.type) {
-      case ADD_POST:
-        let newPost = {
-          id: Date.now(),
-          message: this._state.profilePage.newPostText,
-          likesCount: 0
-        }
-        this._state.profilePage.postsData.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._subscribe()
-        break;
-      case UPDATE_NEW_POST_TEXT:
-        this._state.profilePage.newPostText = action.newText
-        this._subscribe()
-        break;
-      case SEND_MESSAGE:
-        let newMessage = {
-          id: Date.now(),
-          message: this._state.dialogsPage.newMessageText,
-        }
-        this._state.dialogsPage.messagesData.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._subscribe()
-        break
-      case UPDATE_NEW_MESSAGE_TEXT:
-        this._state.dialogsPage.newMessageText = action.messageText
-        this._subscribe()
-        break
-      default:
-        break;
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+    this._subscribe(this._state)
   }
 }
-
-
-export const addPostActionCreator = () => {
-  return {
-    type: ADD_POST
-  }
-}
-
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-  }
-}
-
-
-export const sendMessageActionCreator = () => {
-  return {
-    type: SEND_MESSAGE
-  }
-}
-
-export const updateNewMessageTextActionCreator = (messageText) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    messageText: messageText
-  }
-}
-
-
 
 window.store = store
 

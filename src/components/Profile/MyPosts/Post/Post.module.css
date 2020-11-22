@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.message {
+  margin-left: 10px;
+}
+
 .item img {
   max-width: 60px;
   height: 60px;

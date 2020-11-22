@@ -8,7 +8,7 @@ const Message = (props) => {
       <div>
         <img src="https://i.imgur.com/sFRuG9D.jpg" alt="messageImage"/>
       </div>
-      <div>
+      <div className={classes.messageText}>
         {props.message}
       </div>
     </div>
