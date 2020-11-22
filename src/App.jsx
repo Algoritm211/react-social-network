@@ -18,16 +18,12 @@ function App(props) {
       <div className='app-wrapper-content'>
         <Route path="/dialogs" render={() => {
           return (
-            <DialogsСontainer 
-              store={props.store}
-            />
+            <DialogsСontainer />
           )
         }} />
         <Route path="/profile" render={() => {
           return (
-            <Profile 
-                store={props.store}
-            />
+            <Profile />
           )
         }} />
 

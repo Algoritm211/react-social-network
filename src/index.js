@@ -5,16 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/redux-store';
+import StoreContext, { StoreProvider } from './StoreContext';
 
 // addPost('I will own Rolls-Royce')
 let rerenderEntireTree = (state) => {
   ReactDOM.render(
     <BrowserRouter>
-      <App 
-        state={state} 
-        dispatch={store.dispatch.bind(store)}
-        store={store}
-        />
+      <StoreProvider value={store}>
+        <App state={state}/>
+      </StoreProvider>
     </BrowserRouter>,
     document.getElementById('root')
   );
