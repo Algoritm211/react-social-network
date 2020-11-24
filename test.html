@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p><img src="./altsezon.jpg" alt=""></p>
+
+  <script>
+    var a = {
+      name: 'Alex',
+      protocol: 'https',
+      maxStudentsCount: 10,
+      isOnline: true,
+      students: ['ivan', 'andrey', 'farid'],
+      classroom: {
+        teacher: {
+          name: 'wew',
+          age: 18
+        }
+      }
+    }
+
+    var b = {...a}
+
+    b.classroom.teacher.name = 'Alexey'
+    console.log(a);
+  </script>
+</body>
+</html>

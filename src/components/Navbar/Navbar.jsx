@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Friends from "./Friends/Friends";
 import classes from './Navbar.module.css'
-
+import { connect } from 'react-redux'
 
 const Navbar = (props) => {
   return (
@@ -24,9 +24,16 @@ const Navbar = (props) => {
       </div>
 
       {/* Friends block */}
-      <Friends friends={props.state.friends}/>
+      <Friends friends={props.friends}/>
     </nav>
   );
 };
 
-export default Navbar;
+function mapStateToProps(state) {
+  return {
+    friends: state.sidebar.friends
+  }
+}
+
+
+export default connect(mapStateToProps)(Navbar);
