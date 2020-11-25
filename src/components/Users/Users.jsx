@@ -1,48 +1,60 @@
 import React from 'react'
 import classes from './Users.module.css'
+import axios from 'axios'
+import userPhoto from '../../assets/images/user_no_photo.png'
 
-const Users = (props) => {
-  if (props.users.length === 0) {
-    props.setUsers([
-      {id: 1, avatarUrl: "https://mygamehunter.ru/images/thumbnail/29175/550", followed: true, fullName: 'Alexey', status: 'I`m React Dev', location: {city: 'New-York', country: 'USA'}},
-      {id: 2, avatarUrl: "https://mygamehunter.ru/images/thumbnail/29175/550", followed: true, fullName: 'Ed', status: 'I`m a boss', location: {city: 'Berlin', country: 'Germany'}},
-      {id: 3, avatarUrl: "https://mygamehunter.ru/images/thumbnail/29175/550", followed: false, fullName: 'Anton', status: 'I`m Anton', location: {city: 'London', country: 'Great Britain'}},
-    ])
+class Users extends React.Component {
+
+
+  componentDidMount() {
+    this.getUsers()
+  }
+
+  getUsers() {
+    if (this.props.users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        .then(response => {
+          this.props.setUsers(response.data.items)
+        })
+    }
   }
   
-  let usersElements = props.users.map(user => {
+  render() {
+    let usersElements = this.props.users.map(user => {
+      return (
+        <div className={classes.usersBlock} key={user.id}>
+          <div className={classes.avatar}>
+            <div>
+              <img src={
+                user.photos.small !== null 
+                ? user.photos.small 
+                : userPhoto } 
+                alt={user.name}/>
+            </div>
+            <div>
+              {user.followed
+                ? <button onClick={() => this.props.unfollow(user.id)}>Unfollow</button>
+                : <button onClick={() => this.props.follow(user.id)}>Follow</button>}
+              
+            </div>
+          </div>
+          <div className={classes.userDescription}>
+            <div>
+              {user.name} <br />
+              {user.status}
+            </div>
+          </div>
+        </div>
+      )
+    })
+  
     return (
-      <div className={classes.usersBlock} key={user.id}>
-        <div className={classes.avatar}>
-          <div>
-            <img src={user.avatarUrl} alt={user.name}/>
-          </div>
-          <div>
-            {user.followed
-              ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
-              : <button onClick={() => props.follow(user.id)}>Follow</button>}
-            
-          </div>
-        </div>
-        <div className={classes.userDescription}>
-          <div>
-            {user.fullName} <br />
-            {user.status}
-          </div>
-          <div>
-            {user.location.city} <br/>
-            {user.location.country}
-          </div>
-        </div>
+      <div>
+        {/* <button onClick={() => this.getUsers()}>Get users</button> */}
+        {usersElements}
       </div>
     )
-  })
-
-  return (
-    <div>
-      {usersElements}
-    </div>
-  )
+  }
 }
 
 export default Users
