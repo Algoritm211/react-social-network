@@ -1,14 +1,17 @@
 import React from "react";
-import MyPosts from "./MyPosts/MyPosts";
+import Loader from "../Loader/Loader";
+// import MyPosts from "./MyPosts/MyPosts";
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 import classes from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
-
+  if (!props.profile) {
+    return <Loader />
+  }
   return (
     <div className={classes.profileBlock}>
-      <ProfileInfo />
+      <ProfileInfo profile={props.profile}/>
       <MyPostsContainer />
 
       {/* <MyPosts 
