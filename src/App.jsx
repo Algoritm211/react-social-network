@@ -23,7 +23,7 @@ function App(props) {
             <DialogsСontainer />
           )
         }} />
-        <Route path="/profile" render={() => {
+        <Route path="/profile/:userId?/" render={() => {
           return (
             <ProfileContainer />
           )
