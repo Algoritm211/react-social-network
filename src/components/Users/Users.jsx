@@ -7,20 +7,30 @@ import { usersAPI } from '../../api/api'
 const Users = (props) => {
   
   const follow = (userId) => {
+    props.toggleIsFollowing(true, userId)
     usersAPI.follow(userId)
       .then(data => {
         if (data.resultCode === 0) {
           props.follow(userId)
         }
+        props.toggleIsFollowing(false, userId)
+      })
+      .catch(() => {
+        props.toggleIsFollowing(false, userId)
       })
   }
 
   const unfollow = (userId) => {
+    props.toggleIsFollowing(true, userId)
     usersAPI.unfollow(userId)
       .then(data => {
         if (data.resultCode === 0) {
           props.unfollow(userId)
         }
+        props.toggleIsFollowing(false, userId)
+      })
+      .catch(() => {
+        props.toggleIsFollowing(false, userId)
       })
   }
 
@@ -40,8 +50,14 @@ const Users = (props) => {
           </div>
           <div>
             {user.followed
-              ? <button onClick={() => unfollow(user.id)}>Unfollow</button>
-              : <button onClick={() => follow(user.id)}>Follow</button>}
+              ? <button 
+                  disabled={props.toggleFollowing.some(id => id === user.id)}
+                  onClick={() => unfollow(user.id)}
+                >Unfollow</button>
+              : <button 
+                  disabled={props.toggleFollowing.some(id => id === user.id)}
+                  onClick={() => follow(user.id)}
+                  >Follow</button>}
             
           </div>
         </div>

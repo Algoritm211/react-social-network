@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Users from './Users'
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, toggleIsFetchingAC} from '../../redux/users-reducer'
+import {followAC, setCurrentPageAC, setTotalUsersCountAC, toggleIsFetchingAC, toggleIsFollowingAC} from '../../redux/users-reducer'
 import {unfollowAC} from '../../redux/users-reducer'
 import {setUsersAC} from '../../redux/users-reducer'
 import {usersAPI} from '../../api/api'
@@ -42,6 +42,8 @@ class UsersContainer extends React.Component {
           currentPage={this.props.currentPage}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
+          toggleFollowing={this.props.toggleFollowing}
+          toggleIsFollowing={this.props.toggleIsFollowing} //function
           />
         }
       </React.Fragment>
@@ -56,7 +58,8 @@ function mapStateToProps(state) {
     usersPerPage: state.usersPage.usersPerPage,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    toggleFollowing: state.usersPage.toggleFollowing 
   }
 }
 
@@ -79,6 +82,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleIsFetching: (isFetching) => {
       dispatch(toggleIsFetchingAC(isFetching))
+    },
+    toggleIsFollowing: (isToglleFollowing, userId) => {
+      dispatch(toggleIsFollowingAC(isToglleFollowing, userId))
     }
   }
 }
