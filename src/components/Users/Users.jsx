@@ -2,36 +2,15 @@ import React from 'react'
 import classes from './Users.module.css'
 import userPhoto from '../../assets/images/user_no_photo.png'
 import { NavLink } from 'react-router-dom'
-import { usersAPI } from '../../api/api'
 
 const Users = (props) => {
   
   const follow = (userId) => {
-    props.toggleIsFollowing(true, userId)
-    usersAPI.follow(userId)
-      .then(data => {
-        if (data.resultCode === 0) {
-          props.follow(userId)
-        }
-        props.toggleIsFollowing(false, userId)
-      })
-      .catch(() => {
-        props.toggleIsFollowing(false, userId)
-      })
+    props.follow(userId)
   }
 
   const unfollow = (userId) => {
-    props.toggleIsFollowing(true, userId)
-    usersAPI.unfollow(userId)
-      .then(data => {
-        if (data.resultCode === 0) {
-          props.unfollow(userId)
-        }
-        props.toggleIsFollowing(false, userId)
-      })
-      .catch(() => {
-        props.toggleIsFollowing(false, userId)
-      })
+    props.unfollow(userId)
   }
 
   let usersElements = props.users.map(user => {

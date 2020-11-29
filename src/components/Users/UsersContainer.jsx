@@ -1,32 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Users from './Users'
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, toggleIsFetchingAC, toggleIsFollowingAC} from '../../redux/users-reducer'
-import {unfollowAC} from '../../redux/users-reducer'
-import {setUsersAC} from '../../redux/users-reducer'
-import {usersAPI} from '../../api/api'
+import {follow, getUsers, setCurrentPageAC, unfollow} from '../../redux/users-reducer'
 import Loader from '../Loader/Loader'
 
 class UsersContainer extends React.Component {
 
   componentDidMount() {
-    this.props.toggleIsFetching(true)
-    usersAPI.getUsers(this.props.currentPage, this.props.usersPerPage)
-      .then(data => {
-        this.props.toggleIsFetching(false)
-        this.props.setUsers(data.items)
-        this.props.setTotalUsers(data.totalCount - 7899)
-      })
+    this.props.getUsers(this.props.currentPage, this.props.usersPerPage)
   }
 
   onChangePage = (page) => {
-    this.props.toggleIsFetching(true)
     this.props.setCurrentPage(page)
-    usersAPI.getUsers(page, this.props.usersPerPage)
-      .then(data => {
-        this.props.toggleIsFetching(false)
-        this.props.setUsers(data.items)
-      })
+    this.props.getUsers(page, this.props.usersPerPage)
   }
   
   render() {
@@ -43,7 +29,6 @@ class UsersContainer extends React.Component {
           follow={this.props.follow}
           unfollow={this.props.unfollow}
           toggleFollowing={this.props.toggleFollowing}
-          toggleIsFollowing={this.props.toggleIsFollowing} //function
           />
         }
       </React.Fragment>
@@ -66,25 +51,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     follow: (userId) => {
-      dispatch(followAC(userId))
+      dispatch(follow(userId))
     },
     unfollow: (userId) => {
-      dispatch(unfollowAC(userId))
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users))
-    },
-    setTotalUsers: (count) => {
-      dispatch(setTotalUsersCountAC(count))
+      dispatch(unfollow(userId))
     },
     setCurrentPage: (page) => {
       dispatch(setCurrentPageAC(page))
     },
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetchingAC(isFetching))
-    },
-    toggleIsFollowing: (isToglleFollowing, userId) => {
-      dispatch(toggleIsFollowingAC(isToglleFollowing, userId))
+    getUsers: (currentPage, usersPerPage) => {
+      dispatch(getUsers(currentPage, usersPerPage))
     }
   }
 }
