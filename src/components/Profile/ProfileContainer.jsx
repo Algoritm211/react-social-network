@@ -3,6 +3,7 @@ import { getProfile, setUserProfileAC } from '../../redux/profile-reducer'
 import Profile from './Profile'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import withAuthRedirect from '../hoc/withAuthRedirect'
 
 class ProfileContainer extends React.Component {
 
@@ -21,7 +22,7 @@ class ProfileContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profilePage.profile,
-    isFetching: state.profilePage.isFetching
+    isFetching: state.profilePage.isFetching,
   }
 } 
 
@@ -33,4 +34,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfileContainer))
+export default withAuthRedirect(withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)))

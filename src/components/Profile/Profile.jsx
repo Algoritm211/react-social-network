@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Loader from "../Loader/Loader";
 // import MyPosts from "./MyPosts/MyPosts";
 import MyPostsContainer from './MyPosts/MyPostsContainer'

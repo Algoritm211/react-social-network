@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Users from './Users'
 import {follow, getUsers, setCurrentPageAC, unfollow} from '../../redux/users-reducer'
 import Loader from '../Loader/Loader'
+import withAuthRedirect from '../hoc/withAuthRedirect'
 
 class UsersContainer extends React.Component {
 

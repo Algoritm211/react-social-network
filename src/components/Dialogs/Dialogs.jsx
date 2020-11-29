@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogs-reducer'
 import DialogItem from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
@@ -7,6 +8,7 @@ import Message from './Message/Message'
 
 
 const Dialogs = (props) => {
+
   const dialogsElements = props.dialogsData.map((dialog, index) => {
     return (
       <DialogItem name={dialog.name} id={dialog.id} key={index}/>

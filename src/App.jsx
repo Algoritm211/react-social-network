@@ -5,6 +5,7 @@ import Dialogs from './components/Dialogs/Dialogs';
 import DialogsСontainer from './components/Dialogs/DialogsContainer'
 import Header from './components/Header/Header';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
@@ -36,6 +37,9 @@ function App(props) {
           return <UsersContainer />
         }} />
         <Route path="/settings" component={Settings} />
+        <Route path='/login' render={() => {
+          return <Login />
+        }} />
       </div>
     </div>
   );
