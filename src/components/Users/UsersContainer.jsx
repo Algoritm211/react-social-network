@@ -4,6 +4,7 @@ import Users from './Users'
 import {follow, getUsers, setCurrentPageAC, unfollow} from '../../redux/users-reducer'
 import Loader from '../Loader/Loader'
 import withAuthRedirect from '../hoc/withAuthRedirect'
+import { compose } from 'redux'
 
 class UsersContainer extends React.Component {
 
@@ -66,4 +67,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps)
+)(UsersContainer)
