@@ -32,7 +32,7 @@ const ProfileInfo = (props) => {
             Имя: {props.profile.fullName}
           </div>
           <div className={classes.descriptionItem}>
-            <ProfileStatus status={props.profile.aboutMe}/>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
           </div>
           <div className={classes.descriptionItem}>
             Рабочий статус: {props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}

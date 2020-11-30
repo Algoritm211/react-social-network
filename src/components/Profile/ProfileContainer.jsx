@@ -1,5 +1,5 @@
 import React from 'react'
-import { getProfile, setUserProfileAC } from '../../redux/profile-reducer'
+import { getProfile, getStatus, updateStatus } from '../../redux/profile-reducer'
 import Profile from './Profile'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -9,13 +9,14 @@ import { compose } from 'redux'
 class ProfileContainer extends React.Component {
 
   componentDidMount() {
-    let userId = this.props.match.params.userId || 2
+    let userId = this.props.match.params.userId || 12931
     this.props.getProfile(userId)
+    this.props.getStatus(userId)
   }
 
   render() {
     return (
-      <Profile {...this.props} profile={this.props.profile}/>
+      <Profile {...this.props} profile={this.props.profile} updateStatus={this.props.updateStatus}/>
     )
   }
 }
@@ -23,7 +24,7 @@ class ProfileContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profilePage.profile,
-    isFetching: state.profilePage.isFetching,
+    status: state.profilePage.status
   }
 } 
 
@@ -31,6 +32,12 @@ function mapDispatchToProps(dispatch) {
   return {
     getProfile: (profile) => {
       dispatch(getProfile(profile))
+    },
+    getStatus: (userId) => {
+      dispatch(getStatus(userId))
+    },
+    updateStatus: (status) => {
+      dispatch(updateStatus(status))
     }
   }
 }
