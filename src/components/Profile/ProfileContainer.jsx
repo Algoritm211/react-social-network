@@ -35,14 +35,8 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withRouter,
-  withAuthRedirect,
-)(ProfileContainer)
-
 export default compose(
               connect(mapStateToProps, mapDispatchToProps),
               withRouter,
-              withAuthRedirect,
+              // withAuthRedirect,
               )(ProfileContainer)

@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./ProfileInfo.module.css";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 
@@ -31,7 +32,7 @@ const ProfileInfo = (props) => {
             Имя: {props.profile.fullName}
           </div>
           <div className={classes.descriptionItem}>
-            Описание: {props.profile.lookingForAJobDescription}
+            <ProfileStatus status={props.profile.aboutMe}/>
           </div>
           <div className={classes.descriptionItem}>
             Рабочий статус: {props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}
