@@ -1,6 +1,7 @@
 import { authAPI } from "../api/api"
 
 const SET_USER_DATA = 'SET_USER_DATA'
+const SET_USER_ID = 'SET_USER_ID'
 
 const initialState = {
   userId: null,
@@ -40,6 +41,18 @@ export const setAuthUserData = () => {
         if (data.resultCode === 0) {
           let {id, email, login} = data.data
           dispatch(setAuthUserDataAC(id, email, login))
+        }
+      })
+  }
+}
+
+export const loginUser = (formData) => { //formData - object
+  return (dispatch) => {
+    authAPI.loginUser(formData)
+      .then(data => {
+        if (data.resultCode === 0) {
+          console.log(data);
+          console.log('success');
         }
       })
   }

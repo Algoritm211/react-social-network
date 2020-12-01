@@ -46,7 +46,6 @@ export const profileAPI = {
   setStatus(status) {
     return instanceAxios.put('profile/status', {status: status})
       .then(response => {
-        debugger
         return response.data
       })
   }
@@ -56,6 +55,13 @@ export const authAPI = {
   authUser() {
     return instanceAxios.get('auth/me')
       .then(response => {
+        return response.data
+      })
+  },
+  loginUser(userData) {
+    return instanceAxios.post('auth/login', {...userData})
+      .then(response => {
+        debugger
         return response.data
       })
   }

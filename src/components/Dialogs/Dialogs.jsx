@@ -1,10 +1,34 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogs-reducer'
+import { Field, reduxForm } from 'redux-form'
 import DialogItem from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
 
+
+const messageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit} className={classes.sendMessages}>
+      <div>
+
+        {/* <textarea 
+          ref={newMessageElement} 
+          value={messageBody}
+          onChange={onMessageChange}
+          placeholder='Enter your message'
+        /> */}
+        <Field type='text' component='textarea' name='messageText' placeholder='Enter your message'/>
+      </div>
+      <div>
+        <button>Send message</button>
+      </div>
+    </form>
+  )
+}
+
+const MessagesReduxForm = reduxForm({
+  form: 'message'
+})(messageForm)
 
 
 const Dialogs = (props) => {
@@ -21,16 +45,8 @@ const Dialogs = (props) => {
     )
   })
 
-  const newMessageElement = React.createRef()
-  let messageBody = props.newMessageText
-
-  const onSendMessage = () => {
-    props.onSendMessage()
-  }
-
-  const onMessageChange = () => {
-    let text = newMessageElement.current.value
-    props.onMessageChange(text)
+  const onSendMessage = (formData) => {
+    props.onSendMessage(formData.messageText)
   }
 
   return (
@@ -42,23 +58,13 @@ const Dialogs = (props) => {
         <div className={classes.messageItems}> 
           { messagesElements }
         </div>
-        <div className={classes.sendMessages}>
-          <div>
-            <textarea 
-              ref={newMessageElement} 
-              value={messageBody}
-              onChange={onMessageChange}
-              placeholder='Enter your message'
-            />
-          </div>
-          <div>
-            <button onClick={onSendMessage}>Send message</button>
-          </div>
-        </div>
+        <MessagesReduxForm onSubmit={(formData) => onSendMessage(formData)}/>
       </div>
     </div>
   )
 }
 
 
-export default Dialogs
+export default reduxForm({
+  form: 'messages'
+})(Dialogs)

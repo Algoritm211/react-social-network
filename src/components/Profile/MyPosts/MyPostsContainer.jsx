@@ -47,12 +47,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddPost: () => {
-      dispatch(addPostActionCreator())
+    onAddPost: (post) => {
+      dispatch(addPostActionCreator(post))
     },
-    onPostChange: (text) => {
-      dispatch(updateNewPostTextActionCreator(text))
-    }
   }
 }
 

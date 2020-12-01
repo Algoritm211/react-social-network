@@ -1,5 +1,5 @@
 import React from 'react'
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogs-reducer'
+import { sendMessage, sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogs-reducer'
 import StoreContext from '../../StoreContext'
 import DialogItem from './DialogItem/DialogItem'
 import Dialogs from './Dialogs'
@@ -45,18 +45,15 @@ function mapStateToProps(state) {
   return {
     dialogsData: state.dialogsPage.dialogsData,
     messagesData: state.dialogsPage.messagesData,
-    newMessageText: state.dialogsPage.newMessageText,
+    // newMessageText: state.message.messageText
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSendMessage: () => {
-      dispatch(sendMessageActionCreator())
+    onSendMessage: (message) => {
+      dispatch(sendMessage(message))
     },
-    onMessageChange: (text) => {
-      dispatch(updateNewMessageTextActionCreator(text))
-    }
   }
 }
 
