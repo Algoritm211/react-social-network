@@ -58,10 +58,15 @@ export const authAPI = {
         return response.data
       })
   },
-  loginUser(userData) {
-    return instanceAxios.post('auth/login', {...userData})
+  loginUser(email, password, rememberMe) {
+    return instanceAxios.post('auth/login', {email, password, rememberMe})
       .then(response => {
-        debugger
+        return response.data
+      })
+  },
+  logoutUser() {
+    return instanceAxios.delete('auth/login')
+      .then(response => {
         return response.data
       })
   }
