@@ -31,9 +31,3 @@
   height: 100%;
   box-sizing: border-box;
 }
-
-.sendMessages {
-  grid-area: sendMessages;
-  margin-left: 20px;
-}
-
