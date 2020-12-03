@@ -2,6 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Input } from '../../common/ValidatedFields/validatedFields'
 import { createMaxLengthValivator, isEmail, required } from '../../utils/validators'
+import classes from './LoginForm.module.css'
 
 const maxLength50 = createMaxLengthValivator(50)
 
@@ -30,6 +31,11 @@ const LoginForm = (props) => {
           component='input' 
           name='rememberMe'/> Remember me
       </div>
+      { props.error &&
+        <div className={classes.formSubmitError}>
+          {props.error}
+        </div>
+      }
       <div>
         <button>Submit</button>
       </div>
