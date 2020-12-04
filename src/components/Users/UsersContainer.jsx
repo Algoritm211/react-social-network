@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Users from './Users'
-import {follow, getUsers, setCurrentPageAC, unfollow} from '../../redux/users-reducer'
+import {follow, requestUsers, setCurrentPageAC, unfollow} from '../../redux/users-reducer'
 import Loader from '../common/Loader/Loader'
-import withAuthRedirect from '../hoc/withAuthRedirect'
 import { compose } from 'redux'
+import { getCurrentPage, getIsFetching, getToggleFollowing, getTotalUsersCountUsers, getUsers, getUsersPerPage } from '../../redux/users-selector'
 
 class UsersContainer extends React.Component {
 
@@ -41,12 +41,12 @@ class UsersContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.usersPage.users,
-    usersPerPage: state.usersPage.usersPerPage,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    toggleFollowing: state.usersPage.toggleFollowing 
+    users: getUsers(state),
+    usersPerPage: getUsersPerPage(state),
+    totalUsersCount: getTotalUsersCountUsers(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    toggleFollowing: getToggleFollowing(state) 
   }
 }
 
@@ -62,7 +62,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(setCurrentPageAC(page))
     },
     getUsers: (currentPage, usersPerPage) => {
-      dispatch(getUsers(currentPage, usersPerPage))
+      dispatch(requestUsers(currentPage, usersPerPage))
     }
   }
 }

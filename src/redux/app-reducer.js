@@ -20,7 +20,7 @@ const appReducer = (state = initialState, action) => {
   }
 }
 
-const initializeAppActionCreator = () => {
+const initializeAppSuccess = () => {
   return {
     type: INITIALIZE_SUCCESS
   }
@@ -31,7 +31,7 @@ export const initializeApp = () => {
     const promiseSetAuthData = dispatch(setAuthUserData())
     Promise.all([promiseSetAuthData])
       .then(() => {
-        dispatch(initializeAppActionCreator())
+        dispatch(initializeAppSuccess())
       })
   }
 }

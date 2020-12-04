@@ -123,7 +123,7 @@ export const toggleIsFollowingAC = (isToglleFollowing, userId) => {
   }
 }
 
-export const getUsers = (currentPage, usersPerPage) => {
+export const requestUsers = (currentPage, usersPerPage) => {
   return (dispatch) => {
     dispatch(toggleIsFetchingAC(true))
     usersAPI.getUsers(currentPage, usersPerPage)
