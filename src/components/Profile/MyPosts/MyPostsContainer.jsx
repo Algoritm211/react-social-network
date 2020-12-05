@@ -41,7 +41,6 @@ import {connect} from 'react-redux'
 function mapStateToProps(state) {
   return {
     posts: state.profilePage.postsData,
-    newPostText: state.profilePage.newPostText
   }
 }
 
