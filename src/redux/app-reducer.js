@@ -1,6 +1,6 @@
 import { setAuthUserData } from "./auth-reducer"
 
-const INITIALIZE_SUCCESS = 'INITIALIZE_SUCCESS'
+const INITIALIZE_SUCCESS = 'social-network-react/app/INITIALIZE_SUCCESS'
 
 
 const initialState = {

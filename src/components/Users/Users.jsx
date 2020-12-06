@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './Users.module.css'
-import userPhoto from '../../assets/images/user_no_photo.png'
-import { NavLink } from 'react-router-dom'
+import Paginator from '../common/Paginator/Paginator'
+import User from './User/User'
 
 const Users = (props) => {
   
@@ -13,68 +13,28 @@ const Users = (props) => {
     props.unfollow(userId)
   }
 
-  let usersElements = props.users.map(user => {
-
+  let usersElements = props.users.map((user, index) => {
     return (
-      <div className={classes.usersBlock} key={user.id}>
-        <div className={classes.avatar}>
-          <div>
-            <NavLink to={`/profile/${user.id}/`}>
-              <img src={
-                user.photos.small !== null 
-                ? user.photos.small 
-                : userPhoto } 
-                alt={user.name}/>
-            </NavLink>
-          </div>
-          <div>
-            {user.followed
-              ? <button 
-                  disabled={props.toggleFollowing.some(id => id === user.id)}
-                  onClick={() => unfollow(user.id)}
-                >Unfollow</button>
-              : <button 
-                  disabled={props.toggleFollowing.some(id => id === user.id)}
-                  onClick={() => follow(user.id)}
-                  >Follow</button>}
-            
-          </div>
-        </div>
-        <div className={classes.userDescription}>
-          <div>
-            {user.name} <br />
-            {user.status}
-          </div>
-        </div>
-      </div>
-    )
-  })
-
-  const countUsers = Math.ceil(props.totalUsersCount / props.usersPerPage)
-
-  let pages = []
-  for (let i = 1; i <= countUsers; i++) {
-    pages.push(i)
-  }
-
-  const usersPaginatorElement = pages.map((item) => {
-    let activeClass = props.currentPage === item ? classes.activePageItem : ''
-    return (
-      <div className={`${classes.pageItem} ${activeClass}`} key={item}
-        onClick={() => props.onChangePage(item)}
-      >
-        <div>{item}</div>
-      </div> 
+      <User
+          key={user.name + index}
+          user = {user}
+          toggleFollowing = {props.toggleFollowing}
+          unfollow = {unfollow}
+          follow = {follow}
+          />
     )
   })
 
   return (
     <React.Fragment>
       <div className={classes.paginator}>
-        {usersPaginatorElement}
+        <Paginator 
+          totalUsersCount = {props.totalUsersCount} 
+          currentPage = {props.currentPage}
+          usersPerPage = {props.usersPerPage} 
+          onChangePage = {props.onChangePage}/>
       </div>
       <div>
-        {/* <button onClick={() => this.getUsers()}>Get users</button> */}
         {usersElements}
       </div>
     </React.Fragment>

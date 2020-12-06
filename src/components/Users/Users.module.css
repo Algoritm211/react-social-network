@@ -1,45 +1,4 @@
-.usersBlock {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
 
-.avatar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.avatar img {
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-}
-
-.userDescription {
-  min-width: 400px;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border: 2px solid black;
-}
-
-.pageItem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 30px;
-  cursor: pointer;
-  padding: 5px;
-  width: 15px;
-  height: 15px;
-  border: 1px solid black;
-  border-radius: 2px;
-}
-
-.activePageItem { 
-  font-weight: bold;
-}
 
 .paginator {
   display: flex;

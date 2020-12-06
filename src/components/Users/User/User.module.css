@@ -1,0 +1,25 @@
+.usersBlock {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.userDescription {
+  min-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 2px solid black;
+}

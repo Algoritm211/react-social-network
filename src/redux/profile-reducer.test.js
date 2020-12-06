@@ -22,3 +22,5 @@ it('Deleting posts in profile-reducer.js, 1 post should be returned', () => {
   const newState = profileReducer(initialState, action)
   expect(newState.postsData.length).toBe(1) 
 }) 
+
+//TODO протестировать какой-либо другой reducer
