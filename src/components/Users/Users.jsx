@@ -29,7 +29,7 @@ const Users = (props) => {
     <React.Fragment>
       <div className={classes.paginator}>
         <Paginator 
-          totalUsersCount = {props.totalUsersCount} 
+          totalItemsCount = {props.totalUsersCount}
           currentPage = {props.currentPage}
           usersPerPage = {props.usersPerPage} 
           onChangePage = {props.onChangePage}/>

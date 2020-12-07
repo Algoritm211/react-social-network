@@ -24,17 +24,15 @@ const Paginator = ({totalItemsCount, currentPage, usersPerPage, onChangePage, po
     .map((item) => {
       let activeClass = currentPage === item ? classes.activePageItem : ''
       return (
-        <React.Fragment>
-          <div
-            key={ item }
-            className={ `${ classes.pageItem } ${ activeClass }` }
-            onClick={ () => onChangePage(item) }
-          >
-            <div>
-              { item }
-            </div>
+        <div
+          key={ item }
+          className={ `${ classes.pageItem } ${ activeClass }` }
+          onClick={ () => onChangePage(item) }
+        >
+          <div>
+            { item }
           </div>
-        </React.Fragment>
+        </div>
       )
     })
 
