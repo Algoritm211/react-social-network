@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import Loader from "../common/Loader/Loader";
 // import MyPosts from "./MyPosts/MyPosts";
 import MyPostsContainer from './MyPosts/MyPostsContainer'
@@ -12,7 +11,12 @@ const Profile = (props) => {
   }
   return (
     <div className={classes.profileBlock}>
-      <ProfileInfo profile={props.profile} updateStatus={props.updateStatus} status={props.status}/>
+      <ProfileInfo
+        isPageOwnwer={props.isPageOwnwer}
+        profile={props.profile}
+        updateStatus={props.updateStatus}
+        status={props.status}
+        setPhoto={props.setPhoto}/>
       <MyPostsContainer />
 
       {/* <MyPosts 

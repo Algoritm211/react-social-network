@@ -4,6 +4,7 @@ const ADD_POST = 'social-network-react/profilePage/ADD-POST'
 const SET_USER_PROFILE = 'social-network-react/profilePage/SET_USER_PROFILE'
 const SET_USER_STATUS = 'social-network-react/profilePage/SET_USER_STATUS'
 const DELETE_POST = 'social-network-react/profilePage/DELETE_POST'
+const SET_USER_PROFILE_PHOTO = 'social-network-react/profilePage/SET_USER_PROFILE_PHOTO'
 
 const initialState = {
   postsData: [
@@ -47,6 +48,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         status: action.status
       }
+    case SET_USER_PROFILE_PHOTO:
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photosObj}
+      }
     default:
       return state
   }
@@ -70,6 +76,22 @@ export const setUserProfileAC = (profile) => {
   return { 
     type: SET_USER_PROFILE,
     profile: profile
+  }
+}
+
+export const setUserPhotoSuccess = (photosObj) => {
+  return {
+    type: SET_USER_PROFILE_PHOTO,
+    photosObj: photosObj
+  }
+}
+
+export const setUserPhoto = (photoFile) => {
+  return async (dispatch) => {
+    let data = await profileAPI.setPhoto(photoFile)
+    if (data.data.resultCode === 0) {
+      dispatch(setUserPhotoSuccess(data.data.data.photos))
+    }
   }
 }
 

@@ -1,15 +1,15 @@
 import React from 'react'
-import { getProfile, getStatus, updateStatus } from '../../redux/profile-reducer'
+import {getProfile, getStatus, setUserPhoto, updateStatus} from '../../redux/profile-reducer'
 import Profile from './Profile'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import withAuthRedirect from '../hoc/withAuthRedirect'
+//import withAuthRedirect from '../hoc/withAuthRedirect'
 import { compose } from 'redux'
 
 class ProfileContainer extends React.Component {
 
-  componentDidMount() {
-    let userId = this.props.match.params.userId 
+  refreshPage() {
+    let userId = this.props.match.params.userId
     if (!userId) {
       userId = this.props.authorizedUserId
     }
@@ -17,9 +17,22 @@ class ProfileContainer extends React.Component {
     this.props.getStatus(userId)
   }
 
+  componentDidMount() {
+    this.refreshPage()
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.refreshPage()
+    }
+  }
+
   render() {
     return (
-      <Profile {...this.props} profile={this.props.profile} updateStatus={this.props.updateStatus}/>
+      <Profile { ...this.props }
+               isPageOwnwer={ !this.props.match.params.userId }
+               profile={ this.props.profile }
+               updateStatus={ this.props.updateStatus }/>
     )
   }
 }
@@ -43,6 +56,9 @@ function mapDispatchToProps(dispatch) {
     },
     updateStatus: (status) => {
       dispatch(updateStatus(status))
+    },
+    setPhoto: (photoFile) => {
+      dispatch(setUserPhoto(photoFile))
     }
   }
 }

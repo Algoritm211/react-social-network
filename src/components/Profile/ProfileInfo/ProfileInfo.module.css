@@ -1,12 +1,25 @@
 .descriptionBlock {
+  position: relative;
   padding: 10px;
   display: flex;
   align-items: center;
 }
 
+.descriptionBlock:hover .choosePhoto {
+  display: block;
+}
+
+.profilePhoto {
+  position: relative;
+}
+
 .profilePhoto img {
   width: 70px;
   height: 70px;
+}
+
+.choosePhoto {
+  display: none;
 }
 
 .nameAndStatus {

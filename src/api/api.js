@@ -48,6 +48,15 @@ export const profileAPI = {
       .then(response => {
         return response.data
       })
+  },
+  setPhoto(photoFile) {
+    const formData = new FormData()
+    formData.append('image', photoFile)
+    return instanceAxios.put('profile/photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   }
 }
 
