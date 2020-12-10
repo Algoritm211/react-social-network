@@ -57,6 +57,9 @@ export const profileAPI = {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  setUserProfile(userData) {
+    return instanceAxios.put('profile', userData)
   }
 }
 

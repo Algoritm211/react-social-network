@@ -4,8 +4,9 @@ import classes from './ValidatedFields.module.css'
 
 const ValidatedFieldsCreator = ({input, type, ...props}) => {
   const {touched, error} = props.meta
+  const errorClass = error && touched ? classes.error : '' //Not empty string if error and field war touched
   return (
-    <div className={classes.formField}>
+    <div className={classes.formField + ' ' + errorClass}>
       <div>
         {React.cloneElement(props.children, {
             ...input, 

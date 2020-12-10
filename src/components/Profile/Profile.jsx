@@ -12,10 +12,11 @@ const Profile = (props) => {
   return (
     <div className={classes.profileBlock}>
       <ProfileInfo
-        isPageOwnwer={props.isPageOwnwer}
+        isPageOwner={props.isPageOwner}
         profile={props.profile}
         updateStatus={props.updateStatus}
         status={props.status}
+        updateProfile={props.updateProfile}
         setPhoto={props.setPhoto}/>
       <MyPostsContainer />
 

@@ -1,0 +1,6 @@
+.formSubmitError {
+    width: 500px;
+    height: 20px;
+    border: 2px solid rgb(94, 13, 13);
+    color: rgb(94, 13, 13);;
+}

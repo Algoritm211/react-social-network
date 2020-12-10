@@ -1,4 +1,6 @@
 import { profileAPI } from "../api/api"
+import {stopSubmit} from "redux-form";
+import {getErrorField} from "../components/utils/helpers/helpers";
 
 const ADD_POST = 'social-network-react/profilePage/ADD-POST'
 const SET_USER_PROFILE = 'social-network-react/profilePage/SET_USER_PROFILE'
@@ -125,7 +127,32 @@ export const updateStatus = (status) => {
   }
 }
 
+export const updateProfile = (userData) => {
 
+  return async (dispatch, getState) => {
+    const result = await profileAPI.setUserProfile(userData)
+    if (result.data.resultCode === 0) {
+      const userId = getState().auth.userId
+      dispatch(getProfile(userId))
+    } else {
+      const messageError = result.data.messages[0] || 'An error occured'
+      const errorField = getErrorField(messageError)
+      if (errorField === 'formError') {
+        const action = stopSubmit('editProfileForm', {_error: messageError})
+        dispatch(action)
+        return Promise.reject()
+      } else {
+        const action = stopSubmit('editProfileForm', {
+         contacts : {
+           [errorField]: messageError
+         }
+        })
+        dispatch(action)
+        return Promise.reject()
+      }
+    }
+  }
+}
 
 
 export default profileReducer

@@ -1,5 +1,5 @@
 import React from 'react'
-import {getProfile, getStatus, setUserPhoto, updateStatus} from '../../redux/profile-reducer'
+import {getProfile, getStatus, setUserPhoto, updateProfile, updateStatus} from '../../redux/profile-reducer'
 import Profile from './Profile'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -30,7 +30,7 @@ class ProfileContainer extends React.Component {
   render() {
     return (
       <Profile { ...this.props }
-               isPageOwnwer={ !this.props.match.params.userId }
+               isPageOwner={ !this.props.match.params.userId }
                profile={ this.props.profile }
                updateStatus={ this.props.updateStatus }/>
     )
@@ -59,6 +59,9 @@ function mapDispatchToProps(dispatch) {
     },
     setPhoto: (photoFile) => {
       dispatch(setUserPhoto(photoFile))
+    },
+    updateProfile: (formData) => {
+      return dispatch(updateProfile(formData))
     }
   }
 }
