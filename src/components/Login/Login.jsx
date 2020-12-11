@@ -7,34 +7,34 @@ import LoginForm from './LoginForm/LoginForm'
 
 const Login = (props) => {
   const onSubmit = (formData) =>{
-    const {email, password, rememberMe} = formData
-    props.loginUser(email, password, rememberMe);
+    const {email, password, rememberMe = false, captcha} = formData
+    props.loginUser(email, password, rememberMe, captcha);
   }
 
   if (props.isAuth) {
     return <Redirect to='/profile'/>
   }
-
   return (
     <div>
       <h2>LoginPage</h2>
-      <LoginForm onSubmit={(formData) => onSubmit(formData)}/>
+      <LoginForm onSubmit={(formData) => onSubmit(formData)} captchaURL={props.captchaURL}/>
     </div>
   )
 }
 
 function mapStateToProps(state) {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaURL: state.auth.captcha
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loginUser: (email, password, rememberMe) => {
-      dispatch(loginUser(email, password, rememberMe))
-    }
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     loginUser: (email, password, rememberMe, captcha = null) => {
+//       dispatch(loginUser(email, password, rememberMe, captcha))
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, {loginUser})(Login)

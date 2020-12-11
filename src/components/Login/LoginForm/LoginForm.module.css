@@ -5,3 +5,8 @@
   border: 2px solid rgb(94, 13, 13);
   color: rgb(94, 13, 13);;
 }
+
+.captchaImg {
+  width: 200px;
+  height: 200px;
+}

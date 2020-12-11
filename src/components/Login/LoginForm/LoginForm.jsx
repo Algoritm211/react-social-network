@@ -31,6 +31,20 @@ const LoginForm = (props) => {
           component='input' 
           name='rememberMe'/> Remember me
       </div>
+      {
+        props.captchaURL &&
+          <div>
+            <img src={props.captchaURL} className={classes.captchaImg} alt={'captchaIMG'}/>
+            <div>
+              <Field
+                type='text'
+                component={Input}
+                name='captcha'
+                placeholder='Enter symbols in captcha'
+                />
+            </div>
+          </div>
+      }
       { props.error &&
         <div className={classes.formSubmitError}>
           {props.error}

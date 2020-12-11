@@ -1,14 +1,17 @@
-import { stopSubmit } from "redux-form"
-import { authAPI } from "../api/api"
+import {stopSubmit} from "redux-form"
+import {authAPI, securityAPI} from "../api/api"
 
 const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'
+const SET_CAPTCHA_URL = 'social-network-react/auth/SET_CAPTCHA_URL'
+
 
 const initialState = {
   userId: null,
   email: null,
   login: null,
-  isAuth: false
+  isAuth: false,
+  captcha: null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -17,6 +20,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
+      }
+    case SET_CAPTCHA_URL:
+      return {
+        ...state,
+        captcha: action.captcha
       }
     case GET_AUTH_USER_DATA:
       return state
@@ -31,14 +39,21 @@ export const getAuthUserData = () => {
   }
 }
 
+const setCaptcha = (captcha) => {
+  return {
+    type: SET_CAPTCHA_URL,
+    captcha: captcha
+  }
+}
+
 export const setAuthUserDataAC = (userId, email, login, isAuth) => {
   return {
     type: SET_USER_DATA,
     data: {
-      userId, 
-      email, 
+      userId,
+      email,
       login,
-      isAuth
+      isAuth,
     }
   }
 }
@@ -47,20 +62,24 @@ export const setAuthUserData = () => {
   return async (dispatch) => {
     const data = await authAPI.authUser()
     if (data.resultCode === 0) {
-      let { id, email, login } = data.data
+      let {id, email, login} = data.data
       dispatch(setAuthUserDataAC(id, email, login, true))
     }
   }
 }
 
-export const loginUser = (email, password, rememberMe) => { //formData - object
+export const loginUser = (email, password, rememberMe, captcha = null) => { //formData - object
   return async (dispatch) => {
-    let data = await authAPI.loginUser(email, password, rememberMe)
+    let data = await authAPI.loginUser(email, password, rememberMe, captcha)
     if (data.resultCode === 0) {
       dispatch(setAuthUserData())
     } else {
+      if (data.resultCode === 10) {
+        const captcha = await securityAPI.getCaptchaURL()
+        dispatch(setCaptcha(captcha.data.url))
+      }
       const messageError = data.messages[0] || 'An error occured'
-      const action = stopSubmit('login', {_error: messageError}) 
+      const action = stopSubmit('login', {_error: messageError})
       dispatch(action)
     }
   }
