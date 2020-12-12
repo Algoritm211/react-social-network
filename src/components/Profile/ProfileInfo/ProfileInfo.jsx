@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import classes from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
 import noProfilePhoto from '../../../assets/images/user_no_photo.png'
-import {NavLink} from "react-router-dom";
+//import {NavLink} from "react-router-dom";
 import ProfileUpdateForm from "./ProfileUpdateForm/ProfileUpdateForm";
 
 const ProfileInfo = (props) => {
@@ -18,7 +18,8 @@ const ProfileInfo = (props) => {
     promise.then(() => {
       setEditMode(false)
     })
-      .catch((error) => {})
+      .catch((error) => {
+      })
   }
 
   return (
@@ -33,6 +34,7 @@ const ProfileInfo = (props) => {
       { !editMode
         ? <ProfileBlock
           profile={ props.profile }
+          statusUpdateError={ props.statusUpdateError }
           onToggleEditMode={ onToggleEditMode }
           setPhoto={ props.setPhoto }
           updateStatus={ props.updateStatus }
@@ -49,7 +51,13 @@ const ProfileInfo = (props) => {
   );
 };
 
-const ProfileBlock = ({profile, onToggleEditMode, setPhoto, updateStatus, status, isPageOwner}) => {
+const ProfileBlock = ({profile,
+                        onToggleEditMode,
+                        setPhoto,
+                        updateStatus,
+                        status,
+                        isPageOwner,
+                        statusUpdateError}) => {
 
   const onChangePhoto = (event) => {
     if (event.target.files !== 0) {
@@ -82,7 +90,10 @@ const ProfileBlock = ({profile, onToggleEditMode, setPhoto, updateStatus, status
             Немного обо мне: { profile.aboutMe }
           </div>
           <div className={ classes.descriptionItem }>
-            <ProfileStatus status={ status } updateStatus={ updateStatus }/>
+            <ProfileStatus
+              status={ status }
+              updateStatus={ updateStatus }
+              statusUpdateError={statusUpdateError}/>
           </div>
           <div className={ classes.descriptionItem }>
             Рабочий статус: { profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю' }

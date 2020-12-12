@@ -5,6 +5,7 @@ import {getErrorField} from "../components/utils/helpers/helpers";
 const ADD_POST = 'social-network-react/profilePage/ADD-POST'
 const SET_USER_PROFILE = 'social-network-react/profilePage/SET_USER_PROFILE'
 const SET_USER_STATUS = 'social-network-react/profilePage/SET_USER_STATUS'
+const SET_UPDATE_STATUS_ERROR = 'social-network-react/profilePage/SET_UPDATE_STATUS_ERROR'
 const DELETE_POST = 'social-network-react/profilePage/DELETE_POST'
 const SET_USER_PROFILE_PHOTO = 'social-network-react/profilePage/SET_USER_PROFILE_PHOTO'
 
@@ -14,7 +15,10 @@ const initialState = {
     { id: 2, message: "it`s my first post", likesCount: 15 },
   ],
   profile: null,
-  status: ''
+  statusField: {
+    status: '',
+    errorMessage: null
+  }
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -48,7 +52,12 @@ const profileReducer = (state = initialState, action) => {
     case SET_USER_STATUS:
       return {
         ...state,
-        status: action.status
+        statusField: {...state.statusField, status: action.status, errorMessage: null}
+      }
+    case SET_UPDATE_STATUS_ERROR:
+      return {
+        ...state,
+        statusField: {...state.statusField, errorMessage: action.error}
       }
     case SET_USER_PROFILE_PHOTO:
       return {
@@ -104,7 +113,7 @@ export const getProfile = (userId) => {
   }
 }
 
-export const setStatusAC = (status) => {
+const setStatusSuccess = (status) => {
   return {
     type: SET_USER_STATUS,
     status: status
@@ -114,15 +123,29 @@ export const setStatusAC = (status) => {
 export const getStatus = (userId) => {
   return async (dispatch) => {
     let data = await profileAPI.getStatus(userId)
-    dispatch(setStatusAC(data.data))
+    dispatch(setStatusSuccess(data.data))
+  }
+}
+
+const setStatusError = (error) => {
+  return {
+    type: SET_UPDATE_STATUS_ERROR,
+    error: error
   }
 }
 
 export const updateStatus = (status) => {
   return async (dispatch) => {
-    let data = await profileAPI.setStatus(status)
-    if (data.resultCode === 0) {
-      dispatch(setStatusAC(status))
+    try {
+      let data = await profileAPI.setStatus(status)
+      if (data.resultCode === 0) {
+        dispatch(setStatusSuccess(status))
+      } else {
+        const error = data.messages[0]
+        dispatch(setStatusError(error))
+      }
+    } catch (e) {
+      dispatch(setStatusError('Some error occurred. Try again later'))
     }
   }
 }

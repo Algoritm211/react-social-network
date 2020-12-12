@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch, Redirect} from 'react-router-dom';
 import { compose } from 'redux';
 import './App.css'
 import Loader from './components/common/Loader/Loader';
-import Dialogs from './components/Dialogs/Dialogs';
 // import DialogsСontainer from './components/Dialogs/DialogsContainer'
-import Header from './components/Header/Header';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import Music from './components/Music/Music';
@@ -38,19 +36,23 @@ class App extends React.Component {
         <HeaderContainer />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Route path="/dialogs" render={withReactSuspense(DialogsContainer)} />
+          <Switch>
+            <Route path="/dialogs" render={withReactSuspense(DialogsContainer)} />
 
-          <Route path="/profile/:userId?/" render={withReactSuspense(ProfileContainer)} />
-  
-          <Route path="/news" component={News} />
-          <Route path="/music" component={Music} />
-          <Route path="/users" render={() => {
-            return <UsersContainer />
-          }} />
-          <Route path="/settings" component={Settings} />
-          <Route path='/login' render={() => {
-            return <Login />
-          }} />
+            <Route path="/profile/:userId?/" render={withReactSuspense(ProfileContainer)} />
+
+            <Route path="/news" component={News} />
+            <Route path="/music" component={Music} />
+            <Route path="/users" render={() => {
+              return <UsersContainer />
+            }} />
+            <Route path="/settings" component={Settings} />
+            <Route path='/login' render={() => {
+              return <Login />
+            }} />
+
+            <Redirect from={'/'} to={'/profile'} />
+          </Switch>
         </div>
       </div>
     );

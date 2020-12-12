@@ -15,6 +15,7 @@ const Profile = (props) => {
         isPageOwner={props.isPageOwner}
         profile={props.profile}
         updateStatus={props.updateStatus}
+        statusUpdateError={props.statusUpdateError}
         status={props.status}
         updateProfile={props.updateProfile}
         setPhoto={props.setPhoto}/>
