@@ -1,6 +1,7 @@
 import { profileAPI } from "../api/api"
 import {stopSubmit} from "redux-form";
 import {getErrorField} from "../components/utils/helpers/helpers";
+import {PhotosType, PostType, ProfileType} from "../types/types";
 
 const ADD_POST = 'social-network-react/profilePage/ADD-POST'
 const SET_USER_PROFILE = 'social-network-react/profilePage/SET_USER_PROFILE'
@@ -9,7 +10,17 @@ const SET_UPDATE_STATUS_ERROR = 'social-network-react/profilePage/SET_UPDATE_STA
 const DELETE_POST = 'social-network-react/profilePage/DELETE_POST'
 const SET_USER_PROFILE_PHOTO = 'social-network-react/profilePage/SET_USER_PROFILE_PHOTO'
 
-const initialState = {
+
+type ProfileInitialStateType = {
+  postsData: Array<PostType>,
+  profile: ProfileType | null,
+  statusField: {
+    status: string,
+    errorMessage: string | null
+  }
+}
+
+const initialState: ProfileInitialStateType = {
   postsData: [
     { id: 1, message: "Hi, how are you", likesCount: 12 },
     { id: 2, message: "it`s my first post", likesCount: 15 },
@@ -21,7 +32,7 @@ const initialState = {
   }
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): ProfileInitialStateType => {
 
   switch (action.type) {
     case ADD_POST:
@@ -37,7 +48,7 @@ const profileReducer = (state = initialState, action) => {
         postsData: [
           ...state.postsData,
           newPost
-        ]
+        ],
       }
     case DELETE_POST:
       return {
@@ -62,43 +73,76 @@ const profileReducer = (state = initialState, action) => {
     case SET_USER_PROFILE_PHOTO:
       return {
         ...state,
-        profile: {...state.profile, photos: action.photosObj}
+        profile: {...state.profile, photos: action.photosObj} as ProfileType
       }
     default:
       return state
   }
 }
 
-export const addPostActionCreator = (post) => {
+
+/* type of actions*/
+type AddPostActionCreatorType = {
+  type: typeof ADD_POST,
+  newPostText: string
+}
+
+type DeletePostACType = {
+  type: typeof DELETE_POST,
+  postId: number
+}
+
+type SetUserProfileACType = {
+  type: typeof SET_USER_PROFILE,
+  profile: ProfileType
+}
+
+type SetUserPhotoSuccessType = {
+  type: typeof SET_USER_PROFILE_PHOTO,
+  photosObj: PhotosType
+}
+
+type SetStatusSuccessType = {
+  type: typeof SET_USER_STATUS,
+  status: string
+}
+
+type SetStatusErrorType = {
+  type: typeof SET_UPDATE_STATUS_ERROR,
+  error: string
+}
+/*end of type actions*/
+
+export const addPostActionCreator = (post: string): AddPostActionCreatorType => {
   return {
     type: ADD_POST,
     newPostText: post
   }
 }
 
-export const deletePostAC = (postId) => {
+export const deletePostAC = (postId: number): DeletePostACType => {
   return {
     type: DELETE_POST,
     postId: postId
   }
 }
 
-export const setUserProfileAC = (profile) => {
+export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => {
   return { 
     type: SET_USER_PROFILE,
     profile: profile
   }
 }
 
-export const setUserPhotoSuccess = (photosObj) => {
+export const setUserPhotoSuccess = (photosObj: PhotosType): SetUserPhotoSuccessType => {
   return {
     type: SET_USER_PROFILE_PHOTO,
     photosObj: photosObj
   }
 }
 
-export const setUserPhoto = (photoFile) => {
-  return async (dispatch) => {
+export const setUserPhoto = (photoFile: string) => {
+  return async (dispatch: Function) => {
     let data = await profileAPI.setPhoto(photoFile)
     if (data.data.resultCode === 0) {
       dispatch(setUserPhotoSuccess(data.data.data.photos))
@@ -106,36 +150,36 @@ export const setUserPhoto = (photoFile) => {
   }
 }
 
-export const getProfile = (userId) => {
-  return async (dispatch) => {
+export const getProfile = (userId: number) => {
+  return async (dispatch: Function) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfileAC(data))
   }
 }
 
-const setStatusSuccess = (status) => {
+const setStatusSuccess = (status: string): SetStatusSuccessType => {
   return {
     type: SET_USER_STATUS,
     status: status
   }
 }
 
-export const getStatus = (userId) => {
-  return async (dispatch) => {
+export const getStatus = (userId: number) => {
+  return async (dispatch: Function) => {
     let data = await profileAPI.getStatus(userId)
     dispatch(setStatusSuccess(data.data))
   }
 }
 
-const setStatusError = (error) => {
+const setStatusError = (error: string):SetStatusErrorType   => {
   return {
     type: SET_UPDATE_STATUS_ERROR,
     error: error
   }
 }
 
-export const updateStatus = (status) => {
-  return async (dispatch) => {
+export const updateStatus = (status: string) => {
+  return async (dispatch: Function) => {
     try {
       let data = await profileAPI.setStatus(status)
       if (data.resultCode === 0) {
@@ -150,9 +194,9 @@ export const updateStatus = (status) => {
   }
 }
 
-export const updateProfile = (userData) => {
+export const updateProfile = (userData: any) => {
 
-  return async (dispatch, getState) => {
+  return async (dispatch: Function, getState: Function) => {
     const result = await profileAPI.setUserProfile(userData)
     if (result.data.resultCode === 0) {
       const userId = getState().auth.userId

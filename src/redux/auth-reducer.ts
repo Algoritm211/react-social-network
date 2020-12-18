@@ -1,3 +1,4 @@
+
 import {stopSubmit} from "redux-form"
 import {authAPI, securityAPI} from "../api/api"
 
@@ -5,16 +6,25 @@ const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'
 const SET_CAPTCHA_URL = 'social-network-react/auth/SET_CAPTCHA_URL'
 
+let AuthReducerState = {
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
+  isAuth: false as boolean | null,
+  captcha: null as string | null,
+}
 
-const initialState = {
+export type AuthReducerStateType = typeof AuthReducerState
+
+const initialState: AuthReducerStateType = {
   userId: null,
   email: null,
   login: null,
   isAuth: false,
-  captcha: null,
+  captcha: null
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any): AuthReducerStateType => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -33,20 +43,44 @@ const authReducer = (state = initialState, action) => {
   }
 }
 
-export const getAuthUserData = () => {
+/* types of actions */
+
+type GetAuthUserDataType = {
+  type: typeof GET_AUTH_USER_DATA
+}
+
+type SetCaptchaType = {
+  type: typeof SET_CAPTCHA_URL,
+  captcha: string
+}
+
+type userDataType = {
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean,
+}
+
+type setAuthUserDataType = {
+  type: typeof SET_USER_DATA,
+  data: userDataType
+}
+/* end of types actions */
+
+export const getAuthUserData = (): GetAuthUserDataType => {
   return {
     type: GET_AUTH_USER_DATA,
   }
 }
 
-const setCaptcha = (captcha) => {
+const setCaptcha = (captcha: string): SetCaptchaType => {
   return {
     type: SET_CAPTCHA_URL,
     captcha: captcha
   }
 }
 
-export const setAuthUserDataAC = (userId, email, login, isAuth) => {
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthUserDataType  => {
   return {
     type: SET_USER_DATA,
     data: {
@@ -59,7 +93,7 @@ export const setAuthUserDataAC = (userId, email, login, isAuth) => {
 }
 
 export const setAuthUserData = () => {
-  return async (dispatch) => {
+  return async (dispatch: Function) => {
     const data = await authAPI.authUser()
     if (data.resultCode === 0) {
       let {id, email, login} = data.data
@@ -68,8 +102,8 @@ export const setAuthUserData = () => {
   }
 }
 
-export const loginUser = (email, password, rememberMe, captcha = null) => { //formData - object
-  return async (dispatch) => {
+export const loginUser = (email: string, password: string, rememberMe: boolean, captcha: string | null = null) => { //formData - object
+  return async (dispatch: Function) => {
     let data = await authAPI.loginUser(email, password, rememberMe, captcha)
     if (data.resultCode === 0) {
       dispatch(setAuthUserData())
@@ -86,7 +120,7 @@ export const loginUser = (email, password, rememberMe, captcha = null) => { //fo
 }
 
 export const logoutUser = () => {
-  return async (dispatch) => {
+  return async (dispatch: Function) => {
     let data = await authAPI.logoutUser()
     if (data.resultCode === 0) {
       dispatch(setAuthUserDataAC(null, null, null, false))

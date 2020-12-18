@@ -2,13 +2,16 @@ import { setAuthUserData } from "./auth-reducer"
 
 const INITIALIZE_SUCCESS = 'social-network-react/app/INITIALIZE_SUCCESS'
 
+type initialStateType = {
+  initialized: boolean
+}
 
-const initialState = {
+const initialState: initialStateType = {
   initialized: false
 }
 
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case INITIALIZE_SUCCESS:
       return {
@@ -20,14 +23,20 @@ const appReducer = (state = initialState, action) => {
   }
 }
 
-const initializeAppSuccess = () => {
+/* type of actions*/
+type initializeAppSuccessType = {
+  type: typeof INITIALIZE_SUCCESS
+}
+/*end of type actions*/
+
+const initializeAppSuccess = (): initializeAppSuccessType => {
   return {
-    type: INITIALIZE_SUCCESS
+    type: INITIALIZE_SUCCESS,
   }
 }
 
 export const initializeApp = () => {
-  return (dispatch) => {
+  return (dispatch: Function) => {
     const promiseSetAuthData = dispatch(setAuthUserData())
     Promise.all([promiseSetAuthData])
       .then(() => {

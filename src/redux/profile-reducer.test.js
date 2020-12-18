@@ -17,7 +17,7 @@ it('3 posts should be returned', () => {
 })
 
 
-it('Deleting posts in profile-reducer.js, 1 post should be returned', () => {
+it('Deleting posts in profile-reducer.ts, 1 post should be returned', () => {
   const action = deletePostAC(1)
   const newState = profileReducer(initialState, action)
   expect(newState.postsData.length).toBe(1) 

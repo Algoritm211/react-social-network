@@ -71,7 +71,7 @@ const ProfileBlock = ({profile,
     let fieldInfo = contact[1] ? contact[1] : 'No information'
     return (
       <div key={ index } className={ classes.contactsItem }>
-        <strong> { contact[0] }: </strong> <a href={ contact[1] } target={ '_blank' }>{ fieldInfo }</a>
+        <strong> { contact[0] }: </strong> <a href={ contact[1] } target={ '_blank' } rel="noreferrer">{ fieldInfo }</a>
       </div>
     )
   })
