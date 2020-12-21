@@ -1,6 +1,8 @@
-import { usersAPI } from "../api/api";
+import {ResultCodesEnum, usersAPI} from "../api/api";
 import { updateObjectInArray } from "../components/utils/helpers/helpers";
 import {PhotosType, UsersType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const FOLLOW = "social-network-react/usersPage/FOLLOW";
 const UNFOLLOW = "social-network-react/usersPage/UNFOLLOW";
@@ -29,7 +31,7 @@ const initialState: UsersReducerStateType = {
   toggleFollowing: []
 };
 
-const usersReducer = (state = initialState, action: any): UsersReducerStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): UsersReducerStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -75,6 +77,12 @@ const usersReducer = (state = initialState, action: any): UsersReducerStateType 
   }
 };
 
+
+type ActionsTypes = FollowSuccessType | UnfollowSuccessType |
+                  SetUsersACType | SetTotalUsersCountACType |
+                  SetCurrentPageACType | ToggleIsFetchingACType |
+                  ToggleIsFollowingACType
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 type FollowSuccessType = {
   type: typeof FOLLOW,
@@ -122,7 +130,6 @@ export const setTotalUsersCountAC = (count: number): SetTotalUsersCountACType =>
   }
 }
 
-
 type SetCurrentPageACType = {
   type: typeof SET_CURRENT_PAGE,
   page: number
@@ -158,8 +165,8 @@ export const toggleIsFollowingAC = (isToglleFollowing: boolean, userId: number):
   }
 }
 
-export const requestUsers = (currentPage: number, usersPerPage: number) => {
-  return async (dispatch: Function) => {
+export const requestUsers = (currentPage: number, usersPerPage: number): ThunkActionType => {
+  return async (dispatch) => {
     dispatch(toggleIsFetchingAC(true))
     const data = await usersAPI.getUsers(currentPage, usersPerPage)
       
@@ -169,12 +176,12 @@ export const requestUsers = (currentPage: number, usersPerPage: number) => {
   }
 }
 
-export const follow = (userId: number) => {
-  return async (dispatch: Function) => {
+export const follow = (userId: number): ThunkActionType => {
+  return async (dispatch) => {
     dispatch(toggleIsFollowingAC(true, userId))
     const data = await usersAPI.follow(userId)
     try {
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(followSuccess(userId))
       }
       dispatch(toggleIsFollowingAC(false, userId))
@@ -185,8 +192,8 @@ export const follow = (userId: number) => {
   }
 }
 
-export const unfollow = (userId: number) => {
-  return async (dispatch: Function) => {
+export const unfollow = (userId: number): ThunkActionType => {
+  return async (dispatch) => {
     dispatch(toggleIsFollowingAC(true, userId))
     const data = await usersAPI.unfollow(userId)
 

@@ -1,6 +1,8 @@
 
 import {stopSubmit} from "redux-form"
 import {authAPI, securityAPI} from "../api/api"
+import {AppStateType} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
 
 const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'
@@ -22,7 +24,7 @@ const initialState: AuthReducerState = {
   captcha: null
 }
 
-const authReducer = (state = initialState, action: any): AuthReducerState => {
+const authReducer = (state = initialState, action: ActionsTypes): AuthReducerState => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -63,6 +65,8 @@ type setAuthUserDataType = {
   type: typeof SET_USER_DATA,
   data: userDataType
 }
+
+type ActionsTypes = GetAuthUserDataType | SetCaptchaType | setAuthUserDataType
 /* end of types actions */
 
 export const getAuthUserData = (): GetAuthUserDataType => {
@@ -93,7 +97,9 @@ export const setAuthUserDataAC = (userId: number | null,
   }
 }
 
-export const setAuthUserData = () => {
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+export const setAuthUserData = (): ThunkActionType => {
   return async (dispatch: Function) => {
     const data = await authAPI.authUser()
     if (data.resultCode === 0) {
@@ -106,7 +112,7 @@ export const setAuthUserData = () => {
 export const loginUser = (email: string,
                           password: string,
                           rememberMe: boolean,
-                          captcha: string | null) => { //formData - object
+                          captcha: string | null): ThunkActionType => { //formData - object
 
   return async (dispatch: Function) => {
     let data = await authAPI.loginUser(email, password, rememberMe, captcha)
@@ -124,7 +130,7 @@ export const loginUser = (email: string,
   }
 }
 
-export const logoutUser = () => {
+export const logoutUser = (): ThunkActionType => {
   return async (dispatch: Function) => {
     let data = await authAPI.logoutUser()
     if (data.resultCode === 0) {

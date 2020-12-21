@@ -157,7 +157,7 @@ export const setUserPhoto = (photoFile: File): ThunkActionType => {
   }
 }
 
-export const getProfile = (userId: number | null): ThunkActionType => {
+export const getProfile = (userId: number): ThunkActionType => {
   return async (dispatch: Function) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfileAC(data))
@@ -207,7 +207,9 @@ export const updateProfile = (userData: any): ThunkAction<Promise<any>, AppState
     const result = await profileAPI.setUserProfile(userData)
     if (result.data.resultCode === 0) {
       const userId = getState().auth.userId
-      dispatch(getProfile(userId))
+      if (userId !== null) {
+        dispatch(getProfile(userId))
+      }
     } else {
       const messageError = result.data.messages[0] || 'An error occured'
       const errorField = getErrorField(messageError)
