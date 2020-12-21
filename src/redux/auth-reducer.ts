@@ -6,17 +6,15 @@ const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'
 const SET_CAPTCHA_URL = 'social-network-react/auth/SET_CAPTCHA_URL'
 
-let AuthReducerState = {
-  userId: null as number | null,
-  email: null as string | null,
-  login: null as string | null,
-  isAuth: false as boolean | null,
-  captcha: null as string | null,
+type AuthReducerState = {
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean,
+  captcha: string | null,
 }
 
-export type AuthReducerStateType = typeof AuthReducerState
-
-const initialState: AuthReducerStateType = {
+const initialState: AuthReducerState = {
   userId: null,
   email: null,
   login: null,
@@ -24,7 +22,7 @@ const initialState: AuthReducerStateType = {
   captcha: null
 }
 
-const authReducer = (state = initialState, action: any): AuthReducerStateType => {
+const authReducer = (state = initialState, action: any): AuthReducerState => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -80,7 +78,10 @@ const setCaptcha = (captcha: string): SetCaptchaType => {
   }
 }
 
-export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthUserDataType  => {
+export const setAuthUserDataAC = (userId: number | null,
+                                  email: string | null,
+                                  login: string | null,
+                                  isAuth: boolean): setAuthUserDataType  => {
   return {
     type: SET_USER_DATA,
     data: {
@@ -102,7 +103,11 @@ export const setAuthUserData = () => {
   }
 }
 
-export const loginUser = (email: string, password: string, rememberMe: boolean, captcha: string | null = null) => { //formData - object
+export const loginUser = (email: string,
+                          password: string,
+                          rememberMe: boolean,
+                          captcha: string | null) => { //formData - object
+
   return async (dispatch: Function) => {
     let data = await authAPI.loginUser(email, password, rememberMe, captcha)
     if (data.resultCode === 0) {

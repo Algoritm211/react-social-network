@@ -4,8 +4,22 @@ import Loader from "../common/Loader/Loader";
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 import classes from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {setUserPhoto} from "../../redux/profile-reducer";
+import {ProfileType, StatusType} from "../../types/types";
 
-const Profile = (props) => {
+
+type PropsType = {
+  profile: ProfileType | null
+  status: StatusType['status'],
+  isPageOwner: boolean,
+  statusUpdateError: StatusType['errorMessage'],
+  updateProfile: (userData: any) => Promise<any>,
+  setUserPhoto: (photoFile: File) => void,
+  updateStatus: (status: string) => void,
+}
+
+const Profile: React.FC<PropsType> = (props) => {
+
   if (!props.profile) {
     return <Loader />
   }
@@ -18,7 +32,7 @@ const Profile = (props) => {
         statusUpdateError={props.statusUpdateError}
         status={props.status}
         updateProfile={props.updateProfile}
-        setPhoto={props.setPhoto}/>
+        setPhoto={props.setUserPhoto}/>
       <MyPostsContainer />
 
       {/* <MyPosts 

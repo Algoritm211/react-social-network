@@ -5,14 +5,35 @@ import {follow, requestUsers, setCurrentPageAC, unfollow} from '../../redux/user
 import Loader from '../common/Loader/Loader'
 import { compose } from 'redux'
 import { getCurrentPage, getIsFetching, getToggleFollowing, getTotalUsersCountUsers, getUsers, getUsersPerPage } from '../../redux/users-selector'
+import {UsersType} from "../../types/types";
+import {AppStateType} from '../../redux/redux-store'
 
-class UsersContainer extends React.Component {
+
+type UsersContainerStateProps = {
+  currentPage: number,
+  usersPerPage: number,
+  isFetching: boolean,
+  users: Array<UsersType>,
+  totalUsersCount: number,
+  toggleFollowing: Array<number>
+}
+
+type UsersContainerDispatchProps = {
+  follow: (userId: number) => void,
+  unfollow: (userId: number) => void,
+  setCurrentPage: (page: number) => void,
+  getUsers: (page: number, usersPerPage: number) => void,
+}
+
+type PropsType = UsersContainerStateProps & UsersContainerDispatchProps
+
+class UsersContainer extends React.Component<PropsType, never> {
 
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.usersPerPage)
   }
 
-  onChangePage = (page) => {
+  onChangePage = (page: number) => {
     this.props.setCurrentPage(page)
     this.props.getUsers(page, this.props.usersPerPage)
   }
@@ -39,7 +60,7 @@ class UsersContainer extends React.Component {
 }
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state: AppStateType): UsersContainerStateProps {
   return {
     users: getUsers(state),
     usersPerPage: getUsersPerPage(state),
@@ -50,23 +71,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    follow: (userId) => {
-      dispatch(follow(userId))
-    },
-    unfollow: (userId) => {
-      dispatch(unfollow(userId))
-    },
-    setCurrentPage: (page) => {
-      dispatch(setCurrentPageAC(page))
-    },
-    getUsers: (currentPage, usersPerPage) => {
-      dispatch(requestUsers(currentPage, usersPerPage))
-    }
-  }
+const mapDispatchToProps: UsersContainerDispatchProps = {
+    follow,
+    unfollow,
+    setCurrentPage: setCurrentPageAC,
+    getUsers: requestUsers,
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(UsersContainer)
+
+export default connect<UsersContainerStateProps, UsersContainerDispatchProps, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer)

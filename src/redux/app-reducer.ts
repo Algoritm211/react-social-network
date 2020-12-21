@@ -2,16 +2,16 @@ import { setAuthUserData } from "./auth-reducer"
 
 const INITIALIZE_SUCCESS = 'social-network-react/app/INITIALIZE_SUCCESS'
 
-type initialStateType = {
+export type AppReducerStateType = {
   initialized: boolean
 }
 
-const initialState: initialStateType = {
+const initialState: AppReducerStateType = {
   initialized: false
 }
 
 
-const appReducer = (state = initialState, action: any): initialStateType => {
+const appReducer = (state = initialState, action: any): AppReducerStateType => {
   switch (action.type) {
     case INITIALIZE_SUCCESS:
       return {

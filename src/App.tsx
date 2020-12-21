@@ -10,18 +10,29 @@ import Login from './components/Login/Login';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
-// import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
-import { initializeApp } from './redux/app-reducer';
+import {AppReducerStateType, initializeApp } from './redux/app-reducer';
 import withReactSuspense from "./components/hoc/withReactSuspense";
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const DialogsContainer = React.lazy(() => {
+  return import('./components/Dialogs/DialogsContainer')
+})
+// const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 
+type AppStateProps = {
+  initialized: boolean
+}
 
-class App extends React.Component {
+type AppDispatchProps = {
+  initializeApp: () => void
+}
+
+type Props = AppStateProps & AppDispatchProps
+
+class App extends React.Component<Props, never> {
 
   componentDidMount() {
     this.props.initializeApp()
@@ -45,6 +56,7 @@ class App extends React.Component {
             <Route path="/news" component={News} />
             <Route path="/music" component={Music} />
             <Route path="/users" render={() => {
+              // @ts-ignore
               return <UsersContainer />
             }} />
             <Route path="/settings" component={Settings} />
@@ -60,21 +72,18 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state: any): AppStateProps => {
   return {
     initialized: state.app.initialized
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    initializeApp: () => {
-      dispatch(initializeApp())
-    }
-  }
+const mapDispatchToProps: AppDispatchProps = {
+  initializeApp
 }
+
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect<AppStateProps, AppDispatchProps>(mapStateToProps, mapDispatchToProps)
 )(App);

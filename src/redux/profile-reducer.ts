@@ -1,7 +1,9 @@
 import { profileAPI } from "../api/api"
-import {stopSubmit} from "redux-form";
+import {FormAction, stopSubmit} from "redux-form";
 import {getErrorField} from "../components/utils/helpers/helpers";
-import {PhotosType, PostType, ProfileType} from "../types/types";
+import {PhotosType, PostType, ProfileType, StatusType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const ADD_POST = 'social-network-react/profilePage/ADD-POST'
 const SET_USER_PROFILE = 'social-network-react/profilePage/SET_USER_PROFILE'
@@ -11,28 +13,27 @@ const DELETE_POST = 'social-network-react/profilePage/DELETE_POST'
 const SET_USER_PROFILE_PHOTO = 'social-network-react/profilePage/SET_USER_PROFILE_PHOTO'
 
 
-type ProfileInitialStateType = {
-  postsData: Array<PostType>,
-  profile: ProfileType | null,
-  statusField: {
-    status: string,
-    errorMessage: string | null
-  }
-}
+// type ProfileInitialStateType = {
+//   postsData: Array<PostType>,
+//   profile: ProfileType,
+//   statusField: StatusType
+// }
 
-const initialState: ProfileInitialStateType = {
+let initialState = {
   postsData: [
     { id: 1, message: "Hi, how are you", likesCount: 12 },
     { id: 2, message: "it`s my first post", likesCount: 15 },
-  ],
-  profile: null,
+  ] as Array<PostType>,
+  profile: null as ProfileType | null,
   statusField: {
     status: '',
     errorMessage: null
-  }
+  } as StatusType
 }
 
-const profileReducer = (state = initialState, action: any): ProfileInitialStateType => {
+type InitialStateType = typeof initialState
+
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
   switch (action.type) {
     case ADD_POST:
@@ -111,6 +112,10 @@ type SetStatusErrorType = {
   type: typeof SET_UPDATE_STATUS_ERROR,
   error: string
 }
+
+type ActionsTypes = AddPostActionCreatorType | DeletePostACType |
+              SetUserProfileACType | SetUserPhotoSuccessType  |
+                SetStatusSuccessType | SetStatusErrorType
 /*end of type actions*/
 
 export const addPostActionCreator = (post: string): AddPostActionCreatorType => {
@@ -141,8 +146,10 @@ export const setUserPhotoSuccess = (photosObj: PhotosType): SetUserPhotoSuccessT
   }
 }
 
-export const setUserPhoto = (photoFile: string) => {
-  return async (dispatch: Function) => {
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+export const setUserPhoto = (photoFile: File): ThunkActionType => {
+  return async (dispatch) => {
     let data = await profileAPI.setPhoto(photoFile)
     if (data.data.resultCode === 0) {
       dispatch(setUserPhotoSuccess(data.data.data.photos))
@@ -150,7 +157,7 @@ export const setUserPhoto = (photoFile: string) => {
   }
 }
 
-export const getProfile = (userId: number) => {
+export const getProfile = (userId: number | null): ThunkActionType => {
   return async (dispatch: Function) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfileAC(data))
@@ -164,21 +171,21 @@ const setStatusSuccess = (status: string): SetStatusSuccessType => {
   }
 }
 
-export const getStatus = (userId: number) => {
+export const getStatus = (userId: number): ThunkActionType => {
   return async (dispatch: Function) => {
     let data = await profileAPI.getStatus(userId)
     dispatch(setStatusSuccess(data.data))
   }
 }
 
-const setStatusError = (error: string):SetStatusErrorType   => {
+const setStatusError = (error: string): SetStatusErrorType   => {
   return {
     type: SET_UPDATE_STATUS_ERROR,
     error: error
   }
 }
 
-export const updateStatus = (status: string) => {
+export const updateStatus = (status: string): ThunkActionType => {
   return async (dispatch: Function) => {
     try {
       let data = await profileAPI.setStatus(status)
@@ -194,9 +201,9 @@ export const updateStatus = (status: string) => {
   }
 }
 
-export const updateProfile = (userData: any) => {
+export const updateProfile = (userData: any): ThunkAction<Promise<any>, AppStateType, unknown, ActionsTypes> | FormAction => {
 
-  return async (dispatch: Function, getState: Function) => {
+  return async (dispatch , getState) => {
     const result = await profileAPI.setUserProfile(userData)
     if (result.data.resultCode === 0) {
       const userId = getState().auth.userId
@@ -206,6 +213,7 @@ export const updateProfile = (userData: any) => {
       const errorField = getErrorField(messageError)
       if (errorField === 'formError') {
         const action = stopSubmit('editProfileForm', {_error: messageError})
+        // @ts-ignore
         dispatch(action)
         return Promise.reject()
       } else {
@@ -214,6 +222,7 @@ export const updateProfile = (userData: any) => {
            [errorField]: messageError
          }
         })
+        // @ts-ignore
         dispatch(action)
         return Promise.reject()
       }

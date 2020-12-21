@@ -1,5 +1,8 @@
 import React from 'react'
-import { sendMessage, sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogs-reducer'
+import {
+  DialogsDataType, MessagesDataType,
+  sendMessage,
+} from '../../redux/dialogs-reducer'
 import StoreContext from '../../StoreContext'
 import DialogItem from './DialogItem/DialogItem'
 import Dialogs from './Dialogs'
@@ -8,7 +11,7 @@ import Message from './Message/Message'
 import {connect} from 'react-redux'
 import withAuthRedirect from '../hoc/withAuthRedirect'
 import { compose } from 'redux'
-
+import {AppStateType} from "../../redux/redux-store";
 
 
 // const DialogsContainer = (props) => {
@@ -41,7 +44,17 @@ import { compose } from 'redux'
 //   )
 // }
 
-function mapStateToProps(state) {
+type DialogsContainerStateType = {
+  dialogsData: Array<DialogsDataType>
+  messagesData: Array<MessagesDataType>
+}
+
+type DialogsContainerDispatchType = {
+  onSendMessage: (message: string) => void
+}
+
+
+function mapStateToProps(state: AppStateType): DialogsContainerStateType {
   return {
     dialogsData: state.dialogsPage.dialogsData,
     messagesData: state.dialogsPage.messagesData,
@@ -49,17 +62,13 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onSendMessage: (message) => {
-      dispatch(sendMessage(message))
-    },
-  }
+const mapDispatchToProps = {
+  onSendMessage: sendMessage
 }
 
+const DialogsContainer = compose(
+    connect<DialogsContainerStateType, DialogsContainerDispatchType, never, AppStateType>(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
 
-
-export default compose(
-                connect(mapStateToProps, mapDispatchToProps),
-                withAuthRedirect
-              )(Dialogs)
+export default DialogsContainer as React.FC

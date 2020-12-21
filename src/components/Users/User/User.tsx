@@ -2,8 +2,17 @@ import React from 'react'
 import classes from './User.module.css'
 import userPhoto from '../../../assets/images/user_no_photo.png'
 import { NavLink } from 'react-router-dom'
+import {UsersType} from "../../../types/types";;
 
-const User = ({user, toggleFollowing, unfollow, follow}) => {
+
+type PropsType = {
+    user: UsersType,
+    toggleFollowing: Array<number>,
+    follow: (userId: number) => void,
+    unfollow: (userId: number) => void,
+}
+
+const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) => {
   return (
     <div className={classes.usersBlock} key={user.id}>
         <div className={classes.avatar}>

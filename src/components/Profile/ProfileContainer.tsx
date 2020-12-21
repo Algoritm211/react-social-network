@@ -5,8 +5,32 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 //import withAuthRedirect from '../hoc/withAuthRedirect'
 import { compose } from 'redux'
+import {ProfileType, StatusType} from "../../types/types";
+import {AppStateType} from "../../redux/redux-store";
 
-class ProfileContainer extends React.Component {
+type ProfileStateProps = {
+  profile: ProfileType | null
+  status: StatusType['status'],
+  statusUpdateError: StatusType['errorMessage'],
+  authorizedUserId: number | null,
+  isAuth: boolean,
+}
+
+type ProfileDispatchProps = {
+  getProfile: (userId: number) => void,
+  getStatus: (userId: number) => void,
+  updateStatus: (status: string) => void,
+  setUserPhoto: (photoFile: File) => void,
+  updateProfile: (userData: any) => Promise<any>,
+}
+
+type ProfileOwnProps = {
+  match: any
+}
+
+type Props = ProfileDispatchProps & ProfileStateProps & ProfileOwnProps
+
+class ProfileContainer extends React.Component<Props, never> {
 
   refreshPage() {
     let userId = this.props.match.params.userId
@@ -21,7 +45,7 @@ class ProfileContainer extends React.Component {
     this.refreshPage()
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.match.params.userId !== this.props.match.params.userId) {
       this.refreshPage()
     }
@@ -37,7 +61,7 @@ class ProfileContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state: any): ProfileStateProps => {
   return {
     profile: state.profilePage.profile,
     status: state.profilePage.statusField.status,
@@ -45,30 +69,20 @@ function mapStateToProps(state) {
     authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth 
   }
-} 
+}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getProfile: (profile) => {
-      dispatch(getProfile(profile))
-    },
-    getStatus: (userId) => {
-      dispatch(getStatus(userId))
-    },
-    updateStatus: (status) => {
-      dispatch(updateStatus(status))
-    },
-    setPhoto: (photoFile) => {
-      dispatch(setUserPhoto(photoFile))
-    },
-    updateProfile: (formData) => {
-      return dispatch(updateProfile(formData))
-    }
-  }
+
+const mapDispatchToProps: ProfileDispatchProps = {
+  getProfile,
+  getStatus,
+  updateStatus,
+  setUserPhoto,
+  // @ts-ignore
+  updateProfile,
 }
 
 export default compose(
-              connect(mapStateToProps, mapDispatchToProps),
+              connect<ProfileStateProps, ProfileDispatchProps, ProfileOwnProps, AppStateType>(mapStateToProps, mapDispatchToProps),
               withRouter,
               // withAuthRedirect,
               )(ProfileContainer)

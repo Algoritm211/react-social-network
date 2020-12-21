@@ -3,8 +3,17 @@ import { NavLink } from "react-router-dom";
 import Friends from "./Friends/Friends";
 import classes from './Navbar.module.css'
 import { connect } from 'react-redux'
+import {FriendsType} from "../../types/types";
+import {AppStateType} from "../../redux/redux-store";
 
-const Navbar = (props) => {
+
+type NavbarStatePropsType = {
+  friends: Array<FriendsType>
+}
+
+type Props = NavbarStatePropsType
+
+const Navbar: React.FC<Props> = (props) => {
   return (
     <nav className={classes.nav}>
       <div className={classes.item}>
@@ -32,11 +41,11 @@ const Navbar = (props) => {
   );
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: AppStateType) {
   return {
     friends: state.sidebar.friends
   }
 }
 
 
-export default connect(mapStateToProps)(Navbar);
+export default connect<NavbarStatePropsType, {}, {}, AppStateType>(mapStateToProps)(Navbar);

@@ -1,8 +1,14 @@
 import React from "react";
 import Friend from "./Friend/Friend";
 import classes from "./Friends.module.css";
+import {FriendsType} from "../../../types/types";
 
-const Friends = (props) => {
+
+type PropsType = {
+  friends: Array<FriendsType>
+}
+
+const Friends: React.FC<PropsType> = (props) => {
 
   let friendsBlock = props.friends.map((friend, index) => {
     return (

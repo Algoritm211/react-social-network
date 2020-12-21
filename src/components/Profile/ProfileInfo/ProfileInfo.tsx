@@ -4,24 +4,39 @@ import ProfileStatus from "./ProfileStatus";
 import noProfilePhoto from '../../../assets/images/user_no_photo.png'
 //import {NavLink} from "react-router-dom";
 import ProfileUpdateForm from "./ProfileUpdateForm/ProfileUpdateForm";
+import {ProfileType, StatusType} from "../../../types/types";
+import {FileHandle} from "fs/promises";
 
-const ProfileInfo = (props) => {
+type ProfileInfoPropsType = {
+  profile: ProfileType,
+  status: StatusType['status'],
+  isPageOwner: boolean,
+  statusUpdateError: StatusType['errorMessage'] | null,
+  updateProfile: (userData: any) => Promise<any>,
+  setPhoto: (photoFile: File) => void,
+  updateStatus: (status: string) =>  void,
+}
 
-  const [editMode, setEditMode] = useState(false)
+const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
+
+  const [editMode, setEditMode] = useState<boolean>(false)
 
   const onToggleEditMode = () => {
     setEditMode(true)
   }
 
-  const updateUserInfo = (formData) => {
+  const updateUserInfo = (formData: any) => {
     let promise = props.updateProfile(formData)
     promise.then(() => {
       setEditMode(false)
     })
-      .catch((error) => {
+      .catch((error: Error) => {
       })
   }
 
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   return (
     <React.Fragment>
       <div>
@@ -36,12 +51,15 @@ const ProfileInfo = (props) => {
           profile={ props.profile }
           statusUpdateError={ props.statusUpdateError }
           onToggleEditMode={ onToggleEditMode }
+          // @ts-ignore
           setPhoto={ props.setPhoto }
+          // @ts-ignore
           updateStatus={ props.updateStatus }
           status={ props.status }
           isPageOwner={ props.isPageOwner }
         />
         : <ProfileUpdateForm
+          // TODO Remove TS-ignore
           initialValues={ props.profile }
           onSubmit={ (formData) => updateUserInfo(formData) }
           profile={ props.profile }
@@ -51,7 +69,17 @@ const ProfileInfo = (props) => {
   );
 };
 
-const ProfileBlock = ({profile,
+type ProfileBlockPropsType = {
+  profile: ProfileType,
+  onToggleEditMode: () => void,
+  setPhoto: (photoFile: File) => (dispatch: Function) => Promise<any>,
+  updateStatus: (status: string) => (dispatch: Function) => Promise<any>,
+  status: StatusType['status'],
+  isPageOwner: boolean,
+  statusUpdateError: string | null
+}
+
+const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
                         onToggleEditMode,
                         setPhoto,
                         updateStatus,
@@ -59,8 +87,8 @@ const ProfileBlock = ({profile,
                         isPageOwner,
                         statusUpdateError}) => {
 
-  const onChangePhoto = (event) => {
-    if (event.target.files !== 0) {
+  const onChangePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files!== null && event.target.files.length !== 0) {
       setPhoto(event.target.files[0])
     }
   }
@@ -71,7 +99,7 @@ const ProfileBlock = ({profile,
     let fieldInfo = contact[1] ? contact[1] : 'No information'
     return (
       <div key={ index } className={ classes.contactsItem }>
-        <strong> { contact[0] }: </strong> <a href={ contact[1] } target={ '_blank' } rel="noreferrer">{ fieldInfo }</a>
+        <strong> { contact[0] }: </strong> <a href={ contact[1] || '#' } target={ '_blank' } rel="noreferrer">{ fieldInfo }</a>
       </div>
     )
   })
@@ -80,7 +108,7 @@ const ProfileBlock = ({profile,
       <div className={ classes.descriptionBlock }>
 
         <div className={ classes.profilePhoto }>
-          <img src={ profile.photos.large || noProfilePhoto } alt={ profile.fullname }/>
+          <img src={ profile.photos.large || noProfilePhoto } alt={ profile.fullName }/>
         </div>
         <div className={ classes.nameAndStatus }>
           <div className={ classes.name }>

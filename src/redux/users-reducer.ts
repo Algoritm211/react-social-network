@@ -1,6 +1,6 @@
 import { usersAPI } from "../api/api";
 import { updateObjectInArray } from "../components/utils/helpers/helpers";
-import {PhotosType} from "../types/types";
+import {PhotosType, UsersType} from "../types/types";
 
 const FOLLOW = "social-network-react/usersPage/FOLLOW";
 const UNFOLLOW = "social-network-react/usersPage/UNFOLLOW";
@@ -11,16 +11,8 @@ const TOGGLE_IS_FETCHING = 'social-network-react/usersPage/TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING = 'social-network-react/usersPage/TOGGLE_IS_FOLLOWING'
 
 
-type UserType = {
-  id: number,
-  name: string,
-  status: string,
-  followed: boolean,
-  photos: PhotosType
-}
-
 type UsersReducerStateType = {
-  users: Array<UserType>,
+  users: Array<UsersType>,
   usersPerPage: number,
   totalUsersCount: number,
   currentPage: number,
@@ -74,7 +66,7 @@ const usersReducer = (state = initialState, action: any): UsersReducerStateType 
     case TOGGLE_IS_FOLLOWING:
       return {
         ...state,
-        toggleFollowing: action.isToglleFollowing 
+        toggleFollowing: action.isToggleFollowing
                         ? [...state.toggleFollowing, action.userId]
                         : [...state.toggleFollowing.filter(id => id !== action.userId)]
       }
@@ -108,7 +100,7 @@ export const unfollowSuccess = (userId: number): UnfollowSuccessType => {
 
 type SetUsersACType = {
   type: typeof SET_USERS,
-  users: Array<UserType>,
+  users: Array<UsersType>,
 }
 export const setUsersAC = (users: Array<any>): SetUsersACType => {
   return {
@@ -155,13 +147,13 @@ export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingACType 
 
 type ToggleIsFollowingACType = {
   type: typeof TOGGLE_IS_FOLLOWING,
-  isToglleFollowing: boolean,
+  isToggleFollowing: boolean,
   userId: number
 }
 export const toggleIsFollowingAC = (isToglleFollowing: boolean, userId: number): ToggleIsFollowingACType => {
   return {
     type: TOGGLE_IS_FOLLOWING,
-    isToglleFollowing: isToglleFollowing,
+    isToggleFollowing: isToglleFollowing,
     userId: userId
   }
 }

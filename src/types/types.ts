@@ -21,11 +21,37 @@ export type PhotosType = {
 }
 
 export type ProfileType = {
+    aboutMe: string;
     userId: number,
     lookingForAJob: boolean,
-    aboutMe: string
     lookingForAJobDescription: string,
     fullName: string,
     contacts: ContactsType,
-    photos: PhotosType | null
+    photos: PhotosType
+}
+
+export type StatusType = {
+    status: string | null,
+    errorMessage: string | null
+}
+
+export type UsersType = {
+    id: number,
+    name: string
+    status: string
+    followed: boolean,
+    photos: PhotosType,
+}
+
+export type FriendsType = {
+    id: number,
+    name: string,
+    img: string
+}
+
+export type MainLoginFormType = {
+    email?: string,
+    password?: string,
+    rememberMe?: boolean,
+    captcha?: string
 }

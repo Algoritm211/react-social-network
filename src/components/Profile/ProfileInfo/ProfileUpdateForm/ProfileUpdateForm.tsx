@@ -1,10 +1,21 @@
 import React from 'react'
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/ValidatedFields/validatedFields";
 import {required} from "../../../utils/validators";
 import classes from './ProfileUpdateForm.module.css'
+import {ProfileType} from "../../../../types/types";
 
-const ProfileUpdateForm = ({profile, handleSubmit, error}) => {
+type OwnProps = {
+  profile: ProfileType
+  initialValues: ProfileType | null
+}
+
+type StateProps = {
+}
+
+type Props = OwnProps & InjectedFormProps<ProfileType, OwnProps>
+
+const ProfileUpdateForm: React.FC<Props> = ({profile, handleSubmit, error}) => {
 
   const contactsFields = Object.entries(profile.contacts).map((contact, index) => {
     return (
@@ -68,6 +79,6 @@ const ProfileUpdateForm = ({profile, handleSubmit, error}) => {
   )
 }
 
-export default reduxForm({
+export default reduxForm<ProfileType, OwnProps>({
   form: 'editProfileForm'
 })(ProfileUpdateForm)

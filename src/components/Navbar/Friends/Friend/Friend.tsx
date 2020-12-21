@@ -1,7 +1,13 @@
 import React from "react";
 import classes from "./Friend.module.css";
+import {FriendsType} from "../../../../types/types";
 
-const Friend = (props) => {
+type PropsType = {
+  img: FriendsType['img']
+  name: FriendsType['name']
+}
+
+const Friend: React.FC<PropsType> = (props) => {
   return (
     <div className={classes.friend}>
       <div>
