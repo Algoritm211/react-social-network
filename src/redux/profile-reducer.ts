@@ -201,7 +201,7 @@ export const updateStatus = (status: string): ThunkActionType => {
   }
 }
 
-export const updateProfile = (userData: any): ThunkAction<Promise<any>, AppStateType, unknown, ActionsTypes> | FormAction => {
+export const updateProfile = (userData: any): ThunkAction<Promise<any>, AppStateType, unknown, ActionsTypes> => {
 
   return async (dispatch , getState) => {
     const result = await profileAPI.setUserProfile(userData)

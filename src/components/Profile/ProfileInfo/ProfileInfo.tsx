@@ -14,7 +14,7 @@ type ProfileInfoPropsType = {
   statusUpdateError: StatusType['errorMessage'] | null,
   updateProfile: (userData: any) => Promise<any>,
   setPhoto: (photoFile: File) => void,
-  updateStatus: (status: string) =>  void,
+  updateStatus: (status: string) => void,
 }
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
@@ -33,10 +33,6 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
       .catch((error: Error) => {
       })
   }
-
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
   return (
     <React.Fragment>
       <div>
@@ -51,15 +47,12 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
           profile={ props.profile }
           statusUpdateError={ props.statusUpdateError }
           onToggleEditMode={ onToggleEditMode }
-          // @ts-ignore
           setPhoto={ props.setPhoto }
-          // @ts-ignore
           updateStatus={ props.updateStatus }
           status={ props.status }
           isPageOwner={ props.isPageOwner }
         />
         : <ProfileUpdateForm
-          // TODO Remove TS-ignore
           initialValues={ props.profile }
           onSubmit={ (formData) => updateUserInfo(formData) }
           profile={ props.profile }
@@ -72,8 +65,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 type ProfileBlockPropsType = {
   profile: ProfileType,
   onToggleEditMode: () => void,
-  setPhoto: (photoFile: File) => (dispatch: Function) => Promise<any>,
-  updateStatus: (status: string) => (dispatch: Function) => Promise<any>,
+  setPhoto: (photoFile: File) => void,
+  updateStatus: (status: string) => void,
   status: StatusType['status'],
   isPageOwner: boolean,
   statusUpdateError: string | null

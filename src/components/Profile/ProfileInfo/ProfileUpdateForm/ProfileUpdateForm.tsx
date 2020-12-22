@@ -7,10 +7,6 @@ import {ProfileType} from "../../../../types/types";
 
 type OwnProps = {
   profile: ProfileType
-  initialValues: ProfileType | null
-}
-
-type StateProps = {
 }
 
 type Props = OwnProps & InjectedFormProps<ProfileType, OwnProps>

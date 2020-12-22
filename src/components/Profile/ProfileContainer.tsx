@@ -72,6 +72,7 @@ const mapStateToProps = (state: any): ProfileStateProps => {
 }
 
 
+
 const mapDispatchToProps: ProfileDispatchProps = {
   getProfile,
   getStatus,

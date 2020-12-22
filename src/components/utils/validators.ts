@@ -1,5 +1,7 @@
 
-export const required = (value) => {
+type ValidatorFunctionType = (value: string) => string | undefined
+
+export const required: ValidatorFunctionType = (value) => {
   if (!value) {
     return "Field is required"
   }
@@ -7,7 +9,7 @@ export const required = (value) => {
   return undefined
 }
 
-export const createMaxLengthValivator = (numberOfSymbols) => {
+export const createMaxLengthValivator = (numberOfSymbols: number): ValidatorFunctionType => {
   return (value) => {
     if (value && value.length > numberOfSymbols) {
       return `Must be ${numberOfSymbols} characters or less`
@@ -16,7 +18,7 @@ export const createMaxLengthValivator = (numberOfSymbols) => {
   }
 }
 
-export const isEmail = (value) => {
+export const isEmail: ValidatorFunctionType = (value) => {
   if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     return "Please enter valid email address"
   }

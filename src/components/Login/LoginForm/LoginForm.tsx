@@ -1,5 +1,6 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
+import { MainLoginFormType } from '../../../types/types'
 import { Input } from '../../common/ValidatedFields/validatedFields'
 import { createMaxLengthValivator, isEmail, required } from '../../utils/validators'
 import classes from './LoginForm.module.css'
@@ -9,32 +10,32 @@ type OwnProps = {
   captchaURL: string | null
 }
 
-type Props = OwnProps & InjectedFormProps<{}, OwnProps>
+type Props = OwnProps & InjectedFormProps<MainLoginFormType, OwnProps>
 
 const maxLength50 = createMaxLengthValivator(50)
 const LoginForm: React.FC<Props> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field 
-          type='text' 
+        <Field
+          type='text'
           component={Input}
           name='email'
           validate={[required, isEmail]}
           placeholder='Login'/>
       </div>
       <div>
-        <Field 
-          type='text' 
-          component={Input} 
-          name='password' 
+        <Field
+          type='text'
+          component={Input}
+          name='password'
           validate={[required, maxLength50]}
           placeholder='Password'/>
       </div>
       <div>
-        <Field 
-          type='checkbox' 
-          component='input' 
+        <Field
+          type='checkbox'
+          component='input'
           name='rememberMe'/> Remember me
       </div>
       {
@@ -63,6 +64,6 @@ const LoginForm: React.FC<Props> = (props) => {
   )
 }
 
-export default reduxForm<{}, OwnProps>({
+export default reduxForm<MainLoginFormType, OwnProps>({
   form: 'login'
 })(LoginForm)
