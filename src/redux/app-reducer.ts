@@ -1,4 +1,5 @@
 import { setAuthUserData } from "./auth-reducer"
+import {BaseThunkType, InferActionTypes} from "./redux-store"
 
 const INITIALIZE_SUCCESS = 'social-network-react/app/INITIALIZE_SUCCESS'
 
@@ -11,7 +12,7 @@ const initialState: AppReducerStateType = {
 }
 
 
-const appReducer = (state = initialState, action: any): AppReducerStateType => {
+const appReducer = (state = initialState, action: ActionsTypes): AppReducerStateType => {
   switch (action.type) {
     case INITIALIZE_SUCCESS:
       return {
@@ -23,26 +24,27 @@ const appReducer = (state = initialState, action: any): AppReducerStateType => {
   }
 }
 
-/* type of actions*/
-type initializeAppSuccessType = {
-  type: typeof INITIALIZE_SUCCESS
-}
-/*end of type actions*/
 
-const initializeAppSuccess = (): initializeAppSuccessType => {
-  return {
-    type: INITIALIZE_SUCCESS,
+
+export const actions = {
+  initializeAppSuccess: () => {
+    return {
+      type: INITIALIZE_SUCCESS,
+    } as const
   }
 }
 
-export const initializeApp = () => {
-  return (dispatch: Function) => {
+
+export const initializeApp = (): ThunkType => {
+  return async (dispatch) => {
     const promiseSetAuthData = dispatch(setAuthUserData())
     Promise.all([promiseSetAuthData])
       .then(() => {
-        dispatch(initializeAppSuccess())
+        dispatch(actions.initializeAppSuccess())
       })
   }
 }
 
+type ActionsTypes = InferActionTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>
 export default appReducer

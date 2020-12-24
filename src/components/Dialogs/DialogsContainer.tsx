@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   DialogsDataType, MessagesDataType,
-  sendMessage,
+actions
 } from '../../redux/dialogs-reducer'
 import StoreContext from '../../StoreContext'
 import DialogItem from './DialogItem/DialogItem'
@@ -63,7 +63,7 @@ function mapStateToProps(state: AppStateType): DialogsContainerStateType {
 }
 
 const mapDispatchToProps = {
-  onSendMessage: sendMessage
+  onSendMessage: actions.sendMessage
 }
 
 const DialogsContainer = compose(

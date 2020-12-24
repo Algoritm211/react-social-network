@@ -73,17 +73,16 @@ const mapStateToProps = (state: any): ProfileStateProps => {
 
 
 
-const mapDispatchToProps: ProfileDispatchProps = {
+const mapDispatchToProps = {
   getProfile,
   getStatus,
   updateStatus,
   setUserPhoto,
-  // @ts-ignore
   updateProfile,
 }
 
-export default compose(
-              connect<ProfileStateProps, ProfileDispatchProps, ProfileOwnProps, AppStateType>(mapStateToProps, mapDispatchToProps),
+export default compose<React.ComponentType>(
+              connect(mapStateToProps, mapDispatchToProps),
               withRouter,
               // withAuthRedirect,
               )(ProfileContainer)

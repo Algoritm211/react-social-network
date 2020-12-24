@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Users from './Users'
-import {follow, requestUsers, setCurrentPageAC, unfollow} from '../../redux/users-reducer'
+import {follow, requestUsers, actions, unfollow} from '../../redux/users-reducer'
 import Loader from '../common/Loader/Loader'
 import { compose } from 'redux'
 import { getCurrentPage, getIsFetching, getToggleFollowing, getTotalUsersCountUsers, getUsers, getUsersPerPage } from '../../redux/users-selector'
@@ -74,7 +74,7 @@ function mapStateToProps(state: AppStateType): UsersContainerStateProps {
 const mapDispatchToProps: UsersContainerDispatchProps = {
     follow,
     unfollow,
-    setCurrentPage: setCurrentPageAC,
+    setCurrentPage: actions.setCurrentPageAC,
     getUsers: requestUsers,
 }
 

@@ -1,3 +1,4 @@
+import {InferActionTypes} from "./redux-store";
 
 const SEND_MESSAGE = 'social-network-react/dialogsPage/SEND-MESSAGE'
 
@@ -26,7 +27,7 @@ const initialState = {
 
 export type DialogsReducerType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsReducerType => {
+const dialogsReducer = (state = initialState, action: ActionTypes): DialogsReducerType => {
 
   switch (action.type) {
     case SEND_MESSAGE:
@@ -52,21 +53,16 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsRedu
 
 
 
-/* type of actions*/
-type SendMessageType = {
-  type: typeof SEND_MESSAGE,
-  newMessageText: string
-}
-
-type ActionsTypes = SendMessageType
-/*end of type actions*/
-
-
-export const sendMessage = (message: string): SendMessageType => {
-  return {
-    type: SEND_MESSAGE,
-    newMessageText: message
+export const actions = {
+  sendMessage: (message: string) => {
+    return {
+      type: SEND_MESSAGE,
+      newMessageText: message
+    } as const
   }
+
 }
+
+type ActionTypes = InferActionTypes<typeof actions>
 
 export default dialogsReducer
