@@ -1,7 +1,8 @@
 import React from 'react'
 
-const withReactSuspense = (Component) => {
-  return (props) => {
+// WCP - Wrapped Component Props
+function withReactSuspense<WCP> (Component: React.ComponentType<WCP>) {
+  return (props: WCP) => {
     return (
       <React.Suspense fallback={<div>Загрузка...</div>}>
         <Component {...props} />

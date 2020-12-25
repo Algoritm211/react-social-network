@@ -1,11 +1,12 @@
 import React from 'react'
 import {Field, FormProps, InjectedFormProps, reduxForm} from 'redux-form'
+import { MessagesDataType } from '../../../redux/dialogs-reducer'
 import { Textarea } from '../../common/ValidatedFields/validatedFields'
 import { createMaxLengthValivator, required } from '../../utils/validators'
 import classes from './MessageForm.module.css'
 
 
-type Props = InjectedFormProps<{}, {}>
+type Props = InjectedFormProps<MessagesDataType, {}>
 
 const maxLength70 = createMaxLengthValivator(70)
 const MessageForm: React.FC<Props> = (props) => {
@@ -26,6 +27,6 @@ const MessageForm: React.FC<Props> = (props) => {
   )
 }
 
-export default reduxForm<{}, {}>({
+export default reduxForm<MessagesDataType, {}>({
   form: 'message'
 })(MessageForm)

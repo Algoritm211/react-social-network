@@ -1,17 +1,24 @@
 import React from "react";
 import classes from './MyPosts.module.css'
-import Post from "./Post/Post";
-import PostForm from "./PostForm/PostForm";
+import {Post} from "./Post/Post";
+import PostForm, { NewPostType } from "./PostForm/PostForm";
+import {PostType} from "../../../types/types";
 
-const MyPosts = (props) => {
+
+
+type Props = {
+  posts: Array<PostType>,
+  onAddPost: (post: string) => void
+}
+const MyPosts: React.FC<Props> = (props) => {
 
   const postsElements = props.posts.map((post, index) => {
     return (
-      <Post message={post.message} likeCounts={post.likesCount} key={index}/> 
+      <Post message={post.message} likesCount={post.likesCount} key={index}/>
     )
   })
 
-  const onAddPost = (formData) => {
+  const onAddPost = (formData: NewPostType) => {
     props.onAddPost(formData.newPost)
   }
 

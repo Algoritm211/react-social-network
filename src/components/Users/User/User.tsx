@@ -12,6 +12,7 @@ type PropsType = {
     unfollow: (userId: number) => void,
 }
 
+
 const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) => {
   return (
     <div className={classes.usersBlock} key={user.id}>

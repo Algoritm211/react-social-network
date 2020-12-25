@@ -79,7 +79,7 @@ export const actions = {
 
 }
 
-type ThunkActionType = BaseThunkType<ActionTypes>
+
 
 export const setAuthUserData = (): ThunkActionType => {
   return async (dispatch: Function) => {
@@ -122,6 +122,6 @@ export const logoutUser = (): ThunkActionType => {
   }
 }
 
-
+type ThunkActionType = BaseThunkType<ActionTypes>
 type ActionTypes = InferActionTypes<typeof actions>
 export default authReducer

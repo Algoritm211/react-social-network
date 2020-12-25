@@ -82,10 +82,7 @@ const profileReducer = (state = initialState, action: ActionTypes): InitialState
 }
 
 
-/* type of actions*/
 
-type ActionTypes = InferActionTypes<typeof actions>
-/*end of type actions*/
 
 export const actions = {
   addPostActionCreator: (post: string) => {
@@ -127,7 +124,6 @@ export const actions = {
 
 }
 
-type ThunkActionType = BaseThunkType<ActionTypes>
 
 export const setUserPhoto = (photoFile: File): ThunkActionType => {
   return async (dispatch) => {
@@ -202,5 +198,6 @@ export const updateProfile = (userData: any): ThunkAction<Promise<any>, AppState
   }
 }
 
-
+type ThunkActionType = BaseThunkType<ActionTypes>
+type ActionTypes = InferActionTypes<typeof actions>
 export default profileReducer

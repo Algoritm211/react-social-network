@@ -20,8 +20,6 @@ type PropsType = HeaderContainerPropsType & HeaderContainerDispatchType
 
 class HeaderContainer extends React.Component<PropsType> {
 
-  componentDidMount() {
-  }
 
   render() {
     return (

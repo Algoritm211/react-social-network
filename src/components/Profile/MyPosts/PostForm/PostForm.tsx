@@ -1,11 +1,18 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import {Field, InjectedFormProps, reduxForm} from 'redux-form'
+import { PostType } from '../../../../types/types'
 import { Textarea } from '../../../common/ValidatedFields/validatedFields'
 import {createMaxLengthValivator, required } from '../../../utils/validators'
 
 const maxLenght100 = createMaxLengthValivator(100)
 
-const PostForm = (props) => {
+export type NewPostType = {
+  newPost: string
+}
+
+type Props = InjectedFormProps<NewPostType, {}>
+
+const PostForm: React.FC<Props> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -23,6 +30,6 @@ const PostForm = (props) => {
   )
 }
 
-export default reduxForm({
+export default reduxForm<NewPostType, {}>({
   form: 'post'
 })(PostForm)

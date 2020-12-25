@@ -3,9 +3,10 @@ import { actions } from "../../../redux/profile-reducer";
 import StoreContext from "../../../StoreContext";
 import Dialogs from "../../Dialogs/Dialogs";
 import MyPosts from "./MyPosts";
-import classes from './MyPosts.module.css'
-import Post from "./Post/Post";
-import {connect} from 'react-redux'
+import {Post} from "./Post/Post";
+import {connect, DispatchProp} from 'react-redux'
+import {PostType} from "../../../types/types";
+import {AppStateType} from "../../../redux/redux-store";
 
 // const MyPostsContainer = (props) => {
 
@@ -38,20 +39,24 @@ import {connect} from 'react-redux'
 //   );
 // };
 
-function mapStateToProps(state) {
+type MapStateToPropsType = {
+  posts: Array<PostType>
+}
+
+type MapDispatchToPropsType = {
+  onAddPost: (post: string) => void
+}
+
+function mapStateToProps(state: AppStateType) {
   return {
     posts: state.profilePage.postsData,
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onAddPost: (post) => {
-      dispatch(actions.addPostActionCreator(post))
-    },
-  }
+const mapDispatchToProps = {
+  onAddPost: actions.addPostActionCreator
 }
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+const MyPostsContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(MyPosts)
 
-export default MyPostsContainer;
+export default MyPostsContainer

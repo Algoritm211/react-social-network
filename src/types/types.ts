@@ -1,3 +1,5 @@
+
+//Reducer types
 export type PostType = {
     id: number,
     message: string,
@@ -49,9 +51,15 @@ export type FriendsType = {
     img: string
 }
 
+
+//Form types
 export type MainLoginFormType = {
     email?: string,
     password?: string,
     rememberMe?: boolean,
     captcha?: string
 }
+
+
+
+

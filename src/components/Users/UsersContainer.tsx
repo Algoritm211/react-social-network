@@ -43,17 +43,18 @@ class UsersContainer extends React.Component<PropsType, never> {
       <React.Fragment>
         { this.props.isFetching
           ? <Loader />
-          : <Users 
-          users={this.props.users} 
-          onChangePage={(page) => this.onChangePage(page)}
-          totalUsersCount={this.props.totalUsersCount}
-          usersPerPage={this.props.usersPerPage}
-          currentPage={this.props.currentPage}
-          follow={this.props.follow}
-          unfollow={this.props.unfollow}
-          toggleFollowing={this.props.toggleFollowing}
-          />
+          : null
         }
+        <Users
+        users={this.props.users}
+        onChangePage={(page) => this.onChangePage(page)}
+        totalUsersCount={this.props.totalUsersCount}
+        usersPerPage={this.props.usersPerPage}
+        currentPage={this.props.currentPage}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
+        toggleFollowing={this.props.toggleFollowing}
+      />
       </React.Fragment>
     )
   }

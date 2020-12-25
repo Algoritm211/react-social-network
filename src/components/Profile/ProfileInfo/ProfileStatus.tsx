@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
 import classes from './ProfileStatus.module.css'
+import {StatusType} from "../../../types/types";
 
 
-class ProfileStatus extends React.Component {
+type OwnState = {
+  editMode: boolean,
+  status: string | null | undefined
+}
+
+type OwnProps = {
+  status: StatusType['status'],
+  updateStatus: (status: string) => void,
+  statusUpdateError: string | null
+}
+
+
+class ProfileStatus extends React.Component<OwnProps, OwnState> {
 
   state = {
     editMode: false,
@@ -18,16 +31,16 @@ class ProfileStatus extends React.Component {
     this.setState({
       editMode: false
     })
-    this.props.updateStatus(this.state.status)
+    this.props.updateStatus(this.state.status as string)
   }
 
-  onChangeStatus = (event) => {
+  onChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       status: event.currentTarget.value
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: OwnProps, prevState: OwnState) {
     if (prevProps.status !== this.props.status) {
       this.setState({
         status: this.props.status
@@ -50,7 +63,7 @@ class ProfileStatus extends React.Component {
               onChange={this.onChangeStatus}
               autoFocus={true}
               onBlur={this.disableEditMode}
-              value={this.state.status}/>
+              value={this.state.status as string}/>
           </div>
         }
         {this.props.statusUpdateError &&
