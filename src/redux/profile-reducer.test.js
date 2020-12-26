@@ -1,4 +1,4 @@
-const { addPostActionCreator, default: profileReducer, deletePostAC } = require("./profile-reducer")
+const { addPostActionCreator, default: profileReducer, actions } = require("./profile-reducer")
 
 
 const initialState = {
@@ -11,14 +11,14 @@ const initialState = {
 }
 
 it('3 posts should be returned', () => {
-  const action = addPostActionCreator('New post 3')
+  const action = actions.addPostActionCreator('New post 3')
   const newState = profileReducer(initialState, action)
   expect(newState.postsData.length).toBe(3)
 })
 
 
 it('Deleting posts in profile-reducer.ts, 1 post should be returned', () => {
-  const action = deletePostAC(1)
+  const action = actions.deletePostAC(1)
   const newState = profileReducer(initialState, action)
   expect(newState.postsData.length).toBe(1) 
 }) 

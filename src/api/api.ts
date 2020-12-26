@@ -19,7 +19,7 @@ export enum ResultCaptchaIsRequired {
   CaptchaIsRequired = 10
 }
 
-interface IResponseAPI {
+export interface IResponseAPI {
   data: object,
   resultCode: ResultCodesEnum,
   messages: Array<string>

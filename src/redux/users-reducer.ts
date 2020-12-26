@@ -1,5 +1,5 @@
 import {ResultCodesEnum} from "../api/api";
-import { updateObjectInArray } from "../components/utils/helpers/helpers";
+import {updateObjectInArray} from "../components/utils/helpers/helpers";
 import {PhotosType, UsersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
@@ -14,7 +14,7 @@ const TOGGLE_IS_FETCHING = 'social-network-react/usersPage/TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING = 'social-network-react/usersPage/TOGGLE_IS_FOLLOWING'
 
 
-type UsersReducerStateType = {
+export type UsersReducerStateType = {
   users: Array<UsersType>,
   usersPerPage: number,
   totalUsersCount: number,
@@ -32,7 +32,7 @@ const initialState: UsersReducerStateType = {
   toggleFollowing: []
 };
 
-const usersReducer = (state = initialState, action: ActionsTypes): UsersReducerStateType => {
+export const usersReducer = (state = initialState, action: ActionsTypes): UsersReducerStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -70,8 +70,8 @@ const usersReducer = (state = initialState, action: ActionsTypes): UsersReducerS
       return {
         ...state,
         toggleFollowing: action.isToggleFollowing
-                        ? [...state.toggleFollowing, action.userId]
-                        : [...state.toggleFollowing.filter(id => id !== action.userId)]
+          ? [...state.toggleFollowing, action.userId]
+          : [...state.toggleFollowing.filter(id => id !== action.userId)]
       }
     default:
       return state;
@@ -136,7 +136,7 @@ export const requestUsers = (currentPage: number, usersPerPage: number): ThunkAc
   return async (dispatch) => {
     dispatch(actions.toggleIsFetchingAC(true))
     const data = await usersAPI.getUsers(currentPage, usersPerPage)
-      
+
     dispatch(actions.toggleIsFetchingAC(false))
     dispatch(actions.setUsersAC(data.items))
     dispatch(actions.setTotalUsersCountAC(data.totalCount - 7899))
@@ -148,11 +148,10 @@ export const follow = (userId: number): ThunkActionType => {
     dispatch(actions.toggleIsFollowingAC(true, userId))
     const data = await usersAPI.follow(userId)
     try {
-      if (data.resultCode === ResultCodesEnum.Success) {
+      if (data.resultCode === 0) {
         dispatch(actions.followSuccess(userId))
       }
       dispatch(actions.toggleIsFollowingAC(false, userId))
-      
     } catch (error) {
       dispatch(actions.toggleIsFollowingAC(false, userId))
     }
@@ -165,7 +164,7 @@ export const unfollow = (userId: number): ThunkActionType => {
     const data = await usersAPI.unfollow(userId)
 
     try {
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(actions.unfollowSuccess(userId))
       }
       dispatch(actions.toggleIsFollowingAC(false, userId))

@@ -1,4 +1,4 @@
-import {Ifollow, IGetUsers, instanceAxios, Iunfollow} from "./api";
+import {Ifollow, IGetUsers, instanceAxios, IResponseAPI, Iunfollow} from "./api";
 
 
 export const usersAPI = {
@@ -9,15 +9,15 @@ export const usersAPI = {
       })
   },
 
-  follow(userId: number) {
-    return instanceAxios.post<Ifollow>(`follow/${userId}`)
+  follow: async (userId: number) => {
+    return await instanceAxios.post<IResponseAPI>(`follow/${userId}`)
       .then(response => {
         return response.data
       })
   },
 
-  unfollow(userId: number) {
-    return instanceAxios.delete<Iunfollow>(`follow/${userId}`)
+  unfollow: async (userId: number) => {
+    return await instanceAxios.delete<Iunfollow>(`follow/${userId}`)
       .then(response => {
         return response.data
       })

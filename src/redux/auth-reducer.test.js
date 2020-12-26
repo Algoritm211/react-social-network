@@ -1,4 +1,4 @@
-import authReducer, {setAuthUserDataAC } from "./auth-reducer"
+import authReducer, {actions } from "./auth-reducer"
 
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 }
 
 it('Set auth user data', () => {
-  const action = setAuthUserDataAC(1, 'algoritm211@gmail.com', 'Alexey_Horbunov', true)
+  const action = actions.setAuthUserDataAC(1, 'algoritm211@gmail.com', 'Alexey_Horbunov', true)
   const newState = authReducer(initialState, action)
 
   expect(newState.userId).toEqual(1)
