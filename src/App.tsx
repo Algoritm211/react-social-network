@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect} from 'react-router-dom';
-import { compose } from 'redux';
+import {connect} from 'react-redux';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
+import {compose} from 'redux';
 import './App.css'
 import Loader from './components/common/Loader/Loader';
 // import DialogsСontainer from './components/Dialogs/DialogsContainer'
@@ -12,14 +12,14 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from './components/Settings/Settings';
-import UsersContainer from './components/Users/UsersContainer';
-import {AppReducerStateType, initializeApp } from './redux/app-reducer';
+
+import {initializeApp} from './redux/app-reducer';
 import withReactSuspense from "./components/hoc/withReactSuspense";
+import UsersPage from "./components/Users/UsersContainer";
 
 const DialogsContainer = React.lazy(() => {
   return import('./components/Dialogs/DialogsContainer')
 })
-// const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 
 type AppStateProps = {
@@ -56,8 +56,7 @@ class App extends React.Component<Props, never> {
             <Route path="/news" component={News} />
             <Route path="/music" component={Music} />
             <Route path="/users" render={() => {
-              // @ts-ignore
-              return <UsersContainer />
+              return <UsersPage />
             }} />
             <Route path="/settings" component={Settings} />
             <Route path='/login' render={() => {

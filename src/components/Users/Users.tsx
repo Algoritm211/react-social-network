@@ -1,38 +1,55 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import classes from './Users.module.css'
 import Paginator from '../common/Paginator/Paginator'
 import User from './User/User'
-import {ProfileType, UsersType} from "../../types/types";
+import {UsersType} from "../../types/types";
 import SearchUserForm from './SearchUserForm/SearchUserForm';
-import {FilterType} from "../../redux/users-reducer";
+import {actions, FilterType, follow, requestUsers, unfollow} from "../../redux/users-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  getCurrentPage,
+  getFilter,
+  getToggleFollowing,
+  getTotalUsersCountUsers,
+  getUsers,
+  getUsersPerPage
+} from "../../redux/users-selector";
 
 
-type Props = {
-  follow: (userId: number) => void,
-  unfollow: (userId: number) => void,
-  users: Array<UsersType>,
-  toggleFollowing: Array<number>
-  totalUsersCount: number,
-  currentPage: number,
-  usersPerPage: number,
-  onChangePage: (page: number) => void
-  onChangeFilter: (filter: FilterType) => void
-}
+type Props = {}
 
-const Users: React.FC<Props> = ({follow, unfollow, users,
-                                    totalUsersCount,
-                                    currentPage,
-                                    usersPerPage,
-                                    onChangePage,
-                                    toggleFollowing,
-                                    onChangeFilter}) => {
+const Users: React.FC<Props> = () => {
+
+  const dispatch = useDispatch()
+
+  const currentPage = useSelector(getCurrentPage)
+  const usersPerPage = useSelector(getUsersPerPage)
+  const totalUsersCount = useSelector(getTotalUsersCountUsers)
+  const users = useSelector(getUsers)
+  const toggleFollowing = useSelector(getToggleFollowing)
+  const filter  = useSelector(getFilter)
+
+  useEffect(() => {
+    dispatch(requestUsers(currentPage, usersPerPage, filter.term, filter.friend))
+  }, [])
+
+  const onChangePage = (page: number) => {
+    dispatch(actions.setCurrentPageAC(page))
+    dispatch(requestUsers(page, usersPerPage, filter.term, filter.friend))
+  }
+
+  const onChangeFilter = (filter: FilterType) => {
+    dispatch(actions.setFilterParameters({...filter}))
+    dispatch(actions.setCurrentPageAC(1))
+    dispatch(requestUsers(1, usersPerPage, filter.term, filter.friend))
+  }
 
   const followUser = (userId: number) => {
-    follow(userId)
+    dispatch(follow(userId))
   }
 
   const unfollowUser = (userId: number) => {
-    unfollow(userId)
+    dispatch(unfollow(userId))
   }
 
   let usersElements = users.map((user: UsersType, index: number) => {
