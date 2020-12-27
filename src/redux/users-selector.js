@@ -24,3 +24,7 @@ export const getIsFetching = (state) => {
 export const getToggleFollowing = (state) => {
   return state.usersPage.toggleFollowing
 }
+
+export const getFilter = (state) => {
+  return state.usersPage.filter
+}

@@ -12,7 +12,12 @@ const SET_CURRENT_PAGE = 'social-network-react/usersPage/SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'social-network-react/usersPage/SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'social-network-react/usersPage/TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING = 'social-network-react/usersPage/TOGGLE_IS_FOLLOWING'
+const SET_FILTER_PARAMETERS = 'social-network-react/usersPage/SET_FILTER_PARAMETERS'
 
+export type FilterType = {
+  term: string,
+  friend: null | boolean
+}
 
 export type UsersReducerStateType = {
   users: Array<UsersType>,
@@ -20,7 +25,8 @@ export type UsersReducerStateType = {
   totalUsersCount: number,
   currentPage: number,
   isFetching: boolean,
-  toggleFollowing: Array<number> // array of user ids
+  toggleFollowing: Array<number>, // array of user ids
+  filter: FilterType
 }
 
 const initialState: UsersReducerStateType = {
@@ -29,7 +35,11 @@ const initialState: UsersReducerStateType = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  toggleFollowing: []
+  toggleFollowing: [],
+  filter: {
+    term: '',
+    friend: null
+  }
 };
 
 export const usersReducer = (state = initialState, action: ActionsTypes): UsersReducerStateType => {
@@ -59,7 +69,11 @@ export const usersReducer = (state = initialState, action: ActionsTypes): UsersR
         ...state,
         currentPage: action.page
       }
-
+    case SET_FILTER_PARAMETERS:
+      return {
+        ...state,
+        filter: {...action.filterParams}
+      }
     case TOGGLE_IS_FETCHING:
       return {
         ...state,
@@ -115,6 +129,13 @@ export const actions = {
     } as const
   },
 
+  setFilterParameters: (filterParams: FilterType) => {
+    return {
+      type: SET_FILTER_PARAMETERS,
+      filterParams: filterParams
+    } as const
+  },
+
   toggleIsFetchingAC: (isFetching: boolean) => {
     return {
       type: TOGGLE_IS_FETCHING,
@@ -132,14 +153,15 @@ export const actions = {
 }
 
 
-export const requestUsers = (currentPage: number, usersPerPage: number): ThunkActionType => {
+export const requestUsers = (currentPage: number, usersPerPage: number, term: string, friend: null | boolean): ThunkActionType => {
   return async (dispatch) => {
     dispatch(actions.toggleIsFetchingAC(true))
-    const data = await usersAPI.getUsers(currentPage, usersPerPage)
+    const data = await usersAPI.getUsers(currentPage, usersPerPage, term, friend)
+    dispatch(actions.setFilterParameters({term: term, friend: friend}))
 
     dispatch(actions.toggleIsFetchingAC(false))
     dispatch(actions.setUsersAC(data.items))
-    dispatch(actions.setTotalUsersCountAC(data.totalCount - 7899))
+    dispatch(actions.setTotalUsersCountAC(data.totalCount))
   }
 }
 

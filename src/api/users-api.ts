@@ -2,8 +2,14 @@ import {Ifollow, IGetUsers, instanceAxios, IResponseAPI, Iunfollow} from "./api"
 
 
 export const usersAPI = {
-  getUsers(currentPage: number, usersPerPage: number) {
-    return instanceAxios.get<IGetUsers>(`users?page=${currentPage}&count=${usersPerPage}`)
+  async getUsers(currentPage: number, usersPerPage: number, term: string = '', friend: null | boolean) {
+    let friendToUrl: string
+    if (friend !== null) {
+      friendToUrl = friend.toString()
+    } else {
+      friendToUrl = ''
+    }
+    return await instanceAxios.get<IGetUsers>(`users?page=${currentPage}&count=${usersPerPage}&term=${term}&friend=${friendToUrl}`)
       .then(response => {
         return response.data
       })

@@ -3,17 +3,20 @@ import classes from './Users.module.css'
 import Paginator from '../common/Paginator/Paginator'
 import User from './User/User'
 import {ProfileType, UsersType} from "../../types/types";
+import SearchUserForm from './SearchUserForm/SearchUserForm';
+import {FilterType} from "../../redux/users-reducer";
 
 
 type Props = {
-    follow: (userId: number) => void,
-    unfollow: (userId: number) => void,
-    users: Array<UsersType>,
-    toggleFollowing: Array<number>
-    totalUsersCount: number,
-    currentPage: number,
-    usersPerPage: number,
-    onChangePage: (page: number) => void
+  follow: (userId: number) => void,
+  unfollow: (userId: number) => void,
+  users: Array<UsersType>,
+  toggleFollowing: Array<number>
+  totalUsersCount: number,
+  currentPage: number,
+  usersPerPage: number,
+  onChangePage: (page: number) => void
+  onChangeFilter: (filter: FilterType) => void
 }
 
 const Users: React.FC<Props> = ({follow, unfollow, users,
@@ -21,8 +24,9 @@ const Users: React.FC<Props> = ({follow, unfollow, users,
                                     currentPage,
                                     usersPerPage,
                                     onChangePage,
-                                    toggleFollowing}) => {
-  
+                                    toggleFollowing,
+                                    onChangeFilter}) => {
+
   const followUser = (userId: number) => {
     follow(userId)
   }
@@ -45,8 +49,11 @@ const Users: React.FC<Props> = ({follow, unfollow, users,
 
   return (
     <React.Fragment>
+      <div>
+        <SearchUserForm onChangeFilter={onChangeFilter} />
+      </div>
       <div className={classes.paginator}>
-        <Paginator 
+        <Paginator
           totalItemsCount = {totalUsersCount}
           currentPage = {currentPage}
           usersPerPage = {usersPerPage}

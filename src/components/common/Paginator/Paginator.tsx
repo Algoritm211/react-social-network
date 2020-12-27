@@ -19,11 +19,11 @@ const Paginator: React.FC<Props> = ({totalItemsCount, currentPage, usersPerPage,
   const [portionNumber, setPortionNumber] = useState(1)
   const pageLeftBorder = (portionNumber - 1) * portionSize + 1
   const pageRightBorder = portionNumber * portionSize
-
   let pages = []
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
+
 
   let paginatorElement = pages
     .filter(pageNumber => {
