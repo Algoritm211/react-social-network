@@ -14,6 +14,8 @@ import {
   getUsers,
   getUsersPerPage
 } from "../../redux/users-selector";
+import { useHistory } from 'react-router-dom';
+import {BooleanParam, NumberParam, StringParam, useQueryParams, decodeString } from 'use-query-params';
 
 
 type Props = {}
@@ -29,9 +31,25 @@ const Users: React.FC<Props> = () => {
   const toggleFollowing = useSelector(getToggleFollowing)
   const filter  = useSelector(getFilter)
 
+  const [query, setQuery] = useQueryParams({term: StringParam, friend: BooleanParam, page: NumberParam});
+
+
   useEffect(() => {
-    dispatch(requestUsers(currentPage, usersPerPage, filter.term, filter.friend))
+
+    const queryParams = query
+    const page = queryParams.page || 1
+    const term = queryParams.term  || ''
+    const friend = queryParams.friend === undefined ? null : queryParams.friend
+    dispatch(actions.setCurrentPageAC(page))
+    dispatch(requestUsers(page, usersPerPage, term, friend))
   }, [])
+
+
+  useEffect(() => {
+    setQuery({...filter, page: currentPage})
+  }, [filter, currentPage])
+
+
 
   const onChangePage = (page: number) => {
     dispatch(actions.setCurrentPageAC(page))

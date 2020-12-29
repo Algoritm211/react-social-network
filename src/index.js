@@ -3,19 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, HashRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Route} from 'react-router-dom';
 import store from './redux/redux-store';
 //import StoreContext, { StoreProvider } from './StoreContext';
 import {Provider} from 'react-redux'
+import {QueryParamProvider} from 'use-query-params'
 
 // addPost('I will own Rolls-Royce')
 // Include HashRouter for GitHub pages
 ReactDOM.render(
-  <HashRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </HashRouter>,
+  <BrowserRouter>
+    <QueryParamProvider ReactRouterRoute={Route}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </QueryParamProvider>
+  </BrowserRouter>,
   document.getElementById('root'));
 
 
