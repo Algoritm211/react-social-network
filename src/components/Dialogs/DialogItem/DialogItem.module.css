@@ -4,7 +4,7 @@
 }
 
 .dialog a{
-  color: white;
+  color: black;
   text-decoration: none;
   outline: none;
 }
@@ -17,5 +17,5 @@
 }
 
 .dialog a.active {
-  color: gold;
+  color: blueviolet;
 }

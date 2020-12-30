@@ -48,8 +48,7 @@ const Users: React.FC<Props> = () => {
   useEffect(() => {
     setQuery({...filter, page: currentPage})
   }, [filter, currentPage])
-
-
+  
 
   const onChangePage = (page: number) => {
     dispatch(actions.setCurrentPageAC(page))
