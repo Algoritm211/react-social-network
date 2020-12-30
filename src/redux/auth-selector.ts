@@ -12,3 +12,7 @@ export const getCaptchaURL = (state: AppStateType) => {
 export const getLogin = (state: AppStateType) => {
   return state.auth.login
 }
+
+export const getUserPhotoSmall = (state: AppStateType) => {
+  return state.auth.photos.small
+}

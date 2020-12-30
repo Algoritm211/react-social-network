@@ -2,11 +2,10 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import classes from './Header.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {getIsAuth, getLogin} from "../../redux/auth-selector";
+import {getIsAuth, getLogin, getUserPhotoSmall} from "../../redux/auth-selector";
 import {logoutUser} from '../../redux/auth-reducer';
 import {Avatar, Button, Col, Layout, Row} from "antd";
 import {UserOutlined} from '@ant-design/icons';
-import { getUserPhoto } from '../../redux/profile-selector';
 
 
 type PropsType = {}
@@ -19,7 +18,7 @@ const AppHeader: React.FC<PropsType> = (props) => {
 
   const isAuth = useSelector(getIsAuth)
   const login = useSelector(getLogin)
-  const userPhoto = useSelector(getUserPhoto)
+  const userPhoto = useSelector(getUserPhotoSmall)
 
   const onLogout = () => {
     dispatch(logoutUser())

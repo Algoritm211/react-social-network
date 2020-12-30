@@ -4,6 +4,8 @@ import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
+import {PhotosType} from "../types/types";
+import { profileAPI } from "../api/profile-api";
 
 const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'
@@ -14,6 +16,7 @@ type AuthReducerState = {
   email: string | null,
   login: string | null,
   isAuth: boolean,
+  photos: PhotosType
   captcha: string | null,
 }
 
@@ -22,6 +25,10 @@ const initialState: AuthReducerState = {
   email: null,
   login: null,
   isAuth: false,
+  photos: {
+    large: null,
+    small: null
+  },
   captcha: null
 }
 
@@ -58,6 +65,7 @@ export const actions = {
   setAuthUserDataAC: (userId: number | null,
                        email: string | null,
                        login: string | null,
+                       photos: PhotosType,
                        isAuth: boolean)  => {
     return {
       type: SET_USER_DATA,
@@ -65,6 +73,7 @@ export const actions = {
         userId,
         email,
         login,
+        photos,
         isAuth,
       }
     } as const
@@ -76,7 +85,6 @@ export const actions = {
     } as const
   }
 
-
 }
 
 
@@ -86,7 +94,9 @@ export const setAuthUserData = (): ThunkActionType => {
     const data = await authAPI.authUser()
     if (data.resultCode === 0) {
       let {id, email, login} = data.data
-      dispatch(actions.setAuthUserDataAC(id, email, login, true))
+      const profileData = await profileAPI.getProfile(id)
+      const photos = profileData.photos
+      dispatch(actions.setAuthUserDataAC(id, email, login, photos, true))
     }
   }
 }
@@ -116,7 +126,8 @@ export const logoutUser = (): ThunkActionType => {
   return async (dispatch: Function) => {
     let data = await authAPI.logoutUser()
     if (data.resultCode === 0) {
-      dispatch(actions.setAuthUserDataAC(null, null, null, false))
+      const photos: PhotosType = {small: null, large: null}
+      dispatch(actions.setAuthUserDataAC(null, null, null, photos, false))
     }
 
   }
