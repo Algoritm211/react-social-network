@@ -1,12 +1,11 @@
 import React from 'react'
 import {getProfile, getStatus, setUserPhoto, updateProfile, updateStatus} from '../../redux/profile-reducer'
 import Profile from './Profile'
-import { connect } from 'react-redux'
-import {RouteComponentProps, withRouter } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {RouteComponentProps, withRouter} from 'react-router-dom'
 //import withAuthRedirect from '../hoc/withAuthRedirect'
-import { compose } from 'redux'
+import {compose} from 'redux'
 import {ProfileType, StatusType} from "../../types/types";
-import {AppStateType} from "../../redux/redux-store";
 
 type ProfileStateProps = {
   profile: ProfileType | null

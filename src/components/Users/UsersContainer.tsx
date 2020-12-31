@@ -1,19 +1,8 @@
 import React from 'react'
-import {connect, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import Users from './Users'
-import {actions, FilterType, follow, requestUsers, unfollow} from '../../redux/users-reducer'
 import Loader from '../common/Loader/Loader'
-import {
-  getCurrentPage,
-  getFilter,
-  getIsFetching,
-  getToggleFollowing,
-  getTotalUsersCountUsers,
-  getUsers,
-  getUsersPerPage
-} from '../../redux/users-selector'
-import {UsersType} from "../../types/types";
-import {AppStateType} from '../../redux/redux-store'
+import {getIsFetching} from '../../redux/users-selector'
 
 
 type PropsType = {}

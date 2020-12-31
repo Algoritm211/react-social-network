@@ -1,11 +1,9 @@
-
 import {stopSubmit} from "redux-form"
-import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
-import {ThunkAction} from "redux-thunk";
+import {BaseThunkType, InferActionTypes} from "./redux-store";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
 import {PhotosType} from "../types/types";
-import { profileAPI } from "../api/profile-api";
+import {profileAPI} from "../api/profile-api";
 
 const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'

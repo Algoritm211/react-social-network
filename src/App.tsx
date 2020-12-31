@@ -12,7 +12,7 @@ import UsersPage from "./components/Users/UsersContainer";
 
 import 'antd/dist/antd.css'
 
-import {Layout, Menu, Breadcrumb, Col, Row} from 'antd';
+import {Layout, Menu, Breadcrumb} from 'antd';
 import {UserOutlined, LaptopOutlined, SettingOutlined} from '@ant-design/icons';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import News from './components/News/News';
@@ -23,7 +23,7 @@ import classes from "./components/Navbar/Navbar.module.css";
 import AppHeader from "./components/Header/Header";
 
 const {SubMenu} = Menu;
-const {Header, Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 
 
 const DialogsContainer = React.lazy(() => {

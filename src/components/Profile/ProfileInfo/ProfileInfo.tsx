@@ -5,7 +5,7 @@ import noProfilePhoto from '../../../assets/images/user_no_photo.png'
 //import {NavLink} from "react-router-dom";
 import ProfileUpdateForm from "./ProfileUpdateForm/ProfileUpdateForm";
 import {ProfileType, StatusType} from "../../../types/types";
-import {FileHandle} from "fs/promises";
+
 
 type ProfileInfoPropsType = {
   profile: ProfileType,

@@ -1,8 +1,9 @@
 import React from 'react'
 import classes from './User.module.css'
 import userPhoto from '../../../assets/images/user_no_photo.png'
-import { NavLink } from 'react-router-dom'
-import {UsersType} from "../../../types/types";;
+import {NavLink} from 'react-router-dom'
+import {UsersType} from "../../../types/types";
+
 
 
 type PropsType = {

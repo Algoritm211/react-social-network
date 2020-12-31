@@ -1,8 +1,7 @@
 import {ResultCodesEnum} from "../api/api";
 import {updateObjectInArray} from "../components/utils/helpers/helpers";
-import {PhotosType, UsersType} from "../types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
+import {UsersType} from "../types/types";
+import {BaseThunkType, InferActionTypes} from "./redux-store";
 import {usersAPI} from "../api/users-api";
 
 const FOLLOW = "social-network-react/usersPage/FOLLOW";

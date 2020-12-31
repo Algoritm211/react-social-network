@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classes from './ProfileStatus.module.css'
 import {StatusType} from "../../../types/types";
+
 
 
 type OwnState = {

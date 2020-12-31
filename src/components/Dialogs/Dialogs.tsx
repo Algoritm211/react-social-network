@@ -1,6 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { Field, reduxForm } from 'redux-form'
 import DialogItem from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
@@ -12,6 +10,7 @@ type DialogsProps = {
   messagesData: Array<MessagesDataType>,
   onSendMessage: (message: string) => void
 }
+
 
 const Dialogs: React.FC<DialogsProps> = ({dialogsData, messagesData, onSendMessage}) => {
 

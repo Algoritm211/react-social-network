@@ -1,8 +1,8 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import { MainLoginFormType } from '../../../types/types'
-import { Input } from '../../common/ValidatedFields/validatedFields'
-import { createMaxLengthValivator, isEmail, required } from '../../utils/validators'
+import {MainLoginFormType} from '../../../types/types'
+import {Input} from '../../common/ValidatedFields/validatedFields'
+import {createMaxLengthValivator, isEmail, required} from '../../utils/validators'
 import classes from './LoginForm.module.css'
 
 

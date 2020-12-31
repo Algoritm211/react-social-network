@@ -1,14 +1,11 @@
-import React from "react";
-import { actions } from "../../../redux/profile-reducer";
-import StoreContext from "../../../StoreContext";
-import Dialogs from "../../Dialogs/Dialogs";
+import {actions} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import {Post} from "./Post/Post";
-import {connect, DispatchProp} from 'react-redux'
+import {connect} from 'react-redux'
 import {PostType} from "../../../types/types";
 import {AppStateType} from "../../../redux/redux-store";
 
 // const MyPostsContainer = (props) => {
+
 
 //   return (
 

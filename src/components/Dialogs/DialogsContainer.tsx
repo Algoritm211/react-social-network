@@ -1,17 +1,11 @@
 import React from 'react'
-import {
-  DialogsDataType, MessagesDataType,
-actions
-} from '../../redux/dialogs-reducer'
-import StoreContext from '../../StoreContext'
-import DialogItem from './DialogItem/DialogItem'
+import {actions, DialogsDataType, MessagesDataType} from '../../redux/dialogs-reducer'
 import Dialogs from './Dialogs'
-import classes from './Dialogs.module.css'
-import Message from './Message/Message'
 import {connect} from 'react-redux'
 import withAuthRedirect from '../hoc/withAuthRedirect'
-import { compose } from 'redux'
+import {compose} from 'redux'
 import {AppStateType} from "../../redux/redux-store";
+
 
 
 // const DialogsContainer = (props) => {

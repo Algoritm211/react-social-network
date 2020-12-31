@@ -1,9 +1,9 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/ValidatedFields/validatedFields";
-import {required} from "../../../utils/validators";
 import classes from './ProfileUpdateForm.module.css'
 import {ProfileType} from "../../../../types/types";
+
 
 type OwnProps = {
   profile: ProfileType

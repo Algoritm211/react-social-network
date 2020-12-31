@@ -14,8 +14,8 @@ import {
   getUsers,
   getUsersPerPage
 } from "../../redux/users-selector";
-import { useHistory } from 'react-router-dom';
-import {BooleanParam, NumberParam, StringParam, useQueryParams, decodeString } from 'use-query-params';
+import {BooleanParam, NumberParam, StringParam, useQueryParams} from 'use-query-params';
+
 
 
 type Props = {}
@@ -42,11 +42,13 @@ const Users: React.FC<Props> = () => {
     const friend = queryParams.friend === undefined ? null : queryParams.friend
     dispatch(actions.setCurrentPageAC(page))
     dispatch(requestUsers(page, usersPerPage, term, friend))
+    // eslint-disable-next-line
   }, [])
 
 
   useEffect(() => {
     setQuery({...filter, page: currentPage})
+    // eslint-disable-next-line
   }, [filter, currentPage])
   
 

@@ -1,4 +1,4 @@
-import {Ifollow, IGetUsers, instanceAxios, IResponseAPI, Iunfollow} from "./api";
+import {IGetUsers, instanceAxios, IResponseAPI, Iunfollow} from "./api";
 
 
 export const usersAPI = {

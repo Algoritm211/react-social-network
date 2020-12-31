@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIsAuth, getLogin, getUserPhotoSmall} from "../../redux/auth-selector";
 import {logoutUser} from '../../redux/auth-reducer';
 import {Avatar, Button, Col, Layout, Row} from "antd";
-import {UserOutlined} from '@ant-design/icons';
+
 
 
 type PropsType = {}

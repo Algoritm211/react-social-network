@@ -1,4 +1,4 @@
-import { setAuthUserData } from "./auth-reducer"
+import {setAuthUserData} from "./auth-reducer"
 import {BaseThunkType, InferActionTypes} from "./redux-store"
 
 const INITIALIZE_SUCCESS = 'social-network-react/app/INITIALIZE_SUCCESS'

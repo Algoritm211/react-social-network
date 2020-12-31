@@ -1,9 +1,8 @@
 import React from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import PostForm, { NewPostType } from "./PostForm/PostForm";
+import PostForm, {NewPostType} from "./PostForm/PostForm";
 import {PostType} from "../../../types/types";
-
 
 
 type Props = {

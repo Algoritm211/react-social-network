@@ -1,8 +1,8 @@
 import React from 'react'
 import classes from './ValidatedFields.module.css'
 import classNames from 'classnames'
-import {WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
-import { Component } from 'react';
+import {WrappedFieldMetaProps} from "redux-form";
+
 
 
 type ValidatedFieldsCreatorPropsType = {

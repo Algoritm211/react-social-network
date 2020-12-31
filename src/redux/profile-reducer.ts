@@ -1,4 +1,4 @@
-import {FormAction, stopSubmit} from "redux-form";
+import {stopSubmit} from "redux-form";
 import {getErrorField} from "../components/utils/helpers/helpers";
 import {PhotosType, PostType, ProfileType, StatusType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
