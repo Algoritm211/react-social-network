@@ -3,3 +3,12 @@
 .sendChatMessageForm {
     margin-top: 30px;
 }
+
+.sendChatMessageFormElements {
+    display: flex;
+    justify-content: space-between;
+}
+
+.messageArea {
+    width: 95%;
+}

@@ -2,8 +2,10 @@
 
 .message {
     display: flex;
+    margin-bottom: 10px;
 }
 
 .messagesAvatar {
     margin-right: 30px;
+    display: flex;
 }
