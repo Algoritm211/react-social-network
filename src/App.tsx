@@ -21,6 +21,7 @@ import Settings from './components/Settings/Settings';
 import Login from './components/Login/Login';
 import classes from "./components/Navbar/Navbar.module.css";
 import AppHeader from "./components/Header/Header";
+import ChatPage from "./components/Chat/ChatPage";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
@@ -28,6 +29,10 @@ const {Content, Footer, Sider} = Layout;
 
 const DialogsContainer = React.lazy(() => {
   return import('./components/Dialogs/DialogsContainer')
+})
+
+const ChatPageWithSuspense = React.lazy(() => {
+  return import("./components/Chat/ChatPage")
 })
 
 
@@ -80,12 +85,15 @@ class App extends React.Component<Props, never> {
                     <NavLink to='/dialogs' activeClassName={classes.activeLink}>Messages</NavLink>
                   </Menu.Item>
                   <Menu.Item key="6">
-                    <NavLink to='/news' activeClassName={classes.activeLink}>News</NavLink>
+                    <NavLink to='/chat' activeClassName={classes.activeLink}>Chat</NavLink>
                   </Menu.Item>
                   <Menu.Item key="7">
-                    <NavLink to='/music' activeClassName={classes.activeLink}>Music</NavLink>
+                    <NavLink to='/news' activeClassName={classes.activeLink}>News</NavLink>
                   </Menu.Item>
                   <Menu.Item key="8">
+                    <NavLink to='/music' activeClassName={classes.activeLink}>Music</NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="9">
                     <NavLink to='/users' activeClassName={classes.activeLink}>Developers</NavLink>
                   </Menu.Item>
                 </SubMenu>
@@ -111,6 +119,8 @@ class App extends React.Component<Props, never> {
                 <Route path='/login' render={() => {
                   return <Login/>
                 }}/>
+
+                <Route path={'/chat'} render={withReactSuspense(ChatPageWithSuspense)} />
 
                 <Redirect from={'/'} to={'/profile'}/>
               </Switch>

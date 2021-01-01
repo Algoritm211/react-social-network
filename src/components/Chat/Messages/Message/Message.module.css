@@ -1,0 +1,9 @@
+
+
+.message {
+    display: flex;
+}
+
+.messagesAvatar {
+    margin-right: 30px;
+}
