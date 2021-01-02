@@ -21,14 +21,13 @@ import Settings from './components/Settings/Settings';
 import Login from './components/Login/Login';
 import classes from "./components/Navbar/Navbar.module.css";
 import AppHeader from "./components/Header/Header";
-import ChatPage from "./components/Chat/ChatPage";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
 
-const DialogsContainer = React.lazy(() => {
-  return import('./components/Dialogs/DialogsContainer')
+const DialogsPage = React.lazy(() => {
+  return import('./components/Dialogs/Dialogs')
 })
 
 const ChatPageWithSuspense = React.lazy(() => {
@@ -106,7 +105,7 @@ class App extends React.Component<Props, never> {
             </Sider>
             <Content style={{padding: '0 24px', minHeight: 280}}>
               <Switch>
-                <Route path="/dialogs" render={withReactSuspense(DialogsContainer)}/>
+                <Route path="/dialogs" render={withReactSuspense(DialogsPage)}/>
 
                 <Route path="/profile/:userId?/" render={withReactSuspense(ProfileContainer)}/>
 

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Message from "./Message/Message";
-import {message} from "antd";
-
+import classes from './Messages.module.css'
 
 
 export type MessageType = {
@@ -33,7 +32,7 @@ const Messages: React.FC = () => {
   })
 
   return (
-    <div>
+    <div className={classes.messagesWindow}>
       {messageElement}
     </div>
   )

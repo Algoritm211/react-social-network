@@ -8,6 +8,7 @@ import {profileAPI} from "../api/profile-api";
 const SET_USER_DATA = 'social-network-react/auth/SET_USER_DATA'
 const GET_AUTH_USER_DATA = 'social-network-react/auth/GET_AUTH_USER_DATA'
 const SET_CAPTCHA_URL = 'social-network-react/auth/SET_CAPTCHA_URL'
+const SET_USER_PHOTO = 'social-network-react/auth/SET_USER_PHOTO'
 
 type AuthReducerState = {
   userId: number | null,
@@ -41,6 +42,11 @@ const authReducer = (state = initialState, action: ActionTypes): AuthReducerStat
       return {
         ...state,
         captcha: action.captcha
+      }
+    case SET_USER_PHOTO:
+      return {
+        ...state,
+        photos: action.photosObj as PhotosType
       }
     case GET_AUTH_USER_DATA:
       return state
@@ -81,8 +87,13 @@ export const actions = {
       type: SET_CAPTCHA_URL,
       captcha: captcha
     } as const
+  },
+  setUserPhotos: (photosObj: PhotosType) => {
+    return {
+      type: SET_USER_PHOTO,
+      photosObj: photosObj
+    } as const
   }
-
 }
 
 

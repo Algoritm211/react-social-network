@@ -1,0 +1,13 @@
+
+
+.modalChangePhoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userPhotoInModal {
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

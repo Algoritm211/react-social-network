@@ -16,3 +16,7 @@ export const getLogin = (state: AppStateType) => {
 export const getUserPhotoSmall = (state: AppStateType) => {
   return state.auth.photos.small
 }
+
+export const getUserPhotoLarge = (state: AppStateType) => {
+  return state.auth.photos.large
+}

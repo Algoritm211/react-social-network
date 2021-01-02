@@ -1,0 +1,6 @@
+
+
+.messagesWindow {
+    max-height: 600px;
+    overflow-y: scroll;
+}

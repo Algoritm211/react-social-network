@@ -1,11 +1,15 @@
+import { Button } from 'antd'
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import {MessagesDataType} from '../../../redux/dialogs-reducer'
 import {Textarea} from '../../common/ValidatedFields/validatedFields'
 import {createMaxLengthValivator, required} from '../../utils/validators'
 import classes from './MessageForm.module.css'
+import {SendOutlined} from "@ant-design/icons";
 
-type Props = InjectedFormProps<MessagesDataType, {}>
+export type DialogMessageType = {
+  messageText: string
+}
+type Props = InjectedFormProps<DialogMessageType, {}>
 
 const maxLength70 = createMaxLengthValivator(70)
 const MessageForm: React.FC<Props> = (props) => {
@@ -19,13 +23,13 @@ const MessageForm: React.FC<Props> = (props) => {
         validate={[required, maxLength70]} 
         placeholder='Enter your message'/>
       </div>
-      <div>
-        <button>Send message</button>
+      <div className={classes.sendMessageButton}>
+        <Button htmlType={'submit'} type={'primary'} icon={<SendOutlined/>}>Send message</Button>
       </div>
     </form>
   )
 }
 
-export default reduxForm<MessagesDataType, {}>({
+export default reduxForm<DialogMessageType, {}>({
   form: 'message'
 })(MessageForm)

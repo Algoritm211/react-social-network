@@ -13,7 +13,6 @@ type ChatMessageType = {
 const SendMessageForm: React.FC = (props) => {
 
   const onSubmit = (values: ChatMessageType, {setSubmitting, resetForm}: any) => {
-    debugger
     if (values.message === '') {
       return
     }

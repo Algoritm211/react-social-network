@@ -2,17 +2,21 @@ import React from 'react'
 import DialogItem from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
-import MessageForm from './MessageForm/MessageForm'
-import {DialogsDataType, MessagesDataType} from "../../redux/dialogs-reducer";
+import MessageForm, { DialogMessageType } from './MessageForm/MessageForm'
+import {actions, DialogsDataType, MessagesDataType} from "../../redux/dialogs-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import { getDialogsData, getMessagesData } from '../../redux/dialogs-selector'
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
-type DialogsProps = {
-  dialogsData: Array<DialogsDataType>,
-  messagesData: Array<MessagesDataType>,
-  onSendMessage: (message: string) => void
-}
+type DialogsProps = {}
 
 
-const Dialogs: React.FC<DialogsProps> = ({dialogsData, messagesData, onSendMessage}) => {
+const Dialogs: React.FC<DialogsProps> = () => {
+
+  const dispatch = useDispatch()
+
+  const dialogsData = useSelector(getDialogsData)
+  const messagesData = useSelector(getMessagesData)
 
   const dialogsElements = dialogsData.map((dialog, index) => {
     return (
@@ -26,8 +30,8 @@ const Dialogs: React.FC<DialogsProps> = ({dialogsData, messagesData, onSendMessa
     )
   })
 
-  const onSendMessageText = (formData: any) => {
-    onSendMessage(formData.messageText)
+  const onSendMessageText = (formData: DialogMessageType) => {
+    dispatch(actions.sendMessage(formData.messageText))
   }
 
   return (
@@ -46,4 +50,4 @@ const Dialogs: React.FC<DialogsProps> = ({dialogsData, messagesData, onSendMessa
 }
 
 
-export default Dialogs
+export default withAuthRedirect(Dialogs)

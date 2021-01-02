@@ -2,6 +2,9 @@ import React from 'react'
 import classes from './ValidatedFields.module.css'
 import classNames from 'classnames'
 import {WrappedFieldMetaProps} from "redux-form";
+import { Input as AntInput } from 'antd';
+
+const { TextArea } = AntInput;
 
 
 
@@ -40,7 +43,7 @@ const ValidatedFieldsCreator: React.FC<ValidatedFieldsCreatorPropsType> = ({inpu
 export const Textarea: React.FC<any> = (props) => {
   return (
     <ValidatedFieldsCreator {...props}>
-      <textarea />
+      <TextArea maxLength={300} showCount={true}/>
     </ValidatedFieldsCreator>
   )
 }
@@ -48,7 +51,7 @@ export const Textarea: React.FC<any> = (props) => {
 export const Input: React.FC<any> = (props) => {
   return (
   <ValidatedFieldsCreator {...props}>
-    <input />
+    <AntInput />
   </ValidatedFieldsCreator>
   )
 }

@@ -5,6 +5,7 @@ import noProfilePhoto from '../../../assets/images/user_no_photo.png'
 //import {NavLink} from "react-router-dom";
 import ProfileUpdateForm from "./ProfileUpdateForm/ProfileUpdateForm";
 import {ProfileType, StatusType} from "../../../types/types";
+import ModalChangePhoto from "../ModalChangePhoto/ModalChangePhoto";
 
 
 type ProfileInfoPropsType = {
@@ -39,6 +40,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         <img
           src="https://d3g7htsbjjywiv.cloudfront.net/assets/graphicstock/images/media-type/vector/Hero.jpg"
           alt=""
+          className={classes.profileWallpaper}
         />
       </div>
 
@@ -80,6 +82,8 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
                         isPageOwner,
                         statusUpdateError}) => {
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const onChangePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files!== null && event.target.files.length !== 0) {
       setPhoto(event.target.files[0])
@@ -101,7 +105,14 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
       <div className={ classes.descriptionBlock }>
 
         <div className={ classes.profilePhoto }>
-          <img src={ profile.photos.large || noProfilePhoto } alt={ profile.fullName }/>
+          <img
+            src={ profile.photos.large || noProfilePhoto }
+            alt={ profile.fullName }
+            onClick={() => setIsModalVisible(prevState => true)}
+          />
+          <div className={classes.profilePhotoSignature}>
+            Кликните чтобы поменять фото
+          </div>
         </div>
         <div className={ classes.nameAndStatus }>
           <div className={ classes.name }>
@@ -124,23 +135,12 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
           </div>
           {
             isPageOwner &&
-            <React.Fragment>
-              <div className={ classes.choosePhoto }>
-                <label htmlFor="uploadAvatar" id="label">Выберите файл для смены аватара: &nbsp;</label>
-                <input
-                  id={ 'uploadAvatar' }
-                  type={ 'file' }
-                  onChange={ onChangePhoto }
-                />
-              </div>
               <div>
                 <button onClick={ onToggleEditMode }>
                   Изменить информацию о профиле
                 </button>
               </div>
-            </React.Fragment>
           }
-
         </div>
       </div>
       {/* block */ }
@@ -150,6 +150,11 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
         </span>
         { myContactsElement }
       </div>
+      <ModalChangePhoto
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        onChangePhoto={onChangePhoto}
+      />
     </React.Fragment>
   )
 }

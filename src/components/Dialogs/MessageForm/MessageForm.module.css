@@ -1,4 +1,11 @@
 .sendMessages {
   grid-area: sendMessages;
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sendMessageButton {
+  margin-top: 20px;
+  margin-left: auto;
 }

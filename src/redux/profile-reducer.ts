@@ -4,6 +4,7 @@ import {PhotosType, PostType, ProfileType, StatusType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
+import {actions as AuthReducerActions} from './auth-reducer'
 
 const ADD_POST = 'social-network-react/profilePage/ADD-POST'
 const SET_USER_PROFILE = 'social-network-react/profilePage/SET_USER_PROFILE'
@@ -130,6 +131,7 @@ export const setUserPhoto = (photoFile: File): ThunkActionType => {
     let data = await profileAPI.setPhoto(photoFile)
     if (data.data.resultCode === 0) {
       dispatch(actions.setUserPhotoSuccess(data.data.data.photos))
+      dispatch(AuthReducerActions.setUserPhotos(data.data.data.photos))
     }
   }
 }
@@ -199,5 +201,5 @@ export const updateProfile = (userData: any): ThunkAction<Promise<any>, AppState
 }
 
 type ThunkActionType = BaseThunkType<ActionTypes>
-type ActionTypes = InferActionTypes<typeof actions>
+type ActionTypes = InferActionTypes<typeof actions | typeof AuthReducerActions>
 export default profileReducer
