@@ -1,6 +1,18 @@
+
+.saveButton {
+  margin: 20px auto 20px auto;
+  text-align: center;
+}
+
+
+.profileUpdateForm {
+  width: 93%;
+  margin: 0 auto;
+}
+
 .formSubmitError {
-    width: 500px;
-    height: 20px;
-    border: 2px solid rgb(94, 13, 13);
-    color: rgb(94, 13, 13);;
+  width: 500px;
+  height: 20px;
+  border: 2px solid rgb(94, 13, 13);
+  color: rgb(94, 13, 13);;
 }

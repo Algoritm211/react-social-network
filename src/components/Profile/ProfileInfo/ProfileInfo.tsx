@@ -6,6 +6,8 @@ import noProfilePhoto from '../../../assets/images/user_no_photo.png'
 import ProfileUpdateForm from "./ProfileUpdateForm/ProfileUpdateForm";
 import {ProfileType, StatusType} from "../../../types/types";
 import ModalChangePhoto from "../ModalChangePhoto/ModalChangePhoto";
+import { Button } from "antd";
+import {EditOutlined} from "@ant-design/icons";
 
 
 type ProfileInfoPropsType = {
@@ -38,7 +40,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     <React.Fragment>
       <div>
         <img
-          src="https://d3g7htsbjjywiv.cloudfront.net/assets/graphicstock/images/media-type/vector/Hero.jpg"
+          src="https://www.wsupercars.com/wallpapers/Rolls-Royce/2014-Rolls-Royce-Wraith-003-1080.jpg"
           alt=""
           className={classes.profileWallpaper}
         />
@@ -94,11 +96,13 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
 
   const myContactsElement = Object.entries(myContacts).map((contact, index) => {
     let fieldInfo = contact[1] ? contact[1] : 'No information'
-    return (
-      <div key={ index } className={ classes.contactsItem }>
-        <strong> { contact[0] }: </strong> <a href={ contact[1] || '#' } target={ '_blank' } rel="noreferrer">{ fieldInfo }</a>
-      </div>
-    )
+    if (fieldInfo !== 'No information') {
+      return (
+        <div key={ index } className={ classes.contactsItem }>
+          <strong> { contact[0] }: </strong> <a href={ contact[1] || '#' } target={ '_blank' } rel="noreferrer">{ fieldInfo }</a>
+        </div>
+      )
+    }
   })
   return (
     <React.Fragment>
@@ -110,9 +114,9 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
             alt={ profile.fullName }
             onClick={() => setIsModalVisible(prevState => true)}
           />
-          <div className={classes.profilePhotoSignature}>
-            Кликните чтобы поменять фото
-          </div>
+        </div>
+        <div className={classes.profilePhotoSignature}>
+          Кликните чтобы поменять фото
         </div>
         <div className={ classes.nameAndStatus }>
           <div className={ classes.name }>
@@ -133,16 +137,16 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
           <div className={ classes.descriptionItem }>
             Проф. описание: { profile.lookingForAJobDescription }
           </div>
-          {
-            isPageOwner &&
-              <div>
-                <button onClick={ onToggleEditMode }>
-                  Изменить информацию о профиле
-                </button>
-              </div>
-          }
         </div>
       </div>
+      {
+        isPageOwner &&
+        <div>
+          <Button onClick={ onToggleEditMode } type={'primary'} icon={<EditOutlined />}>
+            Изменить информацию о профиле
+          </Button>
+        </div>
+      }
       {/* block */ }
       <div className={ classes.myContacts }>
         <span>

@@ -23,22 +23,22 @@
 }
 
 .profilePhotoSignature {
-  display: none;
+  position: absolute;
+  top: -74px;
+  width: 400px;
   padding: 10px;
   margin-top: 17px;
   background: #f3f3f3;
   height: 44px;
-  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: -1;
 }
 
-.profilePhoto:hover .profilePhotoSignature {
-  display: block;
-  position: absolute;
-  top: -84px;
-  z-index: 9999;
-  width: 400px;
+.profilePhoto:hover+ .profilePhotoSignature {
+  z-index: 1;
+  opacity: 1;
 }
 
 
