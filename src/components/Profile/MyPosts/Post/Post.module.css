@@ -1,3 +1,5 @@
+
+
 .item {
   margin-bottom: 15px;
   color: black;
@@ -13,4 +15,17 @@
   max-width: 60px;
   height: 60px;
   border-radius: 30px;
+}
+
+
+.cardHeaderUserInfo {
+  display: flex;
+  align-items: center;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 24px;
 }

@@ -48,8 +48,8 @@ const profileReducer = (state = initialState, action: ActionTypes): InitialState
       return {
         ...state,
         postsData: [
+          newPost,
           ...state.postsData,
-          newPost
         ],
       }
     case DELETE_POST:
