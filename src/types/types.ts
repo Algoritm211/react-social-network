@@ -40,7 +40,7 @@ export type StatusType = {
 export type UsersType = {
     id: number,
     name: string
-    status: string
+    status: string | null
     followed: boolean,
     photos: PhotosType,
 }

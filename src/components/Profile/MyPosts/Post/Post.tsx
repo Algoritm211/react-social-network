@@ -37,18 +37,18 @@ const Post: React.FC<Props> = (props) => {
         hoverable={true}
         style={{width: '100%'}}
         title={CardTitle()}
-        extra={ !props.match.params.userId &&
-          <Button type="dashed" icon={<EditOutlined />} onClick={onEdit}>Edit</Button>
+        extra={!props.match.params.userId &&
+        <Button type="dashed" icon={<EditOutlined/>} onClick={onEdit}>Edit</Button>
         }
         actions={[
           <div className={classes.cardFooter}>
             <div onClick={onLike}>
-              <LikeOutlined /> {props.likesCount} Likes
+              <LikeOutlined/> {props.likesCount} Likes
             </div>
           </div>,
           <div className={classes.cardFooter}>
             <div onClick={onComment}>
-              <CommentOutlined /> Comments
+              <CommentOutlined/> Comments
             </div>
           </div>
         ]}
@@ -56,10 +56,10 @@ const Post: React.FC<Props> = (props) => {
         <div>
           {props.message}
         </div>
-
       </Card>
       <br/>
     </React.Fragment>
+
   )
   // return (
   //   <div className={classes.item}>
@@ -84,7 +84,7 @@ const CardTitle = () => {
   return (
     <div className={classes.cardHeaderUserInfo}>
       <div>
-        <Avatar size={40} src={userPhoto} alt={userName || ''} >{userName}</Avatar>
+        <Avatar size={40} src={userPhoto} alt={userName || ''}>{userName}</Avatar>
       </div>
       <div style={{marginLeft: '10px'}}>
         {userName}
