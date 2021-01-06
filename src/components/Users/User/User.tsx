@@ -21,21 +21,21 @@ const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) =>
     <React.Fragment>
       <Card
         hoverable={true}
-        style={{width: '100%'}}
+        className={classes.userCard}
         title={user.name}
-        extra={
-          <Button type="dashed" icon={<EditOutlined/>} onClick={() => {
-          }}>Edit</Button>
-        }
         actions={[
-          <div>
+          <div className={classes.userCardFooter}>
             {user.followed
               ? <Button
-                disabled={toggleFollowing.some(id => id === user.id)}
+                type="primary"
+                className={classes.followButton}
+                loading={toggleFollowing.some(id => id === user.id)}
                 onClick={() => unfollow(user.id)}
               >Unfollow</Button>
               : <Button
-                disabled={toggleFollowing.some(id => id === user.id)}
+                className={classes.followButton}
+                type="primary"
+                loading={toggleFollowing.some(id => id === user.id)}
                 onClick={() => follow(user.id)}
               >Follow</Button>}
           </div>,
@@ -80,7 +80,6 @@ const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) =>
           </Row>
         </div>
       </Card>
-      <br/>
       <br/>
     </React.Fragment>
   )

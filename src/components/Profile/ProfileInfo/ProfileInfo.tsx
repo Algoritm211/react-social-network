@@ -112,12 +112,15 @@ const ProfileBlock: React.FC<ProfileBlockPropsType> = ({profile,
           <img
             src={ profile.photos.large || noProfilePhoto }
             alt={ profile.fullName }
-            onClick={() => setIsModalVisible(prevState => true)}
+            onClick={isPageOwner ? () => setIsModalVisible(prevState => true) : () => {}}
           />
         </div>
-        <div className={classes.profilePhotoSignature}>
-          Кликните чтобы поменять фото
-        </div>
+        {
+          isPageOwner
+          && <div className={classes.profilePhotoSignature}>
+            Кликните чтобы поменять фото
+          </div>
+        }
         <div className={ classes.nameAndStatus }>
           <div className={ classes.name }>
             Имя: { profile.fullName }

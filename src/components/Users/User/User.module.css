@@ -1,3 +1,22 @@
+
+
+.userCard {
+  width: 100%;
+  cursor: default !important;
+}
+
+.userCardFooter {
+  cursor: default;
+}
+
+.userDescription {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
 .avatar {
   display: flex;
   flex-direction: column;
@@ -10,10 +29,7 @@
   border-radius: 100%;
 }
 
-.userDescription {
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
+.followButton {
+  width: 20%;
 }
+
