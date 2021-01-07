@@ -32,12 +32,6 @@ const Profile: React.FC<PropsType> = (props) => {
         updateProfile={props.updateProfile}
         setPhoto={props.setUserPhoto}/>
       <MyPostsContainer />
-
-      {/* <MyPosts 
-        posts={props.state.postsData} 
-        newPostText={props.state.newPostText}
-        dispatch={props.dispatch}
-        /> */}
     </div>
   );
 };

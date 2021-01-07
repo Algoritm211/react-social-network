@@ -4,7 +4,7 @@ import userPhoto from '../../../assets/images/user_no_photo.png'
 import {NavLink} from 'react-router-dom'
 import {UsersType} from "../../../types/types";
 import {Avatar, Button, Card, Col, Row} from 'antd';
-import {EditOutlined, CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
+import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 
 
 type PropsType = {
@@ -17,6 +17,21 @@ type PropsType = {
 
 const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) => {
 
+  const toggleFollowButton = (name: string, onToggleFollow: typeof follow | typeof unfollow) => {
+    return (
+      <Button
+        type="primary"
+        className={classes.followButton}
+        loading={toggleFollowing.some(id => id === user.id)}
+        onClick={() => onToggleFollow(user.id)}
+      >{name}</Button>
+    )
+  }
+
+  const followButton = toggleFollowButton('Follow', follow)
+  const unfollowButton = toggleFollowButton('Unfollow', unfollow)
+
+
   return (
     <React.Fragment>
       <Card
@@ -26,18 +41,8 @@ const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) =>
         actions={[
           <div className={classes.userCardFooter}>
             {user.followed
-              ? <Button
-                type="primary"
-                className={classes.followButton}
-                loading={toggleFollowing.some(id => id === user.id)}
-                onClick={() => unfollow(user.id)}
-              >Unfollow</Button>
-              : <Button
-                className={classes.followButton}
-                type="primary"
-                loading={toggleFollowing.some(id => id === user.id)}
-                onClick={() => follow(user.id)}
-              >Follow</Button>}
+              ? unfollowButton
+              : followButton}
           </div>,
         ]}
       >
