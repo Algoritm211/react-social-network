@@ -31,7 +31,6 @@ const User: React.FC<PropsType> = ({user, toggleFollowing, unfollow, follow}) =>
   const followButton = toggleFollowButton('Follow', follow)
   const unfollowButton = toggleFollowButton('Unfollow', unfollow)
 
-
   return (
     <React.Fragment>
       <Card

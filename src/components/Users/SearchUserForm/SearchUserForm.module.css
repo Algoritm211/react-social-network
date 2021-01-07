@@ -1,0 +1,18 @@
+
+
+.formSelectFriends > div {
+  width: 95%;
+  margin-left: auto;
+  display: block;
+}
+
+.searchUserByName > input{
+  width: 95%;
+}
+
+.searchUsersButton > button {
+  margin-top: 10px;
+  margin-left: auto;
+  display: block;
+}
+

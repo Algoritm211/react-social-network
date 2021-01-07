@@ -1,8 +1,14 @@
-import React from 'react'
-import {Field, Form, Formik} from 'formik'
+import React, {useEffect, useState} from 'react'
+import {Field, FieldProps, Form, Formik} from 'formik'
 import {FilterType} from "../../../redux/users-reducer";
 import {useSelector} from "react-redux";
 import {getFilter} from "../../../redux/users-selector";
+import {FormikInput} from '../../common/FormikFields/FormikFields';
+import classes from "./SearchUserForm.module.css";
+import {SearchOutlined} from '@ant-design/icons'
+import {Button, Col, Row, Select} from "antd";
+
+const {Option} = Select;
 
 
 const usersSearchFormValidate = (values: any) => {
@@ -19,11 +25,11 @@ type FormProps = {
   onChangeFilter: (filter: FilterType) => void
 }
 
-const SearchUserForm:React.FC<FormProps> = (props) => {
+const SearchUserForm: React.FC<FormProps> = (props) => {
 
   const filter = useSelector(getFilter)
 
-  const onSubmit = (values: FormType, { setSubmitting }: any) => {
+  const onSubmit = (values: FormType, {setSubmitting}: any) => {
 
     const preparedValues: FilterType = {
       term: values.term,
@@ -37,29 +43,63 @@ const SearchUserForm:React.FC<FormProps> = (props) => {
     setSubmitting(false)
   }
 
+  const sortUsersOptions = [
+    {value: 'null', label: 'All'},
+    {value: 'true', label: 'Only Followed'},
+    {value: 'false', label: 'Only Unfollowed'}
+  ]
+
   return (
-    <div>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{ term: filter.term, friend: String(filter.friend)}}
-        validate={usersSearchFormValidate}
-        onSubmit={onSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <Field type="text" name="term" />
-            <Field as="select" name="friend">
-              <option value="null">All</option>
-              <option value="true">Only Followed</option>
-              <option value="false">Only Unfollowed</option>
-            </Field>
-            <button type="submit" disabled={isSubmitting}>
+    <Formik
+      enableReinitialize={true}
+      initialValues={{term: filter.term, friend: String(filter.friend)}}
+      validate={usersSearchFormValidate}
+      onSubmit={onSubmit}
+    >
+      {({isSubmitting, values, setFieldValue}) => (
+        <Form>
+          <Row>
+            <Col span={15} className={classes.searchUserByName}>
+              <Field type="text" name="term" component={FormikInput}/>
+            </Col>
+            <Col span={9} className={classes.formSelectFriends}>
+              <SelectFriends
+                options={sortUsersOptions}
+                value={values.friend}
+                onChange={(value: string) => setFieldValue('friend', value)}
+              />
+            </Col>
+          </Row>
+          <div className={classes.searchUsersButton}>
+            <Button htmlType="submit" type={'primary'} disabled={isSubmitting} icon={<SearchOutlined/>}>
               Search
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+            </Button>
+          </div>
+        </Form>
+      )}
+    </Formik>
+  )
+}
+
+type SelectFriendsProps = {
+  options: Array<{ value: string; label: string }>,
+  onChange: (value: string) => void,
+  value: string
+}
+
+const SelectFriends: React.FC<SelectFriendsProps> = ({onChange, options, value}) => {
+
+  return (
+    <Select
+      onChange={value => onChange(String(value))}
+      size={'middle'} value={value}
+      className={classes.formSelectFriends}>
+      {options.map(option => (
+        <Select.Option key={option.value} value={option.value}>
+          {option.label}
+        </Select.Option>
+      ))}
+    </Select>
   )
 }
 

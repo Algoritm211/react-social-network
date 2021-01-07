@@ -35,7 +35,6 @@ const Users: React.FC<Props> = () => {
 
 
   useEffect(() => {
-
     const queryParams = query
     const page = queryParams.page || 1
     const term = queryParams.term  || ''
