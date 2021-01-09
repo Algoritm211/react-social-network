@@ -1,11 +1,27 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@700&display=swap');
 
 .message {
-    display: flex;
-    margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 10px;
 }
 
 .messagesAvatar {
-    margin-right: 30px;
-    display: flex;
+  margin-right: 10px;
+  display: flex;
+}
+
+.messageBody {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.messageUserName {
+  font-family: 'Vollkorn', serif;
+}
+
+.messageText {
+  background-color: #cbcbcb;
+  padding: 10px;
+  border-radius: 10px;
 }

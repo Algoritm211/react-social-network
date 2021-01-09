@@ -14,12 +14,14 @@ const Message: React.FC<Props> = ({messageInfo}) => {
         <div>
           <Avatar size={40} src={messageInfo.photo} alt={messageInfo.userName}/>
         </div>
-        <div>
+      </div>
+      <div className={classes.messageBody}>
+        <div className={classes.messageUserName}>
           {messageInfo.userName}
         </div>
-      </div>
-      <div>
-        {messageInfo.message}
+        <div className={classes.messageText}>
+          {messageInfo.message}
+        </div>
       </div>
     </div>
   )

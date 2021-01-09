@@ -1,6 +1,27 @@
 
 
 .messagesWindow {
-    max-height: 600px;
-    overflow-y: scroll;
+  max-height: 600px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+
+.scrollMessagesDown {
+  opacity: 0;
+  position: sticky;
+  bottom: 20px;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  transition: all 0.7s ease;
+}
+
+.scrollMessagesDownActive.scrollMessagesDown {
+  opacity: 1;
+}
+
+.scrollMessagesDown > button {
+  display: block;
+  margin-right: 20px;
 }
