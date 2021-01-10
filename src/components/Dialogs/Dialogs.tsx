@@ -1,5 +1,4 @@
 import React from 'react'
-import DialogItem from './DialogItem/DialogItem'
 import classes from './Dialogs.module.css'
 import Message from './Message/Message'
 import MessageForm, { DialogMessageType } from './MessageForm/MessageForm'
@@ -7,6 +6,7 @@ import {actions, DialogsDataType, MessagesDataType} from "../../redux/dialogs-re
 import {useDispatch, useSelector} from "react-redux";
 import { getDialogsData, getMessagesData } from '../../redux/dialogs-selector'
 import withAuthRedirect from "../hoc/withAuthRedirect";
+import DialogsList from './DialogsList/DialogsList'
 
 type DialogsProps = {}
 
@@ -17,12 +17,6 @@ const Dialogs: React.FC<DialogsProps> = () => {
 
   const dialogsData = useSelector(getDialogsData)
   const messagesData = useSelector(getMessagesData)
-
-  const dialogsElements = dialogsData.map((dialog, index) => {
-    return (
-      <DialogItem name={dialog.name} id={dialog.id} key={index}/>
-    )
-  })
 
   const messagesElements = messagesData.map((msg, index) => {
     return(
@@ -38,7 +32,7 @@ const Dialogs: React.FC<DialogsProps> = () => {
     <div className={classes.dialogBlock}>
       <div className={classes.dialogs}>
         <div className={classes.dialogsItems}>
-          { dialogsElements }
+          <DialogsList dialogsData={dialogsData} />
         </div>
         <div className={classes.messageItems}>
           { messagesElements }

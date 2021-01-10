@@ -8,7 +8,7 @@
     'dialogItems messageItems'
     'dialogItems sendMessages';
 
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 5fr 10fr;
   /* grid-template-rows: 1fr 60px; */
   height: 100%;
 }
