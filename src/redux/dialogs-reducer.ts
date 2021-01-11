@@ -1,4 +1,5 @@
 import {InferActionTypes} from "./redux-store";
+import {MessageType} from "../types/types";
 
 const SEND_MESSAGE = 'social-network-react/dialogsPage/SEND-MESSAGE'
 
@@ -17,12 +18,14 @@ const initialState = {
     { id: 1, name: "Alexey" },
     { id: 2, name: "Alex" },
     { id: 3, name: "Sabr" },
-    { id: 4, name: "Edward" },
+    { id: 4, name: "Edward"},
   ] as Array<DialogsDataType>,
   messagesData: [
-    { id: 1, message: "Hi, how are you" },
-    { id: 2, message: "Hello, do you want to drink coffee with me?" },
-  ] as Array<MessagesDataType>,
+    { userId: 1, userName: "Alexey", photo: null, message: "Привет, как дела" },
+    { userId: 2, userName: "Alex", photo: null, message: "Все норм" },
+    { userId: 3, userName: "Sabr", photo: null, message: "Леша, привет" },
+    { userId: 4, userName: "Edward", photo: null, message: "Я Эдик" },
+  ] as Array<MessageType>,
 }
 
 export type DialogsReducerType = typeof initialState
@@ -32,8 +35,10 @@ const dialogsReducer = (state = initialState, action: ActionTypes): DialogsReduc
   switch (action.type) {
     case SEND_MESSAGE:
       let newMessage = {
-          id: Date.now(),
+          userId: Date.now(),
           message: action.newMessageText,
+          userName: "Alexey",
+        photo: null
         }
       // let newMessage = {
       //   id: Date.now(),

@@ -1,8 +1,8 @@
 import { Button } from 'antd'
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import {Textarea} from '../../common/ValidatedFields/validatedFields'
-import {createMaxLengthValivator, required} from '../../utils/validators'
+import {Textarea} from '../../../common/ValidatedFields/validatedFields'
+import {createMaxLengthValivator, required} from '../../../utils/validators'
 import classes from './MessageForm.module.css'
 import {SendOutlined} from "@ant-design/icons";
 

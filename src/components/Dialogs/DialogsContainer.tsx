@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import withAuthRedirect from '../hoc/withAuthRedirect'
 import {compose} from 'redux'
 import {AppStateType} from "../../redux/redux-store";
+import {MessageType} from "../../types/types";
 
 
 
@@ -40,7 +41,7 @@ import {AppStateType} from "../../redux/redux-store";
 
 type DialogsContainerStateType = {
   dialogsData: Array<DialogsDataType>
-  messagesData: Array<MessagesDataType>
+  messagesData: Array<MessageType>
 }
 
 type DialogsContainerDispatchType = {

@@ -1,12 +1,13 @@
 import React from 'react'
 import classes from './Dialogs.module.css'
-import Message from './Message/Message'
-import MessageForm, { DialogMessageType } from './MessageForm/MessageForm'
+import Message from './MessagesList/Message/Message'
+import MessageForm, { DialogMessageType } from './MessagesList/MessageForm/MessageForm'
 import {actions, DialogsDataType, MessagesDataType} from "../../redux/dialogs-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import { getDialogsData, getMessagesData } from '../../redux/dialogs-selector'
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import DialogsList from './DialogsList/DialogsList'
+import MessagesList from "./MessagesList/MessagesList";
 
 type DialogsProps = {}
 
@@ -18,11 +19,6 @@ const Dialogs: React.FC<DialogsProps> = () => {
   const dialogsData = useSelector(getDialogsData)
   const messagesData = useSelector(getMessagesData)
 
-  const messagesElements = messagesData.map((msg, index) => {
-    return(
-      <Message message={msg.message} key={index}/>
-    )
-  })
 
   const onSendMessageText = (formData: DialogMessageType) => {
     dispatch(actions.sendMessage(formData.messageText))
@@ -35,7 +31,7 @@ const Dialogs: React.FC<DialogsProps> = () => {
           <DialogsList dialogsData={dialogsData} />
         </div>
         <div className={classes.messageItems}>
-          { messagesElements }
+          <MessagesList messagesData={messagesData} />
         </div>
         <MessageForm onSubmit={(formData) => onSendMessageText(formData)} />
       </div>

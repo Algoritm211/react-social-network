@@ -1,7 +1,9 @@
 import React from 'react'
-import {MessageType} from "../Messages";
+
 import {Avatar} from "antd";
 import classes from './Message.module.css'
+import { MessageType } from '../../../../types/types';
+import userNoPhoto from '../../../../assets/images/user_no_photo.png'
 
 type Props = {
   messageInfo: MessageType
@@ -12,7 +14,7 @@ const Message: React.FC<Props> = ({messageInfo}) => {
     <div className={classes.message}>
       <div className={classes.messagesAvatar}>
         <div>
-          <Avatar size={40} src={messageInfo.photo} alt={messageInfo.userName}/>
+          <Avatar size={40} src={messageInfo.photo || userNoPhoto } alt={messageInfo.userName}/>
         </div>
       </div>
       <div className={classes.messageBody}>

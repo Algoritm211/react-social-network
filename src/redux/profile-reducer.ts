@@ -22,7 +22,7 @@ const SET_USER_PROFILE_PHOTO = 'social-network-react/profilePage/SET_USER_PROFIL
 
 let initialState = {
   postsData: [
-    { id: 1, message: "Hi, how are you", likesCount: 12 },
+    { id: 1, message: "JS. React. Rolls-Royce", likesCount: 12 },
     { id: 2, message: "it`s my first post", likesCount: 15 },
   ] as Array<PostType>,
   profile: null as ProfileType | null,

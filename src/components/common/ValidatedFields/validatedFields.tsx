@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './ValidatedFields.module.css'
 import classNames from 'classnames'
-import {WrappedFieldMetaProps} from "redux-form";
+import {FormContext, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
 import { Input as AntInput } from 'antd';
 
 const { TextArea } = AntInput;

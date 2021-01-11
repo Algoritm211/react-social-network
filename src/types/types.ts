@@ -52,6 +52,13 @@ export type FriendsType = {
 }
 
 
+export type MessageType = {
+    message: string,
+    photo: string | null,
+    userId: number,
+    userName: string
+}
+
 //Form types
 export type MainLoginFormType = {
     email?: string,
