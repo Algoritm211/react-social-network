@@ -21,7 +21,9 @@ const MessageForm: React.FC<Props> = (props) => {
         component={Textarea} 
         name='messageText'
         validate={[required, maxLength70]} 
-        placeholder='Enter your message'/>
+        placeholder='Enter your message'
+        onSubmit={props.handleSubmit}
+        />
       </div>
       <div className={classes.sendMessageButton}>
         <Button htmlType={'submit'} type={'primary'} icon={<SendOutlined/>}>Send message</Button>

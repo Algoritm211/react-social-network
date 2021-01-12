@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './ValidatedFields.module.css'
 import classNames from 'classnames'
-import {FormContext, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
+import {CommonFieldInputProps, FormContext, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
 import { Input as AntInput } from 'antd';
 
 const { TextArea } = AntInput;
@@ -10,7 +10,7 @@ const { TextArea } = AntInput;
 
 type ValidatedFieldsCreatorPropsType = {
   meta: WrappedFieldMetaProps,
-  input: object
+  input: CommonFieldInputProps
   placeholder: string | undefined,
   children: React.ReactElement
 }
@@ -40,15 +40,30 @@ const ValidatedFieldsCreator: React.FC<ValidatedFieldsCreatorPropsType> = ({inpu
   )
 }
 
-export const Textarea: React.FC<any> = (props) => {
+
+type TextAreaProps = {
+  onSubmit: () => void
+  placeholder: string
+}
+
+export const Textarea: React.FC<WrappedFieldProps & TextAreaProps> = (props) => {
+  const onPressCtrlEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+   if (event.ctrlKey && event.key === 'Enter') {
+     props.onSubmit()
+   }
+  }
   return (
     <ValidatedFieldsCreator {...props}>
-      <TextArea maxLength={300} showCount={true}/>
+      <TextArea maxLength={300} showCount={true} onKeyPress={onPressCtrlEnter}/>
     </ValidatedFieldsCreator>
   )
 }
 
-export const Input: React.FC<any> = (props) => {
+type InputProps = {
+  placeholder: string
+}
+
+export const Input: React.FC<WrappedFieldProps & InputProps> = (props) => {
   return (
   <ValidatedFieldsCreator {...props}>
     <AntInput />

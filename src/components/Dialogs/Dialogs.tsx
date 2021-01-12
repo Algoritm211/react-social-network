@@ -8,6 +8,7 @@ import { getDialogsData, getMessagesData } from '../../redux/dialogs-selector'
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import DialogsList from './DialogsList/DialogsList'
 import MessagesList from "./MessagesList/MessagesList";
+import {reset} from "redux-form";
 
 type DialogsProps = {}
 
@@ -22,6 +23,7 @@ const Dialogs: React.FC<DialogsProps> = () => {
 
   const onSendMessageText = (formData: DialogMessageType) => {
     dispatch(actions.sendMessage(formData.messageText))
+    dispatch(reset('message'))
   }
 
   return (
