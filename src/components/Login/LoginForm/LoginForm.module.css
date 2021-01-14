@@ -10,3 +10,11 @@
   width: 200px;
   height: 200px;
 }
+
+.formFieldsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  height: 150px;
+  justify-content: space-around;
+}

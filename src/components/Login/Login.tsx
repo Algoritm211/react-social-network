@@ -5,6 +5,7 @@ import {loginUser} from '../../redux/auth-reducer'
 import {MainLoginFormType} from '../../types/types'
 import LoginForm from './LoginForm/LoginForm'
 import {getCaptchaURL, getIsAuth} from "../../redux/auth-selector";
+import classes from './Login.module.css'
 
 type PropsType = {}
 
@@ -26,8 +27,8 @@ const Login: React.FC<PropsType> = (props) => {
   }
 
   return (
-    <div>
-      <h2>LoginPage</h2>
+    <div className={classes.loginPage}>
+      <h2>Login Page</h2>
       <LoginForm onSubmit={(formData) => onSubmit(formData)} captchaURL={captchaURL}/>
     </div>
   )
