@@ -2,7 +2,6 @@ import React from 'react'
 import { DialogsDataType } from '../../../redux/dialogs-reducer';
 import classes from './DialogsList.module.css'
 import { List, Avatar } from 'antd';
-import { MessageType } from '../../../types/types';
 
 
 

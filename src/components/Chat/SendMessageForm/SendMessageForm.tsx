@@ -1,22 +1,29 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Field, FieldProps, Form, Formik, FormikProps} from "formik";
 import classes from './SendMessageForm.module.css'
-import {wsChannel} from "../Messages/Messages";
 import {Button, Col, Row} from 'antd';
 import {SendOutlined} from '@ant-design/icons'
 import {Input} from 'antd'
+import {useDispatch} from "react-redux";
+import { sendMessage } from '../../../redux/chat-reducer';
 
 type ChatMessageType = {
   message: string
 }
 
-const SendMessageForm: React.FC = (props) => {
+type Props = {
+
+}
+
+const SendMessageForm: React.FC<Props> = () => {
+
+  const dispatch = useDispatch()
 
   const onSubmit = (values: ChatMessageType, {setSubmitting, resetForm}: any) => {
     if (values.message === '') {
       return
     }
-    wsChannel.send(values.message)
+    dispatch(sendMessage(values.message))
     setSubmitting(false)
     resetForm()
   }

@@ -1,5 +1,6 @@
+import { MessageType } from "../api/chat-api";
 import {InferActionTypes} from "./redux-store";
-import {MessageType} from "../types/types";
+
 
 const SEND_MESSAGE = 'social-network-react/dialogsPage/SEND-MESSAGE'
 
@@ -69,5 +70,6 @@ export const actions = {
 }
 
 type ActionTypes = InferActionTypes<typeof actions>
+
 
 export default dialogsReducer

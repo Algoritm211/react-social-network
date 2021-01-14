@@ -2,12 +2,14 @@ import React from 'react'
 
 import {Avatar} from "antd";
 import classes from './Message.module.css'
-import { MessageType } from '../../../../types/types';
+
 import userNoPhoto from '../../../../assets/images/user_no_photo.png'
+import {MessageType} from "../../../../api/chat-api";
 
 type Props = {
   messageInfo: MessageType
 }
+
 
 const Message: React.FC<Props> = ({messageInfo}) => {
   return (

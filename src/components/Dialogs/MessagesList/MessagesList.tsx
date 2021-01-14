@@ -1,7 +1,7 @@
 import React from 'react'
-import { MessageType } from '../../../types/types'
 import MessageWindow from "../../common/ChatCommonComponents/MessageWindow/MessageWindow";
 import Message from "../../common/ChatCommonComponents/Message/Message";
+import { MessageType } from '../../../api/chat-api';
 
 type Props = {
   messagesData: Array<MessageType>
