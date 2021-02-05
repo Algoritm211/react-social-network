@@ -4,20 +4,21 @@ import classes from './SendMessageForm.module.css'
 import {Button, Col, Row} from 'antd';
 import {SendOutlined} from '@ant-design/icons'
 import {Input} from 'antd'
-import {useDispatch} from "react-redux";
-import { sendMessage } from '../../../redux/chat-reducer';
+import {useDispatch, useSelector} from "react-redux";
+import {sendMessage} from '../../../redux/chat-reducer';
+import {getStatus} from "../../../redux/chat-selector";
 
 type ChatMessageType = {
   message: string
 }
 
-type Props = {
-
-}
+type Props = {}
 
 const SendMessageForm: React.FC<Props> = () => {
 
   const dispatch = useDispatch()
+  const webSocketStatus = useSelector(getStatus)
+
 
   const onSubmit = (values: ChatMessageType, {setSubmitting, resetForm}: any) => {
     if (values.message === '') {
@@ -38,10 +39,14 @@ const SendMessageForm: React.FC<Props> = () => {
           <Form>
             <Row>
               <Col span={14}>
-                <Field type={'text'} name="message" component={AntTextArea} />
+                <Field type={'text'} name="message" component={AntTextArea}/>
               </Col>
               <Col span={10}>
-                <Button htmlType={'submit'} type={"primary"} icon={<SendOutlined/>}>Send message</Button>
+                <Button
+                  htmlType={'submit'}
+                  type={"primary"}
+                  icon={<SendOutlined/>}
+                  disabled={webSocketStatus === 'pending'}>Send message</Button>
               </Col>
             </Row>
           </Form>
@@ -51,10 +56,11 @@ const SendMessageForm: React.FC<Props> = () => {
   )
 }
 
-const AntTextArea:React.FC<FieldProps> = ({ field, form, ...props }) => {
+const AntTextArea: React.FC<FieldProps> = ({field, form, ...props}) => {
   const {TextArea} = Input;
   return (
-    <TextArea showCount={true} autoSize={true} className={classes.messageArea} maxLength={300} {...field} {...props}/>
+    <TextArea showCount={true} autoSize={true} className={classes.messageArea}
+              maxLength={300} {...field} {...props}/>
   )
 }
 

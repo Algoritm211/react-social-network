@@ -10,20 +10,25 @@ type Props = {
 
 const MessageWindow: React.FC<Props> = (props) => {
   const [isScrollDownMessageButton, setIsScrollDownMessageButton] = useState<boolean>(false)
+  const [isAutoScrollMessagesDown, setIsAutoScrollMessagesDown] = useState(true)
 
   const messagesBlockRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    scrollToBottom()
+    if (isAutoScrollMessagesDown) {
+      scrollToBottom()
+    }
   }, [props.dependency])
 
   const onScroll = () => {
     if (messagesBlockRef.current !== null) {
       const numberOfPixelsWasScrolled = (messagesBlockRef.current.scrollHeight - messagesBlockRef.current.scrollTop) - messagesBlockRef.current.offsetHeight
       if (numberOfPixelsWasScrolled > 100) {
+        setIsAutoScrollMessagesDown(false)
         setIsScrollDownMessageButton(true)
       } else {
+        setIsAutoScrollMessagesDown(true)
         setIsScrollDownMessageButton(false)
       }
     }

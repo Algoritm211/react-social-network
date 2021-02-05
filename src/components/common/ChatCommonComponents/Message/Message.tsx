@@ -30,4 +30,4 @@ const Message: React.FC<Props> = ({messageInfo}) => {
     </div>
   )
 }
-export default Message
+export default React.memo(Message)

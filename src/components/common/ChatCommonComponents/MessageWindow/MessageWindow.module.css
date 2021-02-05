@@ -16,10 +16,12 @@
   display: flex;
   justify-content: flex-end;
   transition: all 0.7s ease;
+  z-index: -1;
 }
 
 .scrollMessagesDownActive.scrollMessagesDown {
   opacity: 1;
+  z-index: 1;
 }
 
 .scrollMessagesDown > button {
